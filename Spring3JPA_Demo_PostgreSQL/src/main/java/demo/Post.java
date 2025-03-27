@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "post")
-class Post{
+public class Post{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +21,7 @@ class Post{
 
     public Post(){}
 
-    public Post(int postID, Uzytkownik uzytkownikID, String tresc, byte[] zdjecie){
-        this.postID = postID;
+    public Post(Uzytkownik uzytkownikID, String tresc, byte[] zdjecie){
         this.uzytkownik = uzytkownikID;
         this.tresc = tresc;
         this.zdjecie = zdjecie;
