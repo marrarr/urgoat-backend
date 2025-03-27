@@ -20,29 +20,11 @@ public class Application implements CommandLineRunner {
         SpringApplication.run(Application.class, args);
     }
     
-    //Wstrzykniecie beana repozytorium
-    @Autowired
-    private UzytkownikRepository uzytkownikRepository;
-
-    @Autowired
-    private ZnajomyRepository znajomyRepository;
-
-    @Autowired
-    private CzatRepository czatRepository;
-
-    @Autowired
-    private KomentarzRepository komentarzRepository;
 
     @Autowired
     private PostRepository postRepository;
 
-    @Autowired
-    private ReakcjaRepository reakcjaRepository;
 
-    @Autowired
-    private WiadomoscRepository wiadomoscRepository;
-    
-    
     @Override
     public void run(String... args) {
               

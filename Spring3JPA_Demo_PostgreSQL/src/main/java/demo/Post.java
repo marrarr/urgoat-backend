@@ -21,27 +21,16 @@ public class Post{
 
     public Post(){}
 
-    public Post(Uzytkownik uzytkownikID, String tresc, byte[] zdjecie){
-        this.uzytkownik = uzytkownikID;
+    public Post(String tresc, byte[] zdjecie){
+
         this.tresc = tresc;
         this.zdjecie = zdjecie;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "uzytkownikID")
-    private Uzytkownik uzytkownik;
 
-    @OneToMany(mappedBy = "post")
-    private List<Komentarz> komentarze;
-
-    @OneToMany(mappedBy = "post")
-    private List<Reakcja> reakcje;
 
     public int getPostID(){return postID;}
     public void setPostID(int postID){this.postID = postID;}
-
-    public Uzytkownik getUzytkownikID(){return uzytkownik;}
-    public void setUzytkownikID(Uzytkownik uzytkownik){this.uzytkownik = uzytkownik;}
 
     public String getTresc(){return tresc;}
     public void setTresc(String tresc){this.tresc = tresc;}

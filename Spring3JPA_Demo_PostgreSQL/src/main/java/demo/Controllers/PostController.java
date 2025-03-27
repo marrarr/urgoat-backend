@@ -30,13 +30,11 @@ public class PostController {
 
         String tresc = postTransData.getTresc();
 
-        postRepository.save(new Post(null, tresc, null));
+        postRepository.save(new Post(tresc, null));
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");
 
         return "viewmessage";
     }
-
-
 
 }
