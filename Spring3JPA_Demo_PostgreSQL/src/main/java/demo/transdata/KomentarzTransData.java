@@ -1,14 +1,15 @@
-package demo;
+package demo.transdata;
 
-public class PostTransData {
+public class KomentarzTransData {
 
     private String tresc;
     private byte[] zdjecie;
+    private int postID;
 
-    public PostTransData()
-    {
+    public KomentarzTransData() {
         this.tresc = "";
         this.zdjecie = null;
+        this.postID = 0;
     }
 
     public String getTresc() {
@@ -27,6 +28,11 @@ public class PostTransData {
         this.zdjecie = zdjecie;
     }
 
+    public int getPostID() {
+        return postID;
+    }
 
-
+    public void setPostID(int postID) {
+        this.postID = postID;
+    }
 }
