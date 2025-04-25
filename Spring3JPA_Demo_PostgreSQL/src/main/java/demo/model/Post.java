@@ -1,4 +1,4 @@
-package demo;
+package demo.model;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -21,16 +21,33 @@ public class Post{
 
     public Post(){}
 
-    public Post(String tresc, byte[] zdjecie){
+    //Post bez zdjęcia
+    public Post(Uzytkownik uzytkownikID, String tresc){
+        this.uzytkownik = uzytkownikID;
+        this.tresc = tresc;
+    }
 
+    public Post(Uzytkownik uzytkownikID, String tresc, byte[] zdjecie){
+        this.uzytkownik = uzytkownikID;
         this.tresc = tresc;
         this.zdjecie = zdjecie;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "uzytkownikID")
+    private Uzytkownik uzytkownik;
 
+    @OneToMany(mappedBy = "post")
+    private List<Komentarz> komentarze;
+
+    @OneToMany(mappedBy = "post")
+    private List<Reakcja> reakcje;
 
     public int getPostID(){return postID;}
     public void setPostID(int postID){this.postID = postID;}
+
+    public Uzytkownik getUzytkownikID(){return uzytkownik;}
+    public void setUzytkownikID(Uzytkownik uzytkownik){this.uzytkownik = uzytkownik;}
 
     public String getTresc(){return tresc;}
     public void setTresc(String tresc){this.tresc = tresc;}
@@ -39,5 +56,6 @@ public class Post{
     public void setZdjecie(byte[] zdjecie) {this.zdjecie = zdjecie;}
 
 
-
+    public void setKomentarze(List<Komentarz> komentarze) {
+    }
 }
