@@ -6,6 +6,7 @@ import demo.komentarz.KomentarzRepository;
 import demo.post.Post;
 import demo.post.PostRepository;
 import demo.reakcja.ReakcjaRepository;
+import demo.security.model.User;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
 import demo.wiadomosc.Wiadomosc;
@@ -48,6 +49,19 @@ public class DataLoader implements ApplicationRunner{
     }
 
     public void run(ApplicationArguments args) {
+        if (userRepository.findByUsername("admin").isEmpty()) {
+            User admin = new User();
+            admin.setUsername("admin");
+            admin.setEmail("admin@example.com");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setRole("ROLE_ADMIN");
+            admin.setVerified(true);
+            userRepository.save(admin);
+            System.out.println("Konto admina pomyslnie utworzone!");
+        } else {
+            System.out.println("Konto admina juz istnieje!");
+        }
+
 
         if (uzytkownikRepository.count() == 0) //Przykladowe dane dodajemy tylko jak tabela jest pusta
         {
