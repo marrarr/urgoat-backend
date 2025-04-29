@@ -20,6 +20,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class UserManagementApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserManagementApp.class, args);
+        SpringApplication.run(demo.security.usermanagementapp.UserManagementApp.class, args);
     }
 }

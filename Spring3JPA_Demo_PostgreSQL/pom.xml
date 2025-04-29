@@ -18,7 +18,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>com.example.usermanagementapp.UserManagementApp</exec.mainClass>
+        <exec.mainClass>demo.security.usermanagementapp.UserManagementApp</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -77,7 +77,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.example.usermanagementapp.UserManagementApp</mainClass>
+                    <mainClass>demo.security.usermanagementapp.UserManagementApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>

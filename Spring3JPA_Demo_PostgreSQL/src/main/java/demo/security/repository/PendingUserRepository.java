@@ -1,6 +1,6 @@
-package com.example.repository;
+package demo.security.repository;
 
-import com.example.model.PendingUser;
+import demo.security.model.PendingUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

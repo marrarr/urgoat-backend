@@ -1,9 +1,9 @@
 package com.example.service;
 
-import com.example.model.PendingUser;
-import com.example.model.User;
-import com.example.repository.PendingUserRepository;
-import com.example.repository.UserRepository;
+import demo.security.model.PendingUser;
+import demo.security.model.User;
+import demo.security.repository.PendingUserRepository;
+import demo.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

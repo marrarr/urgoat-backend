@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.service.UserService;
+import demo.security.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

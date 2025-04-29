@@ -1,7 +1,7 @@
-package com.example.initializer;
+package demo.security;
 
-import com.example.model.User;
-import com.example.repository.UserRepository;
+import demo.security.model.User;
+import demo.security.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
