@@ -18,4 +18,5 @@ public interface ZnajomyRepository extends JpaRepository<Znajomy, Long>{
     // Wszystkie znajomości, w których użytkownik uczestniczy
     @Query("SELECT z FROM Znajomy z WHERE z.uzytkownik = :user OR z.uzytkownik2 = :user")
     List<Znajomy> findAllByUser(@Param("user") Uzytkownik user);
+
 }
