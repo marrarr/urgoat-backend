@@ -19,6 +19,6 @@ public interface UzytkownikRepository extends JpaRepository<Uzytkownik, Long>{
     List<Uzytkownik> findByPseudonim(String pseudonim);
     Uzytkownik findFirstByPseudonim(String pseudonim);
 
-    Uzytkownik findFirstById(Long uzytkownikIDLink);
+    Uzytkownik findFirstByUzytkownikID(Long uzytkownikIDLink);
 
 }

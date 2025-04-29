@@ -23,7 +23,7 @@ public class CzatController {
     public String dodajCzat(Model model, Long uzytkownikID_link)
     {
         Uzytkownik uzytkownik1 = uzytkownikRepository.findFirstByPseudonim("Ados");
-        Uzytkownik uzytkownik2 = uzytkownikRepository.findFirstById(uzytkownikID_link);
+        Uzytkownik uzytkownik2 = uzytkownikRepository.findFirstByUzytkownikID(uzytkownikID_link);
 
 //        UzytkownikTransData uzytkownik1TransData = new UzytkownikTransData(
 //                uzytkownik1.getUzytkownikID(),

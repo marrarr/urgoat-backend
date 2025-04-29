@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <title>czat</title>
 </head>
-<body>
 
+
+<body>
+<div class="container">
+  <h4><strong th:text="${uzytkownik.getPseudonim()}"/></h4>
+</div>
+
+<div class="container">
+  <div class="list-group">
+    <article class="list-group-item" th:each="komentarze : ${listaKomentarzy}">
+      <h1><b th:text="${komentarze.komentarzID}"></b></h1>
+      <h4><b th:number="${komentarze.postID}"></b></h4>
+      <p><b th:text="${komentarze.tresc}"></b></p>
+
+    </article>
+  </div>
+
+  <a href="/index.html">Strona główna</a>
+</div>
 </body>
 </html>
+
