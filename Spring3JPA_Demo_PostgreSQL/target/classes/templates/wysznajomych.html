@@ -15,12 +15,12 @@
 
 <div class="container">
     <div class="list-group">
-        <article class="list-group-item" th:each="komentarze : ${listaZnajomych}">
-            <h1><b th:text="${znajomy.uzytkownik2}"></b></h1>
-<!--            <h1><b th:text="${znajomy.nazwisko}"></b></h1>-->
-<!--            <h4><b th:number="${komentarze.postID}"></b></h4>-->
-<!--            <p><b th:text="${komentarze.tresc}"></b></p>-->
+        <article class="list-group-item" th:each="znajomy : ${listaZnajomych}">
+            <h1><b th:text="${znajomy.getUzytkownik2ID()}"></b></h1>
+            <h1><b th:text="${znajomy.getUzytkownik2ID().getImie()}"></b></h1>
+            <h1><b th:text="${znajomy.getUzytkownik2ID().getNazwisko()}"></b></h1>
 
+            <a th:href="@{/dodaj_czat(znajomy=${znajomy.getUzytkownik2ID().getUzytkownikID()})}">Czat</a>
         </article>
     </div>
 

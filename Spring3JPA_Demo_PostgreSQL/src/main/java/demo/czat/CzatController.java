@@ -1,22 +1,47 @@
 package demo.czat;
+import demo.SerwisAplikacji;
 import demo.komentarz.KomentarzTransData;
+import demo.uzytkownik.Uzytkownik;
+import demo.uzytkownik.UzytkownikRepository;
+import demo.uzytkownik.UzytkownikTransData;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+@Controller
 public class CzatController {
     @Autowired
     CzatRepository czatRepository;
+    @Autowired
+    UzytkownikRepository uzytkownikRepository;
 
 
     @RequestMapping("/dodaj_czat")
     public String dodajCzat(Model model, Long uzytkownikID_link)
     {
-        CzatTransData czatTransData = new CzatTransData();
-        model.addAttribute("czatTransData", czatTransData);
-        model.addAttribute("uzytkownikId_link", uzytkownikID_link);
-        return "addczat";
+        Uzytkownik uzytkownik1 = uzytkownikRepository.findFirstByPseudonim("Ados");
+        Uzytkownik uzytkownik2 = uzytkownikRepository.findFirstById(uzytkownikID_link);
+
+//        UzytkownikTransData uzytkownik1TransData = new UzytkownikTransData(
+//                uzytkownik1.getUzytkownikID(),
+//                null,
+//                uzytkownik1.getPseudonim()
+//        );
+//
+        UzytkownikTransData uzytkownik2TransData = new UzytkownikTransData(
+                uzytkownik2.getUzytkownikID(),
+                null,
+                uzytkownik2.getPseudonim()
+        );
+
+        SerwisAplikacji serwisAplikacji = new SerwisAplikacji();
+        serwisAplikacji.dodajCzat(uzytkownik1.getUzytkownikID(), uzytkownik2.getUzytkownikID());
+
+        model.addAttribute("uzytkownik", uzytkownik2TransData);
+        return "czat";
     }
 
 //    @RequestMapping(value = "/dodaj_czat", method = RequestMethod.POST)
