@@ -22,20 +22,6 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-              
-        //Wstawienie osob do bazy
-        //uzytkownikRepository.save(new Uzytkownik(1,"Anita","Uto", zmienna zdjęcia ,"AniU","anita@gmail.com",1));
-
-        
-        //----------------------------------------------------
-        
-
-       
-        //---------------------------------------------------
-        
-        
-        
-
     }
 }
 
