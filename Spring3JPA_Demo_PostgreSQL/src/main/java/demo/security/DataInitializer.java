@@ -31,5 +31,53 @@ public class DataInitializer implements CommandLineRunner {
         } else {
             System.out.println("Konto admina juz istnieje!");
         }
+        if (userRepository.findByUsername("Ados").isEmpty()) {
+            User Ados = new User();
+            Ados.setUsername("Ados");
+            Ados.setEmail("adamnawrocki@gmail.com");
+            Ados.setPassword(passwordEncoder.encode("ados123"));
+            Ados.setRole("ROLE_USER");
+            Ados.setVerified(true);
+            userRepository.save(Ados);
+            System.out.println("Konto Ados pomyslnie utworzone!");
+        } else {
+            System.out.println("Konto Ados juz istnieje!");
+        }
+        if (userRepository.findByUsername("Natik").isEmpty()) {
+            User Natik = new User();
+            Natik.setUsername("Natik");
+            Natik.setEmail("natkowalska@gmail.com");
+            Natik.setPassword(passwordEncoder.encode("natik123"));
+            Natik.setRole("ROLE_USER");
+            Natik.setVerified(true);
+            userRepository.save(Natik);
+            System.out.println("Konto Natik pomyslnie utworzone!");
+        } else {
+            System.out.println("Konto Natik juz istnieje!");
+        }
+        if (userRepository.findByUsername("baczyk").isEmpty()) {
+            User baczyk = new User();
+            baczyk.setUsername("baczyk");
+            baczyk.setEmail("bartoszkrawczyk@gmail.com");
+            baczyk.setPassword(passwordEncoder.encode("bacz123"));
+            baczyk.setRole("ROLE_USER");
+            baczyk.setVerified(true);
+            userRepository.save(baczyk);
+            System.out.println("Konto baczyk pomyslnie utworzone!");
+        } else {
+            System.out.println("Konto baczyk juz istnieje!");
+        }
+        if (userRepository.findByUsername("ostyga").isEmpty()) {
+            User ostyga = new User();
+            ostyga.setUsername("ostyga");
+            ostyga.setEmail("damianostry@gmail.com");
+            ostyga.setPassword(passwordEncoder.encode("dami123"));
+            ostyga.setRole("ROLE_USER");
+            ostyga.setVerified(true);
+            userRepository.save(ostyga);
+            System.out.println("Konto ostyga pomyslnie utworzone!");
+        } else {
+            System.out.println("Konto ostyga juz istnieje!");
+        }
     }
 }

@@ -14,6 +14,7 @@ import demo.wiadomosc.Wiadomosc;
 import demo.wiadomosc.WiadomoscRepository;
 import demo.znajomy.Znajomy;
 import demo.znajomy.ZnajomyRepository;
+import demo.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -31,6 +32,7 @@ public class DataLoader implements ApplicationRunner{
     private ReakcjaRepository reakcjaRepository;
     private WiadomoscRepository wiadomoscRepository;
     private ZnajomyRepository znajomyRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public DataLoader(UzytkownikRepository uzytkownikRepository,
@@ -39,7 +41,8 @@ public class DataLoader implements ApplicationRunner{
                       PostRepository postRepository,
                       ReakcjaRepository reakcjaRepository,
                       WiadomoscRepository wiadomoscRepository,
-                      ZnajomyRepository znajomyRepository) {
+                      ZnajomyRepository znajomyRepository,
+                      UserRepository userRepository) {
         this.uzytkownikRepository = uzytkownikRepository;
         this.czatRepository = czatRepository;
         this.komentarzRepository = komentarzRepository;
@@ -47,21 +50,11 @@ public class DataLoader implements ApplicationRunner{
         this.reakcjaRepository = reakcjaRepository;
         this.wiadomoscRepository = wiadomoscRepository;
         this.znajomyRepository = znajomyRepository;
+        this.userRepository = userRepository;
     }
 
     public void run(ApplicationArguments args) {
-//        if (userRepository.findByUsername("admin").isEmpty()) {
-//            User admin = new User();
-//            admin.setUsername("admin");
-//            admin.setEmail("admin@example.com");
-//            admin.setPassword(passwordEncoder.encode("admin123"));
-//            admin.setRole("ROLE_ADMIN");
-//            admin.setVerified(true);
-//            userRepository.save(admin);
-//            System.out.println("Konto admina pomyslnie utworzone!");
-//        } else {
-//            System.out.println("Konto admina juz istnieje!");
-//        }
+
         System.out.println("=== WYKONUJE SIĘ DataLoader ===");
 
         if (uzytkownikRepository.count() == 0) //Przykladowe dane dodajemy tylko jak tabela jest pusta
