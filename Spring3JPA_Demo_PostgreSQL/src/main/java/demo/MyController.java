@@ -6,7 +6,9 @@ import demo.komentarz.KomentarzTransData;
 import demo.post.Post;
 import demo.post.PostRepository;
 import demo.post.PostTransData;
+import demo.reakcja.Reakcja;
 import demo.reakcja.ReakcjaRepository;
+import demo.reakcja.ReakcjaTransData;
 import demo.uzytkownik.UzytkownikTransData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import java.util.List;
 public class MyController {
     @Autowired
     PostRepository postRepository;
+
 
     /**
      * Pobiera wszystkie posty, komentarze i użytkowników z repozytoriów.
@@ -49,13 +52,42 @@ public class MyController {
                         komentarz.getUzytkownikID().getZdjecie(),
                         komentarz.getUzytkownikID().getPseudonim());
 
+                List<Reakcja> reakcje = komentarz.getReakcje();
+                List<ReakcjaTransData> reakcjeTransData = new ArrayList<>();
+                for (Reakcja reakcja : reakcje) {
+                    Integer postID = reakcja.getPostID() != null ? reakcja.getPostID().getPostID() : null;
+                    Integer komentarzID = reakcja.getKomentarzID() != null ? reakcja.getKomentarzID().getKomentarzID() : null;
+
+                    ReakcjaTransData reakcjaTransData = new ReakcjaTransData(
+                            postID,
+                            komentarzID,
+                            reakcja.getReakcja()
+                    );
+                    reakcjeTransData.add(reakcjaTransData);
+                }
+
                 komentarzeTransData.add(new KomentarzTransData(
                         komentarz.getKomentarzID(),
                         komentarz.getTresc(),
                         komentarz.getZdjecie(),
                         komentarz.getPostID().getPostID(),
-                        uzytkownikTransData
+                        uzytkownikTransData,
+                        reakcjeTransData
                 ));
+            }
+
+            List<Reakcja> reakcje = post.getReakcje();
+            List<ReakcjaTransData> reakcjeTransData = new ArrayList<>();
+            for (Reakcja reakcja : reakcje) {
+                Integer postID = reakcja.getPostID() != null ? reakcja.getPostID().getPostID() : null;
+                Integer komentarzID = reakcja.getKomentarzID() != null ? reakcja.getKomentarzID().getKomentarzID() : null;
+
+                ReakcjaTransData reakcjaTransData = new ReakcjaTransData(
+                        postID,
+                        komentarzID,
+                        reakcja.getReakcja()
+                );
+                reakcjeTransData.add(reakcjaTransData);
             }
 
             postyTransData.add(new PostTransData(
@@ -63,8 +95,10 @@ public class MyController {
                     post.getTresc(),
                     uzytkownikTransData,
                     post.getZdjecie(),
-                    komentarzeTransData
+                    komentarzeTransData,
+                    reakcjeTransData
             ));
+
         }
 
 
@@ -79,14 +113,34 @@ public class MyController {
             System.out.println("Post ID: " + post.getPostId());
             System.out.println("Treść: " + post.getTresc());
             System.out.println("Autor: " + post.getAutor().getPseudonim() + " (ID: " + post.getAutor().getUzytkownikID() + ")");
+            System.out.println("Reakcje:");
+            for (ReakcjaTransData reakcja : post.getReakcje()) {
+                if (reakcja != null) {
+                    System.out.println("  - PostID: " + post.getPostId() + ", Reakcja: " + reakcja.getReakcja());
+                }
+            }
+
+            // Komentarze
             System.out.println("Komentarze:");
             for (KomentarzTransData komentarz : post.getKomentarze()) {
                 System.out.println("  - Komentarz ID: " + komentarz.getKomentarzID());
                 System.out.println("    Treść: " + komentarz.getTresc());
                 System.out.println("    Autor: " + komentarz.getUzytkownik().getPseudonim() + " (ID: " + komentarz.getUzytkownik().getUzytkownikID() + ")");
+                // Reakcje komentarz
+                System.out.println("    Reakcje:");
+                for (ReakcjaTransData reakcja : komentarz.getReakcje()) {
+                    if (reakcja != null) {
+                        System.out.println("      - KomentarzID: " + komentarz.getKomentarzID() + ", Reakcja: " + reakcja.getReakcja());
+                    }
+                }
+//
             }
+
+
+
             System.out.println("---");
         }
+
 
 
         // ===========================
