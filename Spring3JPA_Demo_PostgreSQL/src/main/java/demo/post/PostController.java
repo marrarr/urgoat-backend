@@ -46,22 +46,20 @@ public class PostController {
     
     @RequestMapping(value = "/wyswietl_posty", method = RequestMethod.GET)
     public String wyswietlPosty(Model model) {
+
     List<Post> posty = postRepository.findAll();  // Pobierz wszystkie posty
     for (Post post : posty) {
         // Pobierz komentarze dla każdego postu
         List<Komentarz> komentarze = komentarzRepository.findByPostPostID(Long.valueOf(post.getPostID()));
 
-        // TODO po chuj???
-        post.setKomentarze(komentarze);  // Ustaw komentarze w poście
+
+            post.setKomentarze(komentarze);  // Ustaw komentarze w poście
+        }
+
+        model.addAttribute("header", "Lista wszystkich postów");
+        model.addAttribute("listaPostow", posty);  // Dodaj posty z komentarzami do modelu
+
+        return "wysposty";  // Przekierowanie do widoku
     }
-    
-    model.addAttribute("header", "Lista wszystkich postów");
-    model.addAttribute("listaPostow", posty);  // Dodaj posty z komentarzami do modelu
 
-    return "wysposty";  // Przekierowanie do widoku
-}
-    
-    
-
-    
 }
