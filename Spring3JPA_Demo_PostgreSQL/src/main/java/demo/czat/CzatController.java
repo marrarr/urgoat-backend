@@ -17,13 +17,16 @@ public class CzatController {
     CzatRepository czatRepository;
     @Autowired
     UzytkownikRepository uzytkownikRepository;
+    @Autowired
+    SerwisAplikacji serwisAplikacji;
 
 
     @RequestMapping("/dodaj_czat")
-    public String dodajCzat(Model model, Long uzytkownikID_link)
+    public String dodajCzat(Model model, Long znajomy)
     {
+        // TODO zamiast Ados ma być uzytkownik zalogowany
         Uzytkownik uzytkownik1 = uzytkownikRepository.findFirstByPseudonim("Ados");
-        Uzytkownik uzytkownik2 = uzytkownikRepository.findFirstByUzytkownikID(uzytkownikID_link);
+        Uzytkownik uzytkownik2 = uzytkownikRepository.findFirstByUzytkownikID(znajomy);
 
 //        UzytkownikTransData uzytkownik1TransData = new UzytkownikTransData(
 //                uzytkownik1.getUzytkownikID(),
@@ -37,7 +40,6 @@ public class CzatController {
                 uzytkownik2.getPseudonim()
         );
 
-        SerwisAplikacji serwisAplikacji = new SerwisAplikacji();
         serwisAplikacji.dodajCzat(uzytkownik1.getUzytkownikID(), uzytkownik2.getUzytkownikID());
 
         model.addAttribute("uzytkownik", uzytkownik2TransData);

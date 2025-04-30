@@ -1,5 +1,6 @@
 package demo.reakcja;
 
+import demo.SerwisAplikacji;
 import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzRepository;
 import demo.post.Post;
@@ -21,6 +22,9 @@ public class ReakcjaController {
     PostRepository postRepository;
     @Autowired
     private KomentarzRepository komentarzRepository;
+    @Autowired
+    SerwisAplikacji serwisAplikacji;
+
 
     @RequestMapping(value = "/wyswietl_reakcje_post", method = RequestMethod.GET)
     public String wyswietlReakcje(Model model, Long postID)
