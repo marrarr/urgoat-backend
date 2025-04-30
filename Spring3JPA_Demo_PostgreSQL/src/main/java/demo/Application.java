@@ -16,8 +16,8 @@ public class Application implements CommandLineRunner {
     }
     
 
-    @Autowired
-    private PostRepository postRepository;
+//    @Autowired
+//    private PostRepository postRepository;
 
 
     @Override

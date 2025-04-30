@@ -45,7 +45,7 @@ public class PostController {
 
     
     @RequestMapping(value = "/wyswietl_posty", method = RequestMethod.GET)
-public String wyswietlPosty(Model model) {
+    public String wyswietlPosty(Model model) {
     List<Post> posty = postRepository.findAll();  // Pobierz wszystkie posty
     for (Post post : posty) {
         // Pobierz komentarze dla każdego postu

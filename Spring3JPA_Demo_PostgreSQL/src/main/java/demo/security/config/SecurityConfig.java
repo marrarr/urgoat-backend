@@ -23,6 +23,7 @@ public class SecurityConfig {
                     "/register",
                     "/verify",
                     "/login",
+                    "/dodaj_post",
                     "/images/**",
                     "/css/**",
                     "/js/**"
