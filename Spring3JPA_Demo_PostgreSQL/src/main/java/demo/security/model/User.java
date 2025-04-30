@@ -1,5 +1,6 @@
 package demo.security.model;
 
+import demo.uzytkownik.Uzytkownik;
 import jakarta.persistence.*;
 
 @Entity
@@ -24,6 +25,9 @@ public class User {
 
     @Column(nullable = false)
     private boolean verified;
+
+    @OneToOne(mappedBy = "userAccount")
+    private Uzytkownik profil;
 
     // Getters and Setters
     public Long getId() {
@@ -73,4 +77,7 @@ public class User {
     public void setVerified(boolean verified) {
         this.verified = verified;
     }
+
+    public Uzytkownik getProfil() {return profil;}
+    public void setProfil(Uzytkownik profil) {this.profil = profil;}
 }

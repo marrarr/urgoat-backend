@@ -3,6 +3,7 @@ import demo.czat.Czat;
 import demo.komentarz.Komentarz;
 import demo.post.Post;
 import demo.reakcja.Reakcja;
+import demo.security.model.User;
 import demo.znajomy.Znajomy;
 import jakarta.persistence.*;
 
@@ -34,6 +35,15 @@ public class Uzytkownik {
     private String email;
 
     private int permisje;
+
+    @OneToOne
+    @JoinColumn(
+            name = "email",              // kolumna w tabeli uzytkownik
+            referencedColumnName = "email", // kolumna w tabeli users
+            insertable = false,
+            updatable = false
+    )
+    private User userAccount;
 
     @ManyToMany(mappedBy = "uzytkownicy") // 🔹 Lista czatów, w których uczestniczy użytkownik
     private List<Czat> czaty;
@@ -123,5 +133,9 @@ public class Uzytkownik {
 
     public int getPermisje(){return permisje;}
     public void setPermisje(int permisje){this.permisje = permisje;}
+
+    //getery i setery służace do powiazanie przez obiekt klas Users - Uzytkownik
+    public User getUserAccount() {return userAccount;}
+    public void setUserAccount(User userAccount) {this.userAccount = userAccount;}
 
 }
