@@ -1,6 +1,6 @@
 package demo.wiadomosc;
 
-import demo.SerwisAplikacji;
+import demo.security.service.SerwisAplikacji;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

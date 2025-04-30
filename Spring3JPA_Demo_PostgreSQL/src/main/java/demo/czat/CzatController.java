@@ -1,5 +1,5 @@
 package demo.czat;
-import demo.SerwisAplikacji;
+import demo.security.service.SerwisAplikacji;
 import demo.komentarz.KomentarzTransData;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
