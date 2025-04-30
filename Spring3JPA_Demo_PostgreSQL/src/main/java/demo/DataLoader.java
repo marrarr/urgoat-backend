@@ -108,7 +108,7 @@ public class DataLoader implements ApplicationRunner{
             Komentarz komentarz1 = new Komentarz(post1,user2,"Czy test pierwszy przebiegl pomyslnie");
             Komentarz komentarz2 = new Komentarz(post2,user4,"Za duzo tych testow");
             Komentarz komentarz3 = new Komentarz(post3,user2,"co ty gadasz czlowieku...");
-            Komentarz komentarz4 = new Komentarz(post3,user3,"cicho babo");
+            Komentarz komentarz4 = new Komentarz(post3,user3,"cichaj babo");
             Komentarz komentarz5 = new Komentarz(post3,user4,"zgadzam sie z toba Bartosz!!");
 
             komentarzRepository.save(komentarz1);
