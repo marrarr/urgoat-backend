@@ -8,6 +8,8 @@ import demo.post.Post;
 import demo.post.PostRepository;
 import demo.reakcja.Reakcja;
 import demo.reakcja.ReakcjaRepository;
+import demo.security.model.User;
+import demo.security.repository.UserRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
 import demo.wiadomosc.Wiadomosc;
@@ -41,6 +43,9 @@ public class SerwisAplikacji {
 
     @Autowired
     private UzytkownikRepository uzytkownikRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     // ----------------------- POST -----------------------
 
@@ -131,9 +136,10 @@ public class SerwisAplikacji {
     
     //--------------------DODAWANIE UZYTKOWNIKA---------------
 
-    public void dodajUzytkownika(String imie, String nazwisko) {
+    public void dodajUzytkownika(String imie, String nazwisko, byte[] zdjecie) {
         // Tworzenie nowego użytkownika
-        Uzytkownik uzytkownik = new Uzytkownik(imie, nazwisko, null, null, 0);
+        Uzytkownik uzytkownik = new Uzytkownik(imie, nazwisko, zdjecie, null, null, 0);
+        
         // Zapis do bazy danych
         uzytkownikRepository.save(uzytkownik);
     }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class UserController {
@@ -47,6 +48,7 @@ public class UserController {
     public String registerUser(
             @RequestParam String imie,
             @RequestParam String nazwisko,
+            @RequestParam(required = false) MultipartFile zdjecie,
             @RequestParam String username,
             @RequestParam String email,
             @RequestParam String password,
@@ -68,6 +70,18 @@ public class UserController {
                 throw new RuntimeException("Proszę wybrać obrazy z psem");
             }
 
+            // Weryfikacja zdjęcia
+            byte[] zdjecieBytes = null;
+            if (zdjecie != null && !zdjecie.isEmpty()) {
+                if (!zdjecie.getContentType().startsWith("image/")) {
+                    throw new RuntimeException("Przesłany plik musi być obrazem");
+                }
+                if (zdjecie.getSize() > 5 * 1024 * 1024) { // Limit 5MB
+                    throw new RuntimeException("Zdjęcie jest za duże (maks. 5MB)");
+                }
+                zdjecieBytes = zdjecie.getBytes();
+            }
+
             // Zapisanie CAPTCHA w sesji
             session.setAttribute("captcha", captcha);
 
@@ -75,7 +89,7 @@ public class UserController {
             userService.registerUser(username, email, password);
 
             // Rejestracja danych w encji Uzytkownik przez SerwisAplikacji
-            serwisAplikacji.dodajUzytkownika(imie, nazwisko);
+            serwisAplikacji.dodajUzytkownika(imie, nazwisko, zdjecieBytes);
 
             model.addAttribute("email", email);
             return "verify";
