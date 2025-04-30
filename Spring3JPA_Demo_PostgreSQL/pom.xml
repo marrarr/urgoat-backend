@@ -54,6 +54,12 @@
             <version>42.2.9</version>
         </dependency>
 
+        <!-- WebSocket do czatu-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
 
     </dependencies>
 
