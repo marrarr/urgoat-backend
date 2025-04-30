@@ -1,5 +1,6 @@
 package demo.security.controller;
 
+import demo.security.service.SerwisAplikacji;
 import demo.security.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
     private final HttpSession session;
+    
+    @Autowired
+    private SerwisAplikacji serwisAplikacji;
 
     public UserController(UserService userService, HttpSession session) {
         this.userService = userService;
@@ -40,23 +46,51 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerUser(
+            @RequestParam String imie,
+            @RequestParam String nazwisko,
+            @RequestParam(required = false) MultipartFile zdjecie,
             @RequestParam String username,
             @RequestParam String email,
             @RequestParam String password,
+            @RequestParam String confirmPassword,
             @RequestParam String captcha,
-            Model model
+            Model model,
+            HttpSession session
     ) {
         try {
-            // Verify CAPTCHA (checks if exactly dog1 and dog2 are selected)
+            // Weryfikacja zgodności haseł
+            if (!password.equals(confirmPassword)) {
+                throw new RuntimeException("Hasła nie są identyczne");
+            }
+
+            // Weryfikacja CAPTCHA
             String[] selectedImages = captcha.split(",");
             List<String> validImages = Arrays.asList("dog1", "dog2");
             if (selectedImages.length != 2 || !validImages.containsAll(Arrays.asList(selectedImages))) {
-                throw new RuntimeException("Prosze o wybranie obrazow z psem");
+                throw new RuntimeException("Proszę wybrać obrazy z psem");
             }
 
-            // Store captcha in session for verification
+            // Weryfikacja zdjęcia
+            byte[] zdjecieBytes = null;
+            if (zdjecie != null && !zdjecie.isEmpty()) {
+                if (!zdjecie.getContentType().startsWith("image/")) {
+                    throw new RuntimeException("Przesłany plik musi być obrazem");
+                }
+                if (zdjecie.getSize() > 5 * 1024 * 1024) { // Limit 5MB
+                    throw new RuntimeException("Zdjęcie jest za duże (maks. 5MB)");
+                }
+                zdjecieBytes = zdjecie.getBytes();
+            }
+
+            // Zapisanie CAPTCHA w sesji
             session.setAttribute("captcha", captcha);
+
+            // Rejestracja użytkownika w encji User przez userService
             userService.registerUser(username, email, password);
+
+            // Rejestracja danych w encji Uzytkownik przez SerwisAplikacji
+            serwisAplikacji.dodajUzytkownika(imie, nazwisko, zdjecieBytes);
+
             model.addAttribute("email", email);
             return "verify";
         } catch (Exception e) {

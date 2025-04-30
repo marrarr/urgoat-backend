@@ -49,6 +49,10 @@
             font-size: 1em;
         }
 
+        input[type="file"] {
+            padding: 3px;
+        }
+
         button {
             padding: 10px 20px;
             background-color: #3498db;
@@ -114,13 +118,31 @@
         .modal-footer button:hover {
             background-color: #2980b9;
         }
+
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <h2>Rejestracja</h2>
-    <form th:action="@{/register}" method="post" id="registerForm">
+    <form th:action="@{/register}" method="post" id="registerForm" enctype="multipart/form-data">
+        <label for="imie">
+            Imię:
+            <input type="text" id="imie" name="imie" required />
+        </label>
+        <label for="nazwisko">
+            Nazwisko:
+            <input type="text" id="nazwisko" name="nazwisko" required />
+        </label>
+        <label for="zdjecie">
+            Zdjęcie:
+            <input type="file" id="zdjecie" name="zdjecie" accept="image/*" />
+        </label>
         <label for="username">
-            Nazwa uzytkownika:
+            Nazwa użytkownika:
             <input type="text" id="username" name="username" required />
         </label>
         <label for="email">
@@ -128,30 +150,35 @@
             <input type="email" id="email" name="email" required />
         </label>
         <label for="password">
-            Haslo:
+            Hasło:
             <input type="password" id="password" name="password" required />
         </label>
+        <label for="confirmPassword">
+            Powtórz hasło:
+            <input type="password" id="confirmPassword" name="confirmPassword" required />
+        </label>
         <button type="button" data-bs-toggle="modal" data-bs-target="#captchaModal">Zarejestruj</button>
+        <div th:if="${error}" class="error" th:text="${error}"></div>
     </form>
-    <a href="/login">Powrot do logowania</a>
+    <a href="/login">Powrót do logowania</a>
 
     <!-- CAPTCHA Modal -->
     <div class="modal fade" id="captchaModal" tabindex="-1" aria-labelledby="captchaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="captchaModalLabel">Zweryfikuj, ze nie jestes robotem</h5>
+                    <h5 class="modal-title" id="captchaModalLabel">Zweryfikuj, że nie jesteś robotem</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Wybierz obrazy psow:</p>
+                    <p>Wybierz obrazy psów:</p>
                     <div id="captchaImages" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
-                        <!-- Images will be dynamically added by JavaScript -->
+                        <!-- Obrazy będą dodawane dynamicznie przez JavaScript -->
                     </div>
-                    <div id="captchaError" class="captcha-error">Musisz wybrac jedynie obrazy psow.</div>
+                    <div id="captchaError" class="captcha-error">Musisz wybrać jedynie obrazy psów.</div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="submitCaptcha">Potwierdz</button>
+                    <button type="button" id="submitCaptcha">Potwierdź</button>
                 </div>
             </div>
         </div>
@@ -167,15 +194,15 @@
             const registerForm = document.getElementById('registerForm');
             let selectedImages = [];
 
-            // List of images with their IDs and paths
+            // Lista obrazów z ich ID i ścieżkami
             const images = [
-                { id: 'dog1', src: '/images/dog1.png', alt: 'Dog 1' },
-                { id: 'dog2', src: '/images/dog2.png', alt: 'Dog 2' },
-                { id: 'cat', src: '/images/cat.png', alt: 'Cat' },
-                { id: 'bird', src: '/images/bird.png', alt: 'Bird' }
+                { id: 'dog1', src: '/images/dog1.png', alt: 'Pies 1' },
+                { id: 'dog2', src: '/images/dog2.png', alt: 'Pies 2' },
+                { id: 'cat', src: '/images/cat.png', alt: 'Kot' },
+                { id: 'bird', src: '/images/bird.png', alt: 'Ptak' }
             ];
 
-            // Shuffle array function
+            // Funkcja do losowego mieszania tablicy
             const shuffle = (array) => {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -184,7 +211,7 @@
                 return array;
             };
 
-            // Render images in random order
+            // Renderowanie obrazów w losowej kolejności
             const renderImages = () => {
                 captchaImagesContainer.innerHTML = '';
                 const shuffledImages = shuffle([...images]);
@@ -197,7 +224,7 @@
                     captchaImagesContainer.appendChild(img);
                 });
 
-                // Add click event listeners to images
+                // Dodanie nasłuchiwania zdarzeń kliknięcia na obrazy
                 document.querySelectorAll('.captcha-img').forEach(img => {
                     img.addEventListener('click', () => {
                         if (selectedImages.includes(img.dataset.id)) {
@@ -211,10 +238,10 @@
                 });
             };
 
-            // Render images when modal is shown
+            // Renderowanie obrazów po wyświetleniu modala
             document.getElementById('captchaModal').addEventListener('shown.bs.modal', renderImages);
 
-            // Handle confirm button click
+            // Obsługa przycisku potwierdzenia
             submitCaptchaBtn.addEventListener('click', () => {
                 if (selectedImages.length === 2 && selectedImages.includes('dog1') && selectedImages.includes('dog2')) {
                     const captchaInput = document.createElement('input');
@@ -226,6 +253,17 @@
                     bootstrap.Modal.getInstance(document.getElementById('captchaModal')).hide();
                 } else {
                     captchaError.style.display = 'block';
+                }
+            });
+
+            // Weryfikacja zgodności haseł po stronie klienta
+            registerForm.addEventListener('submit', (e) => {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                if (password !== confirmPassword) {
+                    e.preventDefault();
+                    captchaError.style.display = 'block';
+                    captchaError.textContent = 'Hasła nie są identyczne.';
                 }
             });
         });

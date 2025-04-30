@@ -2,7 +2,7 @@ package demo.post;
 
 import java.util.List;
 
-import demo.SerwisAplikacji;
+import demo.security.service.SerwisAplikacji;
 import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzRepository;
 import demo.reakcja.ReakcjaRepository;
