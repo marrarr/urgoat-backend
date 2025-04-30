@@ -1,6 +1,7 @@
 package demo.post;
 
 import demo.komentarz.KomentarzTransData;
+import demo.reakcja.ReakcjaTransData;
 import demo.uzytkownik.UzytkownikTransData;
 
 import java.util.List;
@@ -11,15 +12,22 @@ public class PostTransData {
     private UzytkownikTransData autor; // Zamiast pełnego obiektu Uzytkownik
     private byte[] zdjecie;  // Base64 lub URL (np. "/images/post/123.jpg")
     private List<KomentarzTransData> komentarze;
+    private List<ReakcjaTransData> reakcje;
+
+
+
+
+
 
     public PostTransData() {}
 
-    public PostTransData(int postId, String tresc, UzytkownikTransData autor, byte[] zdjecie, List<KomentarzTransData> komentarze) {
+    public PostTransData(int postId, String tresc, UzytkownikTransData autor, byte[] zdjecie, List<KomentarzTransData> komentarze, List<ReakcjaTransData> reakcje) {
         this.postId = postId;
         this.tresc = tresc;
         this.autor = autor;
         this.zdjecie = zdjecie;
         this.komentarze = komentarze;
+        this.reakcje = reakcje;
     }
 
     // Gettery i settery
@@ -33,4 +41,8 @@ public class PostTransData {
     public void setZdjecie(byte[] zdjecie) { this.zdjecie = zdjecie; }
     public List<KomentarzTransData> getKomentarze() { return komentarze; }
     public void setKomentarze(List<KomentarzTransData> komentarze) { this.komentarze = komentarze; }
+    public List<ReakcjaTransData> getReakcje() {
+        return reakcje;
+    }
+    public void setReakcje(List<ReakcjaTransData> reakcje) {}
 }

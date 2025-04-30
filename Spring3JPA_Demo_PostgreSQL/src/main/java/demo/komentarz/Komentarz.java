@@ -48,6 +48,14 @@ public class Komentarz {
     @JoinColumn(name = "uzytkownikID")
     private Uzytkownik uzytkownik;
 
+    public List<Reakcja> getReakcje() {
+        return reakcje;
+    }
+
+    public void setReakcje(List<Reakcja> reakcje) {
+        this.reakcje = reakcje;
+    }
+
     @OneToMany(mappedBy = "komentarz")
     private List<Reakcja> reakcje;
 

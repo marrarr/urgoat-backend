@@ -2,29 +2,35 @@ package demo.reakcja;
 
 public class ReakcjaTransData {
 
-    private int postID;
-    private int komentarzID;
+    private Integer postID;
+    private Integer komentarzID;
     private int reakcja;
 
     public ReakcjaTransData() {
-        this.postID = -1;
-        this.komentarzID = -1;
+        this.postID = null;
+        this.komentarzID = null;
         this.reakcja = 0; // domyślnie brak reakcji
     }
 
-    public int getPostID() {
+    public ReakcjaTransData(Integer postID, Integer komentarzID, int reakcja) {
+        this.postID = postID;
+        this.komentarzID = komentarzID;
+        this.reakcja = reakcja;
+    }
+
+    public Integer getPostID() {
         return postID;
     }
 
-    public void setPostID(int postID) {
+    public void setPostID(Integer postID) {
         this.postID = postID;
     }
 
-    public int getKomentarzID() {
+    public Integer getKomentarzID() {
         return komentarzID;
     }
 
-    public void setKomentarzID(int komentarzID) {
+    public void setKomentarzID(Integer komentarzID) {
         this.komentarzID = komentarzID;
     }
 

@@ -5,6 +5,7 @@ import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzRepository;
 import demo.post.Post;
 import demo.post.PostRepository;
+import demo.reakcja.Reakcja;
 import demo.reakcja.ReakcjaRepository;
 import demo.security.model.User;
 import demo.uzytkownik.Uzytkownik;
@@ -61,10 +62,11 @@ public class DataLoader implements ApplicationRunner{
 //        } else {
 //            System.out.println("Konto admina juz istnieje!");
 //        }
-
+        System.out.println("=== WYKONUJE SIĘ DataLoader ===");
 
         if (uzytkownikRepository.count() == 0) //Przykladowe dane dodajemy tylko jak tabela jest pusta
         {
+            System.out.println("=== WYKONUJE SIĘ DataLoader ===");
             //użytkownicy
             Uzytkownik user1 = new Uzytkownik("Adam","Nawrocki","Ados","adamnawrocki@gmail.com",1);
             Uzytkownik user2 = new Uzytkownik("Natalia","Kowalska","Natik","natkowalska@gmail.com",1);
@@ -96,16 +98,41 @@ public class DataLoader implements ApplicationRunner{
             //Posty
             Post post1 = new Post(user1,"Pierwszy post testowy!");
             Post post2 = new Post(user3,"Drugi post testowy!");
+            Post post3 = new Post(user3,"nie ma takiego dowodu!! jest nagroda pol miliona eurogabek dla czlowieka ktory wskaze CIEŃ dowodu...!!!");
 
             postRepository.save(post1);
             postRepository.save(post2);
+            postRepository.save(post3);
 
             //Komentarze
             Komentarz komentarz1 = new Komentarz(post1,user2,"Czy test pierwszy przebiegl pomyslnie");
             Komentarz komentarz2 = new Komentarz(post2,user4,"Za duzo tych testow");
+            Komentarz komentarz3 = new Komentarz(post3,user2,"co ty gadasz czlowieku...");
+            Komentarz komentarz4 = new Komentarz(post3,user3,"cicho babo");
+            Komentarz komentarz5 = new Komentarz(post3,user4,"zgadzam sie z toba Bartosz!!");
 
             komentarzRepository.save(komentarz1);
             komentarzRepository.save(komentarz2);
+            komentarzRepository.save(komentarz3);
+            komentarzRepository.save(komentarz4);
+            komentarzRepository.save(komentarz5);
+
+            //Reakcje
+            Reakcja reakcja1 = new Reakcja(user1, null, post1, 1);
+            Reakcja reakcja2 = new Reakcja(user2, null, post1, 2);
+            Reakcja reakcja3 = new Reakcja(user3, null, post1, 1);
+            Reakcja reakcja4 = new Reakcja(user2, null, post3, 1);
+            Reakcja reakcja5 = new Reakcja(user4, komentarz4, null, 1);
+            Reakcja reakcja6 = new Reakcja(user1, komentarz4, null, 1);
+            Reakcja reakcja7 = new Reakcja(user2, komentarz4, null, 2);
+
+            reakcjaRepository.save(reakcja1);
+            reakcjaRepository.save(reakcja2);
+            reakcjaRepository.save(reakcja3);
+            reakcjaRepository.save(reakcja4);
+            reakcjaRepository.save(reakcja5);
+            reakcjaRepository.save(reakcja6);
+            reakcjaRepository.save(reakcja7);
         }
     }
 }

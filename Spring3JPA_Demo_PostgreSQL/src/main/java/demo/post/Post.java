@@ -62,4 +62,5 @@ public class Post{
     public void setKomentarze(List<Komentarz> komentarze) {
     }
     public List<Komentarz> getKomentarze(){return komentarze;}
+    public List<Reakcja> getReakcje(){return reakcje;}
 }
