@@ -40,7 +40,15 @@ public class CzatController {
                 uzytkownik2.getPseudonim()
         );
 
-        serwisAplikacji.dodajCzat(uzytkownik1.getUzytkownikID(), uzytkownik2.getUzytkownikID());
+        if(czatRepository.findByUzytkownicyContainsBoth(uzytkownik1,uzytkownik2).isEmpty())
+        {
+            serwisAplikacji.dodajCzat(uzytkownik1.getUzytkownikID(), uzytkownik2.getUzytkownikID());
+        }else
+        {
+            System.out.println("Ten czat już istnieje");
+        }
+
+
 
         model.addAttribute("uzytkownik", uzytkownik2TransData);
         return "czat";
