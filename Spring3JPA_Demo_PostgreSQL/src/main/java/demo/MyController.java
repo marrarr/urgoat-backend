@@ -61,7 +61,8 @@ public class MyController {
                     ReakcjaTransData reakcjaTransData = new ReakcjaTransData(
                             postID,
                             komentarzID,
-                            reakcja.getReakcja()
+                            reakcja.getReakcja(),
+                            uzytkownikKomentarzTransData
                     );
                     reakcjeTransData.add(reakcjaTransData);
                 }
@@ -71,7 +72,7 @@ public class MyController {
                         komentarz.getTresc(),
                         komentarz.getZdjecie(),
                         komentarz.getPostID().getPostID(),
-                        uzytkownikTransData,
+                        uzytkownikKomentarzTransData,
                         reakcjeTransData
                 ));
             }
@@ -85,7 +86,8 @@ public class MyController {
                 ReakcjaTransData reakcjaTransData = new ReakcjaTransData(
                         postID,
                         komentarzID,
-                        reakcja.getReakcja()
+                        reakcja.getReakcja(),
+                        uzytkownikTransData
                 );
                 reakcjeTransData.add(reakcjaTransData);
             }
@@ -101,13 +103,18 @@ public class MyController {
 
         }
 
+        // wypisanie w konsoli do usuniecia
+        testWypisz(postyTransData);
 
+        // przesłanie strony
+        model.addAttribute("header","Strona główna");
+        model.addAttribute("posty", postyTransData);
 
-        // ===========================
-        // sprawdzenie w konsoli
-        // ===========================
+        return "strona_glowna";
+    }
 
-        List<PostTransData> posts = postyTransData;
+    private void testWypisz(List<PostTransData> posts) {
+
         System.out.println("Lista postów:");
         for (PostTransData post : posts) {
             System.out.println("Post ID: " + post.getPostId());
@@ -130,28 +137,13 @@ public class MyController {
                 System.out.println("    Reakcje:");
                 for (ReakcjaTransData reakcja : komentarz.getReakcje()) {
                     if (reakcja != null) {
-                        System.out.println("      - KomentarzID: " + komentarz.getKomentarzID() + ", Reakcja: " + reakcja.getReakcja());
+                        System.out.println("      - KomentarzID: " + komentarz.getKomentarzID() + ", Reakcja: " + reakcja.getReakcja() + ", Autor: " + reakcja.getUzytkownik().getPseudonim());
                     }
                 }
 //
             }
 
-
-
             System.out.println("---");
         }
-
-
-
-        // ===========================
-        // /sprawdzenie w konsoli
-        // ===========================
-
-
-        // przesłanie strony
-        model.addAttribute("header","Strona główna");
-        model.addAttribute("posty", postyTransData);
-
-        return "wysposty";
     }
 }
