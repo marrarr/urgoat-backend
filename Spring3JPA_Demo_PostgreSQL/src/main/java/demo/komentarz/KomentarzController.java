@@ -1,5 +1,6 @@
 package demo.komentarz;
 
+import demo.SerwisAplikacji;
 import demo.post.Post;
 import demo.post.PostRepository;
 import demo.reakcja.ReakcjaRepository;
@@ -19,6 +20,8 @@ public class KomentarzController {
     KomentarzRepository komentarzRepository;
     @Autowired
     private ReakcjaRepository reakcjaRepository;
+    @Autowired
+    private SerwisAplikacji serwisAplikacji;
 
     @RequestMapping("/dodaj_komentarz")
     public String dodajKomentarz(Model model, Long postID_link)
@@ -36,9 +39,11 @@ public class KomentarzController {
         int postID = komentarzTransData.getPostID() - 1;  // nie zmieniać
         long long_postID=(long)postID;
 
-        Post post = postRepository.findAll().get(postID);
+        //        Post post = postRepository.findAll().get(postID);
+//        komentarzRepository.save(new Komentarz(post, null, tresc));
+        // TODO zamiast 1 ma być uzytkownik zalogowany
+        serwisAplikacji.dodajKomentarz(1, postID, tresc);
 
-        komentarzRepository.save(new Komentarz(post, null, tresc));
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");
 

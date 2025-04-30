@@ -2,6 +2,7 @@ package demo.post;
 
 import java.util.List;
 
+import demo.SerwisAplikacji;
 import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzRepository;
 import demo.reakcja.ReakcjaRepository;
@@ -19,6 +20,8 @@ public class PostController {
     KomentarzRepository komentarzRepository;
     @Autowired
     private ReakcjaRepository reakcjaRepository;
+    @Autowired
+    private SerwisAplikacji serwisAplikacji;
 
     @RequestMapping("/dodaj_post")
     public String dodajPost(Model model)
@@ -35,8 +38,9 @@ public class PostController {
 
         String tresc = postTransData.getTresc();
 
-        postRepository.save(new Post(null, tresc));
-        model.addAttribute("header", "Wynik");
+//        postRepository.save(new Post(null, tresc));
+        // TODO zamiast 1 ma być uzytkownik zalogowany
+        serwisAplikacji.dodajPost(1, tresc);        model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");
 
         return "viewmessage";
