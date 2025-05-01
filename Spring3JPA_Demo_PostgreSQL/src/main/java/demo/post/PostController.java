@@ -40,7 +40,8 @@ public class PostController {
 
 //        postRepository.save(new Post(null, tresc));
         // TODO zamiast 1 ma być uzytkownik zalogowany
-        serwisAplikacji.dodajPost(1, tresc);        model.addAttribute("header", "Wynik");
+        serwisAplikacji.dodajPost(1, tresc);
+        model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");
 
         return "viewmessage";
