@@ -10,6 +10,10 @@ import java.util.List;
 
 public class Czat {
 
+    public int getCzatID() {
+        return czatID;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int czatID;
