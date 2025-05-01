@@ -1,3 +1,4 @@
+demo\czat\websocket\ChatSocketController.class
 demo\post\PostTransData.class
 demo\security\DataInitializer.class
 demo\komentarz\KomentarzRepository.class
@@ -23,6 +24,7 @@ demo\MyController.class
 demo\znajomy\ZnajomyTransData.class
 demo\security\service\SerwisAplikacji.class
 demo\security\model\PendingUser.class
+demo\uzytkownik\UzytkownikController.class
 demo\znajomy\ZnajomyController.class
 demo\komentarz\KomentarzController.class
 demo\komentarz\KomentarzTransData.class
@@ -37,4 +39,5 @@ demo\security\service\UserService.class
 demo\wiadomosc\Wiadomosc.class
 demo\post\PostController.class
 demo\security\config\SecurityConfig.class
+demo\czat\websocket\WebSocketConfig.class
 demo\wiadomosc\WiadomoscController.class

@@ -110,7 +110,7 @@ public class MyController {
         model.addAttribute("header","Strona główna");
         model.addAttribute("posty", postyTransData);
 
-        return "strona_glowna";
+        return "wysposty";
     }
 
     private void testWypisz(List<PostTransData> posts) {
