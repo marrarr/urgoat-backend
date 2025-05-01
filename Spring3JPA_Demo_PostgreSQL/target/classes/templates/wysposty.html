@@ -37,13 +37,16 @@
                         <a th:href="@{/wyswietl_reakcje_post(postID=${post.postId})}">Wyświetl reakcje</a>
                     </div>
 
-                    <div th:if="${post.reakcje.size() > 0}" class="reakcje">
-                        <p>Reakcje na post:</p>
-                        <ul>
+                    <div class="post-reakcje" th:if="${post.reakcje.size() > 0}">
+                       
+                        <ul class="reakcje">
                             <li th:each="reakcja : ${post.reakcje}">
-                                <span th:text="'Reakcja: ' + ${reakcja.reakcja}">Reakcja</span>
+                                <span class="reakcja-text" th:text="'Reakcja: ' + ${reakcja.reakcja}">Reakcja</span>
                             </li>
                         </ul>
+
+                        <!-- Tutaj JS wstawi podsumowanie -->
+                        <div class="reakcje-suma"></div>
                     </div>
 
                     <div th:if="${post.komentarze.size() > 0}" class="reakcje">
@@ -71,6 +74,40 @@
             </article>
         </div>
     </div>
+<script>
+  document.querySelectorAll(".post-reakcje").forEach(post => {
+    const reakcje = post.querySelectorAll(".reakcja-text");
+    const podsumowanie = post.querySelector(".reakcje-suma");
 
+    const licznik = {};
+    const obrazki = {
+      "1": "haha.png",  // Reakcja 1
+      "2": "like.png",  // Reakcja 2
+      "3": "wrr.png"    // Reakcja 3
+    };
+
+    // Zliczanie typów reakcji
+    reakcje.forEach(span => {
+      const typ = span.textContent.trim().replace("Reakcja: ", "");
+      licznik[typ] = (licznik[typ] || 0) + 1;
+    });
+
+    // Budowanie HTML z obrazkiem i liczbą
+    let html = "<p>Reakcje na post:</p><ul style='list-style: none; padding-left: 0;'>";
+    for (const [typ, ilosc] of Object.entries(licznik)) {
+      const obrazek = obrazki[typ];
+      if (obrazek) {
+        html += `
+          <li style="display: flex; align-items: center; margin-bottom: 5px;">
+            <img src="/img/${obrazek}" alt="Reakcja ${typ}" style="width: 30px; height: 30px; margin-right: 8px;">
+            <span>${ilosc}</span>
+          </li>`;
+      }
+    }
+    html += "</ul>";
+
+    podsumowanie.innerHTML = html;
+  });
+</script>
 </body>
 </html>

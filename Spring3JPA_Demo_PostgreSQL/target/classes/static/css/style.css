@@ -109,6 +109,9 @@ body{
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
+.post-reakcje .reakcje {
+    display: none;
+}
 
 .reakcje a {
     text-decoration: none;
