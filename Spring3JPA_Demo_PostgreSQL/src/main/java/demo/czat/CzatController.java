@@ -4,12 +4,19 @@ import demo.komentarz.KomentarzTransData;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
 import demo.uzytkownik.UzytkownikTransData;
+import demo.wiadomosc.Wiadomosc;
+import demo.wiadomosc.WiadomoscRepository;
+import demo.wiadomosc.WiadomoscTransData;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class CzatController {
@@ -19,6 +26,32 @@ public class CzatController {
     UzytkownikRepository uzytkownikRepository;
     @Autowired
     SerwisAplikacji serwisAplikacji;
+    @Autowired
+    private WiadomoscRepository wiadomoscRepository;
+
+
+
+    @GetMapping("/czat")
+    public String chat(@RequestParam int znajomy, Model model) {
+        // TODO zamiast Ados ma być uzytkownik zalogowany
+        Uzytkownik u1 = uzytkownikRepository.findFirstByPseudonim("Ados");
+      //  Uzytkownik u2 = uzytkownikRepository.findFirstByPseudonim("Natik");
+        Uzytkownik u2 = uzytkownikRepository.findById((long) znajomy).orElseThrow();
+
+        Czat czat = czatRepository.findByUzytkownicyContainsBoth(u1, u2)
+                .orElseGet(() -> {
+                    serwisAplikacji.dodajCzat(u1.getUzytkownikID(), u2.getUzytkownikID());
+//                    Czat nowy = new Czat();
+//                    nowy.getUzytkownicy().add(u1);
+//                    nowy.getUzytkownicy().add(u2);
+//                    return czatRepository.save(nowy);
+                    return czatRepository.findByUzytkownicyContainsBoth(u1, u2).orElseThrow();
+                });
+
+        model.addAttribute("czatID", czat.getCzatID());
+        return "chat";
+    }
+
 
 
     @RequestMapping("/dodaj_czat")
@@ -69,5 +102,14 @@ public class CzatController {
 //
 //        return "viewmessage";
 //    }
+
+
+    @RequestMapping("/czat")
+    public String zaladujCzat(Model model) {
+//        List<Wiadomosc> wiadomosci = wiadomoscRepository.findByCzat(czatRepository.findById(1L).get());
+
+//        model.addAttribute("wiadomosci", wiadomosci);
+        return "chat";
+    }
 
 }

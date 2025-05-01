@@ -20,7 +20,7 @@
       <h1><b th:text="${znajomy.getUzytkownik2ID().getImie()}"></b></h1>
       <h1><b th:text="${znajomy.getUzytkownik2ID().getNazwisko()}"></b></h1>
 
-      <a th:href="@{/dodaj_czat(znajomy=${znajomy.getUzytkownik2ID().getUzytkownikID()})}">Czat</a>
+      <a th:href="@{/czat(znajomy=${znajomy.getUzytkownik2ID().getUzytkownikID()})}">Czat</a>
     </article>
   </div>
 
