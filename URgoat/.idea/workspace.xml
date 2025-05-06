@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/wysprofil.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/wysprofil.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/DataLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/DataLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/security/DataInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/security/DataInitializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/wysprofil.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/wysprofil.html" afterDir="false" />
-    </list>
+    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
