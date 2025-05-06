@@ -7,6 +7,7 @@ import demo.security.service.SerwisAplikacji;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +29,13 @@ public class ZnajomyController{
     public String listaZnajomych(Model model)
     {
         // TODO zamiast Ados ma być uzytkownik zalogowany
-        Uzytkownik uzytkownik= uzytkownikRepository.findFirstByPseudonim("Ados");
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
+        //Uzytkownik uzytkownik= uzytkownikRepository.findFirstByPseudonim("Ados");
 
         //long long_uzytkownikID=(long)uzytkownikID;
-        List<Znajomy> znajomy = znajomyRepository.findByUzytkownik(uzytkownik);
-        System.out.println(znajomy.toString());
+        List<Znajomy> znajomy = znajomyRepository.findAllByUser(uzytkownik_aktualny);
+        //System.out.println(znajomy.toString());
 
         model.addAttribute("header","Lista wszystkich znajomych"); //Dodanie obiektu do pamieci lokalnej modelu
         model.addAttribute("listaZnajomych",znajomy); //Dodanie obiektu do pamieci lokalnej modelu
@@ -45,9 +48,25 @@ public class ZnajomyController{
     public String dodajZnajomego(Model model, Long uzytkownik) {
 
         // TODO zamiast Ados ma być uzytkownik zalogowany
-        Uzytkownik uzytkownik2= uzytkownikRepository.findFirstByPseudonim("Ados");
-        serwisAplikacji.dodajZnajomego(uzytkownik2.getUzytkownikID(),uzytkownik);
-        List<Znajomy> znajomy = znajomyRepository.findByUzytkownik(uzytkownik2);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
+        //Uzytkownik uzytkownik2= uzytkownikRepository.findFirstByPseudonim("Ados");
+
+        Uzytkownik uzytkownik2= uzytkownikRepository.findFirstByUzytkownikID(uzytkownik);
+        if(znajomyRepository.sprawdz_znajomych(uzytkownik_aktualny,uzytkownik2)==0)
+        {
+            serwisAplikacji.dodajZnajomego(uzytkownik_aktualny.getUzytkownikID(),uzytkownik);
+            serwisAplikacji.dodajZnajomego(uzytkownik,uzytkownik_aktualny.getUzytkownikID());
+        }else{
+
+            List<Uzytkownik> uzytkownicy =uzytkownikRepository.findAllExceptById(uzytkownik_aktualny.getUzytkownikID());
+            model.addAttribute("header", "Lista wszystkich użytkowników"); //Dodanie obiektu do pamieci lokalnej modelu
+            model.addAttribute("listaUzytkownikow", uzytkownicy); //Dodanie obiektu do pamieci lokalnej modelu
+
+            return "wysuzytkownikow"; //Przekierowanie na strone
+        }
+
+        List<Znajomy> znajomy = znajomyRepository.findAllByUser(uzytkownik_aktualny);
         //System.out.println(znajomy.toString());
 
         model.addAttribute("header","Lista wszystkich znajomych"); //Dodanie obiektu do pamieci lokalnej modelu

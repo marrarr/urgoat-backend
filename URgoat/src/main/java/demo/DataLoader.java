@@ -73,8 +73,10 @@ public class DataLoader implements ApplicationRunner{
 
             //znajomi
             Znajomy znajomy1 = new Znajomy(user1, user2);
+            Znajomy znajomy2 = new Znajomy(user2, user1);
 
             znajomyRepository.save(znajomy1);
+            znajomyRepository.save(znajomy2);
 
             //czat
             Czat czat1 = new Czat(List.of(user1, user2));
