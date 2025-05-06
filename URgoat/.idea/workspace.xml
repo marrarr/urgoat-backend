@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="" />
+    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/komentarz/KomentarzController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/komentarz/KomentarzController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/post/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/post/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/reakcja/ReakcjaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/reakcja/ReakcjaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/post/PostController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/post/PostController.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,8 +32,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Application.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "ros",
+    "Spring Boot.Application.executor": "Run",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Dane/Dzieła/Projekty/Java/Bazan/Spring3MVC_DB_security_roles3",
     "node.js.detected.package.eslint": "true",
@@ -36,7 +49,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Application">
+  <component name="RunManager" selected="Spring Boot.Application">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="demo.Application" />
       <module name="URgoat" />
