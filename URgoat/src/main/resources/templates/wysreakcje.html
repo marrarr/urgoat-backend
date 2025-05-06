@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <title>Lista postów</title>
+</head>
+
+
+<body>
+<div class="container">
+  <h4><strong th:text="${header}"/></h4>
+</div>
+
+<div class="container">
+  <div class="list-group">
+      <h4>Lubię to: <b th:text="${reakcja_lubieto}"></b></h4>
+      <h4>HAHAHHA: <b th:text="${reakcje_haha}"></b></h4>
+      <h4>Nie lubię tego: <b th:text="${reakcje_nielubie}"></b></h4>
+  </div>
+
+  <a href="/index.html">Strona główna</a>
+</div>
+</body>
+</html>
+
