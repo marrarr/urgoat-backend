@@ -16,7 +16,11 @@ public class UzytkownikController {
 
     @RequestMapping(value = "/lista_uzytkownikow", method = RequestMethod.GET)
     public String listaUzytkownikow(Model model) {
-        List<Uzytkownik> uzytkownik = uzytkownikRepository.findAll();
+        //List<Uzytkownik> uzytkownik = uzytkownikRepository.findAll();
+
+        // TODO zamiast Ados ma być uzytkownik zalogowany
+        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim("Ados");
+        List<Uzytkownik> uzytkownik =uzytkownikRepository.findAllExceptById(uzytkownik_aktualny.getUzytkownikID());
 
         //long long_uzytkownikID=(long)uzytkownikID;
         //System.out.println(znajomy.toString());

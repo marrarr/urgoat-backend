@@ -3,6 +3,8 @@ package demo.uzytkownik;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface UzytkownikRepository extends JpaRepository<Uzytkownik, Long>{
     //Wyszukaj użytkownika po imieniu
@@ -20,5 +22,8 @@ public interface UzytkownikRepository extends JpaRepository<Uzytkownik, Long>{
     Uzytkownik findFirstByPseudonim(String pseudonim);
 
     Uzytkownik findFirstByUzytkownikID(Long uzytkownikIDLink);
+
+    @Query("SELECT u FROM Uzytkownik u WHERE u.uzytkownikID <> :id")
+    List<Uzytkownik> findAllExceptById(@Param("id") int id);
 
 }
