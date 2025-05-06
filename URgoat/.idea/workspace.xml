@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/czat/CzatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/czat/CzatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/czat/websocket/ChatSocketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/czat/websocket/ChatSocketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/security/service/SerwisAplikacji.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/security/service/SerwisAplikacji.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/Uzytkownik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/Uzytkownik.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/wiadomosc/Wiadomosc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/wiadomosc/Wiadomosc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/wiadomosc/WiadomoscTransData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/wiadomosc/WiadomoscTransData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/czat/CzatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/czat/CzatController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/czat/websocket/ChatSocketController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/czat/websocket/ChatSocketController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/security/service/SerwisAplikacji.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/security/service/SerwisAplikacji.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/uzytkownik/Uzytkownik.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/uzytkownik/Uzytkownik.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/uzytkownik/UzytkownikController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/uzytkownik/UzytkownikController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/wiadomosc/Wiadomosc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/wiadomosc/Wiadomosc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/wiadomosc/WiadomoscTransData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/wiadomosc/WiadomoscTransData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/znajomy/ZnajomyController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/znajomy/ZnajomyController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +39,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "zmiana-nazwy-",
+    "Spring Boot.Application.executor": "Run",
+    "git-widget-placeholder": "polaczenie-uzytkownik-i-wiadomosc",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/wikto/Documents/GitHub/urgoat-backend/Spring3JPA_Demo_PostgreSQL",
     "node.js.detected.package.eslint": "true",

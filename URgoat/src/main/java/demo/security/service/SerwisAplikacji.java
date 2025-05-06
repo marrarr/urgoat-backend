@@ -104,11 +104,20 @@ public class SerwisAplikacji {
 
     // ----------------------- WIADOMOŚĆ -----------------------
 
-    public void dodajWiadomosc(long czatId, String tresc) {
+ /*   public void dodajWiadomosc(long czatId, String tresc) {
         Czat czat = czatRepository.findById(czatId).orElseThrow();
         Wiadomosc wiadomosc = new Wiadomosc();
         wiadomosc.setCzatID(czat);
         wiadomosc.setTresc(tresc);
+        wiadomoscRepository.save(wiadomosc);
+    }*/
+
+    public void dodajWiadomosc(long czatId, String tresc, Uzytkownik uzytkownik) {
+        Czat czat = czatRepository.findById(czatId).orElseThrow();
+        Wiadomosc wiadomosc = new Wiadomosc();
+        wiadomosc.setCzatID(czat);
+        wiadomosc.setTresc(tresc);
+        wiadomosc.setUzytkownik(uzytkownik);
         wiadomoscRepository.save(wiadomosc);
     }
 
