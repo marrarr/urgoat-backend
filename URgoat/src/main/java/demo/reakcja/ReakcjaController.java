@@ -5,7 +5,10 @@ import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzRepository;
 import demo.post.Post;
 import demo.post.PostRepository;
+import demo.uzytkownik.Uzytkownik;
+import demo.uzytkownik.UzytkownikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,8 @@ public class ReakcjaController {
     private KomentarzRepository komentarzRepository;
     @Autowired
     SerwisAplikacji serwisAplikacji;
+    @Autowired
+    private UzytkownikRepository uzytkownikRepository;
 
 
     @RequestMapping(value = "/wyswietl_reakcje_post", method = RequestMethod.GET)
@@ -72,8 +77,9 @@ public class ReakcjaController {
 
         Komentarz komentarz = null;
 
-        // TODO nie wiem czy moze byc null
-        reakcjaRepository.save(new Reakcja(null, komentarz, post, reakcja));
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Uzytkownik uzytkownik_aktualny = uzytkownikRepository.findFirstByPseudonim(username);
+        reakcjaRepository.save(new Reakcja(uzytkownik_aktualny, komentarz, post, reakcja));
 
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");
