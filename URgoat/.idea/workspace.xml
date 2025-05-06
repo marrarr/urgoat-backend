@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/DataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/security/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/security/DataInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/wysprofil.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/wysprofil.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/DataLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/DataLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/demo/security/DataInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/security/DataInitializer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/wysprofil.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/wysprofil.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
