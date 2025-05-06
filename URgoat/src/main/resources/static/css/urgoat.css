@@ -1,0 +1,99 @@
+/* urgoat.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F5F7FA;
+    color: #1A2B44;
+}
+
+.navbar-urgoat {
+    background-color: #1A2B44;
+    padding: 1rem;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFD700 !important;
+}
+
+.nav-link {
+    color: #FFFFFF !important;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #FFD700 !important;
+}
+
+.container-urgoat {
+    max-width: 500px;
+    margin: 3rem auto;
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-urgoat {
+    background-color: #FFD700;
+    border: none;
+    color: #1A2B44;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-urgoat:hover {
+    background-color: #E6C200;
+    transform: translateY(-2px);
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #1A2B44;
+    padding: 0.75rem;
+}
+
+.form-control:focus {
+    border-color: #FFD700;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.error-message {
+    color: #E63946;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.success-message {
+    color: #2A9D8F;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.urgoat-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #FFD700;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.card-urgoat {
+    border: none;
+    border-radius: 15px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 576px) {
+    .container-urgoat {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}
