@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>     
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+        <title>Lista postów</title>
+    </head>
+<body>
+
+    <div class='menu'>
+        <div class='logo'></div>
+        <a href="/dodaj_post"><div class="button">Dodaj post</div></a><br><br>
+        <a href="/"><div class="button">Strona główna</div></a>
+    </div>
+
+    <div class="cont">
+        <h4><strong th:text="${header}">Nagłówek</strong></h4>
+        
+        <div class="list-group">
+            <article class="list-group-item" th:each="post : ${posty}">
+                <div class="posst">
+                    <div class="dane">
+                        <div class="avatar"></div>
+                        <div class="dane" th:text="${post.autor.pseudonim}">Autor</div>
+                    </div>
+
+                    <div class="tresc">
+                        <p><b th:text="${post.tresc}">Treść posta</b></p>
+                    </div>
+
+                    <div class="reakcje">
+                        <a th:href="@{/dodaj_komentarz(postID=${post.postId}+1)}">Dodaj komentarz</a>
+                        <a th:href="@{/wyswietl_komentarze(postID=${post.postId})}">Wyświetl komentarze</a>
+                        <a th:href="@{/dodaj_reakcje_post(postID=${post.postId}-1)}">Dodaj reakcję</a>
+                        <a th:href="@{/wyswietl_reakcje_post(postID=${post.postId})}">Wyświetl reakcje</a>
+                    </div>
+
+                    <div th:if="${post.reakcje.size() > 0}" class="reakcje">
+                        <p>Reakcje na post:</p>
+                        <ul>
+                            <li th:each="reakcja : ${post.reakcje}">
+                                <span th:text="'Reakcja: ' + ${reakcja.reakcja}">Reakcja</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div th:if="${post.komentarze.size() > 0}" class="reakcje">
+                        <p>Komentarze:</p>
+                        <ul>
+                            <li th:each="komentarz : ${post.komentarze}">
+                                <p>
+                                    <strong th:text="${komentarz.uzytkownik.pseudonim}">Użytkownik</strong>:
+                                    <span th:text="${komentarz.tresc}">Treść komentarza</span>
+                                </p>
+
+                                <div th:if="${komentarz.reakcje.size() > 0}">
+                                    <p>Reakcje na komentarz:</p>
+                                    <ul>
+                                        <li th:each="reakcjaK : ${komentarz.reakcje}">
+                                            <span th:text="'Reakcja: ' + ${reakcjaK.reakcja}">Reakcja</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+    </div>
+
+</body>
+</html>
