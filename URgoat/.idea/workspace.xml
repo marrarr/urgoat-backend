@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/DataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/znajomy/ZnajomyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/znajomy/ZnajomyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/znajomy/ZnajomyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/znajomy/ZnajomyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/DataLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/DataLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/uzytkownik/UzytkownikController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/uzytkownik/UzytkownikController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/znajomy/ZnajomyController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/znajomy/ZnajomyController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/znajomy/ZnajomyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/znajomy/ZnajomyRepository.class" afterDir="false" />
-    </list>
+    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
