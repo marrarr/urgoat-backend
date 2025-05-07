@@ -4,7 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="" />
+    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/czat/websocket/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/czat/websocket/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/UserManagementApp.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/UserManagementApp.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/urgoat.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/bird.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/cat.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/dog1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/dog2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/img/avatar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/img/haha.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/img/like.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/img/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/img/wrr.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/addform.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/addkom.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/addreakcja.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/users.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/chat.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/czat.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/profile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/strona_glowna.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/verify.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/viewmessage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/wyskom.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/wysposty.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/wysprofil.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/wysreakcje.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/wysuzytkownikow.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/wysznajomych.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,26 +60,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.Application.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Dane/Dzieła/Projekty/Java/Bazan/Spring3MVC_DB_security_roles3&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.Application.executor": "Run",
+    "git-widget-placeholder": "dostosowanie-do-testow",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Dane/Dzieła/Projekty/Java/Bazan/Spring3MVC_DB_security_roles3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Spring Boot.Application">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="demo.Application" />
@@ -88,6 +127,7 @@
       <workItem from="1746119944250" duration="793000" />
       <workItem from="1746276251556" duration="12000" />
       <workItem from="1746547985233" duration="144000" />
+      <workItem from="1746647725375" duration="377000" />
     </task>
     <servers />
   </component>
