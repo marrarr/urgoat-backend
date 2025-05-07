@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+  <title>Lista użytkowników</title>
+</head>
+<body>
+<div class='menu'>
+        <div class='logo'></div>
+        <a href="/"><div class="button">Strona główna</div></a>
+        <a href="/lista_znajomych"><div class="button">Lista znajomych</div> </a>
+    </div>
+  <div class="cont">
+    <h4><strong th:text="${header}"></strong></h4>
+
+    <div class="list-group">
+      <article class="list-group-item posst" th:each="uzytkownik : ${listaUzytkownikow}">
+        <div class="dane">
+          <div class="avatar" th:style="'background-image:url(/'+${uzytkownik.zdjecie}+')'"></div>
+          <div class="dane">
+            <h1>
+              <b th:text="${uzytkownik.imie}"></b>
+              <b th:text="${uzytkownik.nazwisko}"></b>
+            </h1>
+          </div>
+        </div>
+
+        <div class="reakcje">
+          <a th:href="@{/wyswietl_profil(uzytkownik=${uzytkownik.uzytkownikID})}" class="button">Zobacz profil</a>
+          <a th:href="@{/dodaj_znajomego(uzytkownik=${uzytkownik.uzytkownikID})}" class="button">Dodaj znajomego</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>

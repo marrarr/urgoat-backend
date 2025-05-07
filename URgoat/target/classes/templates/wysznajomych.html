@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+
+  <title>Lista znajomych</title>
+</head>
+
+<body>
+  <div class='menu'>
+        <div class='logo'></div>
+        <a href="/"><div class="button">Strona główna</div></a>
+        <a href="/lista_uzytkownikow"><div class="button">Lista uzytkownikow</div> </a>
+    </div>
+
+  <div class="cont">
+    <h4><strong th:text="${header}"></strong></h4>
+
+    <div class="list-group">
+      <article class="list-group-item posst" th:each="znajomy : ${listaZnajomych}">
+        <div class="dane">
+          <div class="avatar"></div>
+          <div class="dane">
+            <h1>
+              <b th:text="${znajomy.getUzytkownik2ID().getImie()}"></b>
+              <b th:text="${znajomy.getUzytkownik2ID().getNazwisko()}"></b>
+            </h1>
+          </div>
+        </div>
+
+        <div class="reakcje">
+          <a th:href="@{/czat(znajomy=${znajomy.getUzytkownik2ID().getUzytkownikID()})}" class="button">Czat</a>
+        </div>
+      </article>
+    </div>
+
+  </div>
+</body>
+</html>
