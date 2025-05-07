@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-  <title>Lista uzytkownikow</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+  <title>Lista użytkowników</title>
 </head>
-
-
 <body>
-<div class="container">
-  <h4><strong th:text="${header}"/></h4>
-</div>
+<div class='menu'>
+        <div class='logo'></div>
+        <a href="/"><div class="button">Strona główna</div></a>
+        <a href="/lista_znajomych"><div class="button">Lista znajomych</div> </a>
+    </div>
+  <div class="cont">
+    <h4><strong th:text="${header}"></strong></h4>
 
-<div class="container">
-  <div class="list-group">
-    <article class="list-group-item" th:each="uzytkownik : ${listaUzytkownikow}">
-      <h1><img th:src="@{/${uzytkownik.zdjecie}}"/> <b th:text="${uzytkownik.imie}"></b> <b th:text="${uzytkownik.nazwisko}"></b></h1>
-      <a th:href="@{/wyswietl_profil(uzytkownik=${uzytkownik.uzytkownikID})}">Zobacz profil</a>
-      <a th:href="@{/dodaj_znajomego(uzytkownik=${uzytkownik.uzytkownikID})}">Dodaj znajomego</a>
-<!--      <h1><b th:text="${uzytkownik.nazwisko}"></b></h1>-->
+    <div class="list-group">
+      <article class="list-group-item posst" th:each="uzytkownik : ${listaUzytkownikow}">
+        <div class="dane">
+          <div class="avatar" th:style="'background-image:url(/'+${uzytkownik.zdjecie}+')'"></div>
+          <div class="dane">
+            <h1>
+              <b th:text="${uzytkownik.imie}"></b>
+              <b th:text="${uzytkownik.nazwisko}"></b>
+            </h1>
+          </div>
+        </div>
 
-
-<!--      <a th:href="@{/dodaj_czat(znajomy=${znajomy.getUzytkownik2ID().getUzytkownikID()})}">Czat</a>-->
-    </article>
+        <div class="reakcje">
+          <a th:href="@{/wyswietl_profil(uzytkownik=${uzytkownik.uzytkownikID})}" class="button">Zobacz profil</a>
+          <a th:href="@{/dodaj_znajomego(uzytkownik=${uzytkownik.uzytkownikID})}" class="button">Dodaj znajomego</a>
+        </div>
+      </article>
+    </div>
   </div>
-
-  <a href="/index.html">Strona główna</a>
-</div>
 </body>
 </html>

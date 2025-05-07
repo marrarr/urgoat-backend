@@ -1,0 +1,12 @@
+# pliki do ignorowania przy commitach
+# katalog kompilacji
+/URgoat/target/
+
+# katalogi IDE
+/.idea/
+/*.iml
+*.class
+
+# pliki systemowe
+.DS_Store
+Thumbs.db
