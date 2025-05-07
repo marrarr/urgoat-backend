@@ -4,7 +4,10 @@ import demo.security.service.SerwisAplikacji;
 import demo.post.Post;
 import demo.post.PostRepository;
 import demo.reakcja.ReakcjaRepository;
+import demo.uzytkownik.Uzytkownik;
+import demo.uzytkownik.UzytkownikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,8 @@ public class KomentarzController {
     private ReakcjaRepository reakcjaRepository;
     @Autowired
     private SerwisAplikacji serwisAplikacji;
+    @Autowired
+    private UzytkownikRepository uzytkownikRepository;
 
     @RequestMapping("/dodaj_komentarz")
     public String dodajKomentarz(Model model, Long postID_link)
@@ -39,10 +44,10 @@ public class KomentarzController {
         int postID = komentarzTransData.getPostID() - 1;  // nie zmieniać
         long long_postID=(long)postID;
 
-        //        Post post = postRepository.findAll().get(postID);
-//        komentarzRepository.save(new Komentarz(post, null, tresc));
-        // TODO zamiast 1 ma być uzytkownik zalogowany
-        serwisAplikacji.dodajKomentarz(1, postID, tresc);
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
+        serwisAplikacji.dodajKomentarz(uzytkownik_aktualny.getUzytkownikID(), postID, tresc);
 
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");

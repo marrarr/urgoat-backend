@@ -4,16 +4,115 @@
   <title>Czat</title>
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+<style>
+
+
+/* Nagłówek */
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Kontener wiadomości */
+#messages {
+    width: 100%;
+    max-width: 800px;
+    min-height: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    margin: auto;
+    overflow-y: auto;  /* Umożliwia przewijanie zawartości w pionie */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    height: 400px;  /* Dodajemy wysokość, aby sprawdzić przewijanie */
+}
+
+/* Wiadomości */
+#messages p {
+    margin: 5px 0;
+    padding: 8px;
+    background-color: #e8f5e9;
+    border-radius: 5px;
+}
+
+/* Pole tekstowe i przycisk */
+input[type="text"] {
+    padding: 10px;
+    width: 70%;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* Responsywność */
+@media screen and (max-width: 600px) {
+    input[type="text"] {
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    body {
+        padding: 10px;
+    }
+}
+</style>
+
+
 <body>
-<h1>Czat</h1>
+
+
+<div class='menu'>
+        <div class='logo'></div>
+        <a href="/dodaj_post"><div class="button">Dodaj post</div></a><br><br>
+        <a href="/"><div class="button">Strona główna</div></a>
+   </div>
+
+<div class="cont">
+
 <div id="messages"></div>
 
-<input type="text" id="msg" placeholder="Napisz wiadomość">
-<button onclick="send()">Wyślij</button>
+<div class="input-container">
+  <input type="text" id="msg" placeholder="Napisz wiadomość">
+  <button onclick="send()">Wyślij</button>
+</div>
 
 <!-- Ukryte pole z czatID -->
 <input type="hidden" id="czatID" th:value="${czatID}">
+</div>
 
 <script>
   const socket = new SockJS('/chat-websocket');
@@ -35,8 +134,15 @@
       czatID: czatID,
       tresc: text
     });
-
-    stompClient.send("/app/send", {}, payload);
+    
+    if (!text || text.trim() === "") {
+    // Nie wysyłaj pustej wiadomości
+    return;
+    } else {
+        stompClient.send("/app/send", {}, payload);
+    }
+   
+  
   }
 </script>
 </body>

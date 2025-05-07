@@ -4,7 +4,6 @@ import demo.komentarz.Komentarz;
 import demo.post.Post;
 import demo.reakcja.Reakcja;
 import demo.security.model.User;
-import demo.wiadomosc.Wiadomosc;
 import demo.znajomy.Znajomy;
 import jakarta.persistence.*;
 
@@ -48,10 +47,6 @@ public class Uzytkownik {
 
     @ManyToMany(mappedBy = "uzytkownicy") // 🔹 Lista czatów, w których uczestniczy użytkownik
     private List<Czat> czaty;
-
-    @OneToMany(mappedBy = "uzytkownik", cascade = CascadeType.ALL)
-    private List<Wiadomosc> wiadomosci;
-
 
     //konstruktor użytkownika bez czatID i zdjecia
     public Uzytkownik(String imie, String nazwisko, String pseudonim, String email, int permisje){
@@ -142,13 +137,5 @@ public class Uzytkownik {
     //getery i setery służace do powiazanie przez obiekt klas Users - Uzytkownik
     public User getUserAccount() {return userAccount;}
     public void setUserAccount(User userAccount) {this.userAccount = userAccount;}
-
-    public List<Wiadomosc> getWiadomosci() {
-        return wiadomosci;
-    }
-
-    public void setWiadomosci(List<Wiadomosc> wiadomosci) {
-        this.wiadomosci = wiadomosci;
-    }
 
 }

@@ -7,7 +7,6 @@ public class WiadomoscTransData {
     private byte[] zdjecie;
     private int reakcja;
     private int czatID; // tylko ID czatu, żeby nie zagnieżdżać całej encji
-    private String uzytkownik;
 
     public WiadomoscTransData() {}
 
@@ -17,15 +16,6 @@ public class WiadomoscTransData {
         this.zdjecie = zdjecie;
         this.reakcja = reakcja;
         this.czatID = czatID;
-    }
-
-    public WiadomoscTransData(int wiadomoscID, String tresc, byte[] zdjecie, int reakcja, int czatID, String uzytkownik) {
-        this.wiadomoscID = wiadomoscID;
-        this.tresc = tresc;
-        this.zdjecie = zdjecie;
-        this.reakcja = reakcja;
-        this.czatID = czatID;
-        this.uzytkownik = uzytkownik;
     }
 
     public int getWiadomoscID() {

@@ -6,7 +6,10 @@ import demo.security.service.SerwisAplikacji;
 import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzRepository;
 import demo.reakcja.ReakcjaRepository;
+import demo.uzytkownik.Uzytkownik;
+import demo.uzytkownik.UzytkownikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,8 @@ public class PostController {
     private ReakcjaRepository reakcjaRepository;
     @Autowired
     private SerwisAplikacji serwisAplikacji;
+    @Autowired
+    UzytkownikRepository uzytkownikRepository;
 
     @RequestMapping("/dodaj_post")
     public String dodajPost(Model model)
@@ -33,14 +38,12 @@ public class PostController {
 
     @RequestMapping(value = "/dodaj_post", method = RequestMethod.POST)
     public String dodajPost(Model model, PostTransData postTransData) {
-
-
-
         String tresc = postTransData.getTresc();
 
-//        postRepository.save(new Post(null, tresc));
-        // TODO zamiast 1 ma być uzytkownik zalogowany
-        serwisAplikacji.dodajPost(1, tresc);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
+
+        serwisAplikacji.dodajPost(uzytkownik_aktualny.getUzytkownikID(), tresc);
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");
 

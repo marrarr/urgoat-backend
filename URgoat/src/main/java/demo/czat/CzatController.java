@@ -106,8 +106,6 @@ public class CzatController {
 
     @RequestMapping("/czat")
     public String zaladujCzat(Model model) {
-     /*   Czat czat = czatRepository.findByUzytkownicyContainsBoth();
-        List<Wiadomosc> wiadomosci = wiadomoscRepository.findByCzat(czatRepository);*/
 //        List<Wiadomosc> wiadomosci = wiadomoscRepository.findByCzat(czatRepository.findById(1L).get());
 
 //        model.addAttribute("wiadomosci", wiadomosci);

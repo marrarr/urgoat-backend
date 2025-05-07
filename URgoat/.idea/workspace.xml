@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/czat/CzatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/czat/CzatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/czat/websocket/ChatSocketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/czat/websocket/ChatSocketController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/security/service/SerwisAplikacji.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/security/service/SerwisAplikacji.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/Uzytkownik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/Uzytkownik.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/wiadomosc/Wiadomosc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/wiadomosc/Wiadomosc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/wiadomosc/WiadomoscTransData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/wiadomosc/WiadomoscTransData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/czat/CzatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/czat/CzatController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/czat/websocket/ChatSocketController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/czat/websocket/ChatSocketController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/security/service/SerwisAplikacji.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/security/service/SerwisAplikacji.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/uzytkownik/Uzytkownik.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/uzytkownik/Uzytkownik.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/uzytkownik/UzytkownikController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/uzytkownik/UzytkownikController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/wiadomosc/Wiadomosc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/wiadomosc/Wiadomosc.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/wiadomosc/WiadomoscTransData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/wiadomosc/WiadomoscTransData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo/znajomy/ZnajomyController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/demo/znajomy/ZnajomyController.class" afterDir="false" />
-    </list>
+    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,26 +21,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.Application.executor": "Run",
-    "git-widget-placeholder": "polaczenie-uzytkownik-i-wiadomosc",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/wikto/Documents/GitHub/urgoat-backend/Spring3JPA_Demo_PostgreSQL",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Application.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Dane/Dzieła/Projekty/Java/Bazan/Spring3MVC_DB_security_roles3&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected="Spring Boot.Application">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="demo.Application" />
+      <module name="URgoat" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="URgoat" />
@@ -65,6 +63,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Application" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

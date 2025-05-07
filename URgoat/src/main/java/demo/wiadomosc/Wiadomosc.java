@@ -1,11 +1,11 @@
 package demo.wiadomosc;
 
 import demo.czat.Czat;
-import demo.uzytkownik.Uzytkownik;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "wiadomosc")
+
 public class Wiadomosc {
 
     @Id
@@ -23,10 +23,6 @@ public class Wiadomosc {
     @ManyToOne
     @JoinColumn(name = "czatID")
     private Czat czat;
-
-    @ManyToOne
-    @JoinColumn(name = "uzytkownikID") // kolumna klucza obcego w tabeli "wiadomosc"
-    private Uzytkownik uzytkownik;
 
     public Wiadomosc(){}
 
@@ -57,14 +53,6 @@ public class Wiadomosc {
         this.reakcja = reakcja;
     }
 
-    public Wiadomosc(String tresc, byte[] zdjecie, int reakcja, Czat czat, Uzytkownik uzytkownik) {
-        this.tresc = tresc;
-        this.zdjecie = zdjecie;
-        this.reakcja = reakcja;
-        this.czat = czat;
-        this.uzytkownik = uzytkownik;
-    }
-
 
     public Czat getCzatID(){return czat;}
     public void setCzatID(Czat czatID){this.czat = czatID;}
@@ -77,14 +65,6 @@ public class Wiadomosc {
 
     public int getReakcja(){return reakcja;}
     public void setReakcja(int reakcja){this.reakcja = reakcja;}
-
-    public Uzytkownik getUzytkownik() {
-        return uzytkownik;
-    }
-
-    public void setUzytkownik(Uzytkownik uzytkownik) {
-        this.uzytkownik = uzytkownik;
-    }
 
 
 }

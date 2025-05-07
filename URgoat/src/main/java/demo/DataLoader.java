@@ -18,11 +18,13 @@ import demo.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@Order(2)
 public class DataLoader implements ApplicationRunner{
 
     private UzytkownikRepository uzytkownikRepository;
@@ -73,8 +75,10 @@ public class DataLoader implements ApplicationRunner{
 
             //znajomi
             Znajomy znajomy1 = new Znajomy(user1, user2);
+            Znajomy znajomy2 = new Znajomy(user2, user1);
 
             znajomyRepository.save(znajomy1);
+            znajomyRepository.save(znajomy2);
 
             //czat
             Czat czat1 = new Czat(List.of(user1, user2));
