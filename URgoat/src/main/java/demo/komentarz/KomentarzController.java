@@ -6,6 +6,7 @@ import demo.post.PostRepository;
 import demo.reakcja.ReakcjaRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ public class KomentarzController {
         return "addkom";
     }
 
+    @Transactional
     @RequestMapping(value = "/dodaj_komentarz", method = RequestMethod.POST)
     public String dodajKomentarz(Model model, KomentarzTransData komentarzTransData) {
 
@@ -55,6 +57,7 @@ public class KomentarzController {
         return "viewmessage";
     }
 
+    @Transactional
     @RequestMapping(value = "/wyswietl_komentarze", method = RequestMethod.GET)
     public String wyswietlKomentarze(Model model, Long postID)
     {

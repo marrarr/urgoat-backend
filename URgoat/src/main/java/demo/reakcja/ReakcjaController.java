@@ -7,6 +7,7 @@ import demo.post.Post;
 import demo.post.PostRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,7 @@ public class ReakcjaController {
     @Autowired
     private UzytkownikRepository uzytkownikRepository;
 
-
+    @Transactional
     @RequestMapping(value = "/wyswietl_reakcje_post", method = RequestMethod.GET)
     public String wyswietlReakcje(Model model, Long postID)
     {
@@ -45,6 +46,7 @@ public class ReakcjaController {
         return "wysreakcje"; //Przekierowanie na strone
     }
 
+    @Transactional
     @RequestMapping(value = "/wyswietl_reakcje_komentarze", method = RequestMethod.POST)
     public String wyswietlReakcje(Model model, Long postID, Long reakcja)
     {

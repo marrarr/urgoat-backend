@@ -26,6 +26,7 @@ public class Uzytkownik {
     private String nazwisko;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] zdjecie;
 
     @Column(length = 64)
@@ -34,14 +35,16 @@ public class Uzytkownik {
     @Column(length = 64)
     private String email;
 
-    private int permisje;
+    // ensure default=1 in DDL
+    @Column(columnDefinition = "integer default 1", nullable = false)
+    private int permisje = 1;
 
     @OneToOne
     @JoinColumn(
-            name = "email",              // kolumna w tabeli uzytkownik
-            referencedColumnName = "email", // kolumna w tabeli users
+            name = "email",               // column in uzytkownik
+            referencedColumnName = "email",// column in users
             insertable = false,
-            updatable = false
+            updatable  = false
     )
     private User userAccount;
 
@@ -117,7 +120,7 @@ public class Uzytkownik {
     public void setCzatID(int czatID){this.czatID = czatID;}
 
     public String getImie(){return imie;}
-    public void setImie(String czatID){this.imie = imie;}
+    public void setImie(String imie){this.imie = imie;}
 
     public String getNazwisko(){return nazwisko;}
     public void setNazwisko(String nazwisko){this.nazwisko = nazwisko;}

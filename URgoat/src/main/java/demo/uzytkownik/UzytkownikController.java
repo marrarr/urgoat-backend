@@ -3,6 +3,7 @@ package demo.uzytkownik;
 import demo.security.repository.UserRepository;
 import demo.znajomy.Znajomy;
 import demo.znajomy.ZnajomyRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class UzytkownikController {
     @Autowired
     ZnajomyRepository znajomyRepository;
 
+    @Transactional
     @RequestMapping(value = "/lista_uzytkownikow", method = RequestMethod.GET)
     public String listaUzytkownikow(Model model) {
         //List<Uzytkownik> uzytkownik = uzytkownikRepository.findAll();

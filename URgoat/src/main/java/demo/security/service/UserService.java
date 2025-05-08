@@ -4,6 +4,7 @@ import demo.security.model.PendingUser;
 import demo.security.model.User;
 import demo.security.repository.PendingUserRepository;
 import demo.security.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,14 +29,17 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(String username, String email, String password) {
+    public void registerUser(String imie, String nazwisko, String username, byte[] zdjecieBytes, String email, String password) {
         if (userRepository.findByUsername(username).isPresent() ||
                 pendingUserRepository.findByEmail(email).isPresent()) {
             throw new RuntimeException("Uzytkownik lub email juz istnieje");
         }
 
         PendingUser pendingUser = new PendingUser();
+        pendingUser.setImie(imie);
+        pendingUser.setNazwisko(nazwisko);
         pendingUser.setUsername(username);
+        pendingUser.setZdjecie(zdjecieBytes);
         pendingUser.setEmail(email);
         pendingUser.setPassword(passwordEncoder.encode(password));
         String code = String.format("%06d", new Random().nextInt(999999));
@@ -45,24 +49,24 @@ public class UserService {
         System.out.println("Kod weryfikacyjny dla " + email + ": " + code);
     }
 
-    public boolean verifyUser(String email, String code) {
-        Optional<PendingUser> pendingUserOpt = pendingUserRepository.findByEmail(email);
-        if (pendingUserOpt.isPresent()) {
-            PendingUser pendingUser = pendingUserOpt.get();
-            if (code.equals(pendingUser.getVerificationCode())) {
-                User user = new User();
-                user.setUsername(pendingUser.getUsername());
-                user.setEmail(pendingUser.getEmail());
-                user.setPassword(pendingUser.getPassword());
-                user.setRole("ROLE_USER");
-                user.setVerified(true);
-                userRepository.save(user);
-
-                pendingUserRepository.delete(pendingUser);
-                return true;
-            }
+    @Transactional
+    public PendingUser finalizeRegistration(String email, String code) {
+        PendingUser p = pendingUserRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Brak rejestracji dla email"));
+        if (!p.getVerificationCode().equals(code)) {
+            throw new RuntimeException("Nieprawidłowy kod weryfikacyjny");
         }
-        return false;
+
+        User user = new User();
+        user.setUsername(p.getUsername());
+        user.setEmail(p.getEmail());
+        user.setPassword(p.getPassword());
+        user.setRole("ROLE_USER");
+        user.setVerified(true);
+        userRepository.save(user);
+
+        pendingUserRepository.delete(p);
+        return p;
     }
 
     public List<User> getAllUsers() {
@@ -71,5 +75,9 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public Optional<PendingUser> findPendingByEmail(String email) {
+        return pendingUserRepository.findByEmail(email);
     }
 }

@@ -16,6 +16,7 @@ public class Wiadomosc {
     private String tresc;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] zdjecie;
 
     private int reakcja;

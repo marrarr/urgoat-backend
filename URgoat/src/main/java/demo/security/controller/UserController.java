@@ -1,5 +1,8 @@
 package demo.security.controller;
 
+import demo.security.model.PendingUser;
+import demo.security.model.User;
+import demo.security.repository.PendingUserRepository;
 import demo.security.service.SerwisAplikacji;
 import demo.security.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +25,9 @@ public class UserController {
     
     @Autowired
     private SerwisAplikacji serwisAplikacji;
+
+    @Autowired
+    private PendingUserRepository pendingUserRepository;
 
     public UserController(UserService userService, HttpSession session) {
         this.userService = userService;
@@ -86,10 +92,7 @@ public class UserController {
             session.setAttribute("captcha", captcha);
 
             // Rejestracja użytkownika w encji User przez userService
-            userService.registerUser(username, email, password);
-
-            // Rejestracja danych w encji Uzytkownik przez SerwisAplikacji
-            serwisAplikacji.dodajUzytkownika(imie, nazwisko, zdjecieBytes);
+            userService.registerUser(imie, nazwisko, username, zdjecieBytes, email, password);
 
             model.addAttribute("email", email);
             return "verify";
@@ -116,14 +119,25 @@ public class UserController {
             @RequestParam String code,
             Model model
     ) {
-        boolean verified = userService.verifyUser(email, code);
-        if (verified) {
-            // Clear session after verification
+        try {
+            // 1) finalizujemy rejestrację — to zwróci PendingUser, a wewnątrz usunie go z bazy
+            PendingUser p = userService.finalizeRegistration(email, code);
+
+            // 2) na podstawie zwróconego obiektu tworzysz profil w uzytkownik
+            serwisAplikacji.dodajUzytkownika(
+                    p.getImie(),
+                    p.getNazwisko(),
+                    p.getZdjecie(),
+                    p.getUsername(),
+                    p.getEmail()
+            );
+
             session.removeAttribute("captcha");
             return "redirect:/login";
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+            model.addAttribute("email", email);
+            return "verify";
         }
-        model.addAttribute("error", "Nieprawidlowy kod lub email");
-        model.addAttribute("email", email);
-        return "verify";
     }
 }

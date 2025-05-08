@@ -20,6 +20,7 @@ public class Post{
     private String tresc;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] zdjecie;
 
     public Post(){}

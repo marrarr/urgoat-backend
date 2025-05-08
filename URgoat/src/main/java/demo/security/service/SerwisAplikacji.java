@@ -136,11 +136,9 @@ public class SerwisAplikacji {
     
     //--------------------DODAWANIE UZYTKOWNIKA---------------
 
-    public void dodajUzytkownika(String imie, String nazwisko, byte[] zdjecie) {
-        // Tworzenie nowego użytkownika
-        Uzytkownik uzytkownik = new Uzytkownik(imie, nazwisko, zdjecie, null, null, 0);
-        
-        // Zapis do bazy danych
+    public void dodajUzytkownika(String imie, String nazwisko, byte[] zdjecie, String pseudonim, String email) {
+        Uzytkownik uzytkownik = new Uzytkownik(imie, nazwisko, zdjecie, pseudonim, email, 1  // domyślnie permisje = 1
+        );
         uzytkownikRepository.save(uzytkownik);
     }
 }

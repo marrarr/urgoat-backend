@@ -1,5 +1,6 @@
 package demo.security.config;
 
+import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -49,25 +50,5 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return username -> {
-            System.out.println("Probowanie zaladowania uzytkownika: " + username);
-            return userRepository.findByUsername(username)
-                .map(user -> {
-                    System.out.println("Znaleziony uzytkownik: " + user.getUsername() + ", rola: " + user.getRole());
-                    return new org.springframework.security.core.userdetails.User(
-                        user.getUsername(),
-                        user.getPassword(),
-                        java.util.Collections.singletonList(
-                            new org.springframework.security.core.authority.SimpleGrantedAuthority(user.getRole())
-                        )
-                    );
-                })
-                .orElseThrow(() -> {
-                    System.out.println("Nieznaleziony uzytkownik: " + username);
-                    return new UsernameNotFoundException("Uzytkownika nie znaleziono");
-                });
-        };
-    }
+
 }

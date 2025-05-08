@@ -1,3 +1,49 @@
+<!--
+    To jest stare rozwiązanie  <<<
+    To jest stare rozwiązanie  <<<
+    To jest stare rozwiązanie  <<<
+    To jest stare rozwiązanie  <<<
+    To jest stare rozwiązanie  <<<
+    To jest stare rozwiązanie  <<<
+    To jest stare rozwiązanie  <<<
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <title>Lista uzytkownikow</title>
+</head>
+
+
+<body>
+<div class="container">
+    <h4><strong th:text="${header}"/></h4>
+</div>
+
+<div class="container">
+    <div class="list-group">
+        <article class="list-group-item" th:each="uzytkownik : ${profilUzytkownika}">
+            <h1><img th:src="@{/${uzytkownik.zdjecie}}"/></h1>
+            <h1>Imie: <b th:text="${uzytkownik.imie}"></b></h1>
+            <h1>Nazwisko: <b th:text="${uzytkownik.nazwisko}"></b></h1>
+            <h1>Pseudonim: <b th:text="${uzytkownik.pseudonim}"></b></h1>
+            <h1>E-mail: <b th:text="${uzytkownik.email}"></b></h1>
+
+
+        </article>
+    </div>
+
+    <a href="/index.html">Strona główna</a>
+</div>
+</body>
+</html>
+
+-->
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -172,7 +218,7 @@
 <body>
     <div class="container mt-5">
         <div class="card-urgoat">
-            <h2 class="text-center mb-4"> Proi</h2>
+            <h2 class="text-center mb-4"> Profil </h2>
             <div th:if="${user != null and user.zdjecie != null and user.zdjecie != ''}">
                 <img th:src="@{'/images/' + ${user.zdjecie}}" alt="Zdjęcie profilowe" class="profile-image">
             </div>

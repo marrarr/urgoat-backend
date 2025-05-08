@@ -8,6 +8,7 @@ import demo.komentarz.KomentarzRepository;
 import demo.reakcja.ReakcjaRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ public class PostController {
         return "addform";
     }
 
+    @Transactional
     @RequestMapping(value = "/dodaj_post", method = RequestMethod.POST)
     public String dodajPost(Model model, PostTransData postTransData) {
         String tresc = postTransData.getTresc();

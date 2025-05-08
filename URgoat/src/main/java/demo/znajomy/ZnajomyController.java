@@ -6,6 +6,7 @@ import demo.komentarz.KomentarzRepository;
 import demo.security.service.SerwisAplikacji;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class ZnajomyController{
     @Autowired
     private SerwisAplikacji serwisAplikacji;
 
-
+    @Transactional
     @RequestMapping(value = "/lista_znajomych", method = RequestMethod.GET)
     public String listaZnajomych(Model model)
     {
