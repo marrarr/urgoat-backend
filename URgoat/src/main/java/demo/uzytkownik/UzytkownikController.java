@@ -1,6 +1,7 @@
 package demo.uzytkownik;
 
 import demo.security.repository.UserRepository;
+import demo.security.service.UserService;
 import demo.znajomy.Znajomy;
 import demo.znajomy.ZnajomyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +20,23 @@ public class UzytkownikController {
 
     @Autowired
     ZnajomyRepository znajomyRepository;
+    @Autowired
+    private UzytkownikService uzytkownikService;
 
     @RequestMapping(value = "/lista_uzytkownikow", method = RequestMethod.GET)
     public String listaUzytkownikow(Model model) {
         //List<Uzytkownik> uzytkownik = uzytkownikRepository.findAll();
 
 
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
-        List<Uzytkownik> uzytkownik =uzytkownikRepository.findAllExceptById(uzytkownik_aktualny.getUzytkownikID());
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
+        Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
+        List<Uzytkownik> uzytkownicy = uzytkownikRepository.findAllExceptById(uzytkownik_aktualny.getUzytkownikID());
 
         model.addAttribute("header", "Lista wszystkich użytkowników"); //Dodanie obiektu do pamieci lokalnej modelu
-        model.addAttribute("listaUzytkownikow", uzytkownik); //Dodanie obiektu do pamieci lokalnej modelu
+        model.addAttribute("listaUzytkownikow", uzytkownicy); //Dodanie obiektu do pamieci lokalnej modelu
 
         return "wysuzytkownikow"; //Przekierowanie na strone
-
     }
 
     @RequestMapping("/wyswietl_profil")
@@ -41,7 +44,6 @@ public class UzytkownikController {
         Uzytkownik uzytkownik1 = uzytkownikRepository.findFirstByUzytkownikID(uzytkownik);
         model.addAttribute("header", "Profil"); //Dodanie obiektu do pamieci lokalnej modelu
         model.addAttribute("profilUzytkownika", uzytkownik1); //Dodanie obiektu do pamieci lokalnej modelu
-
 
         return "wysprofil";
     }

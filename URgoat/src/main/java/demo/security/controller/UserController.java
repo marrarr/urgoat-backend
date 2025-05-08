@@ -1,6 +1,6 @@
 package demo.security.controller;
 
-import demo.security.service.SerwisAplikacji;
+import demo.SerwisAplikacji;
 import demo.security.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

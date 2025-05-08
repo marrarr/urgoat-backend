@@ -10,7 +10,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/chat-websocket").withSockJS(); // endpoint do którego podłącza się frontend
-        int  a = 5;
     }
 
     @Override

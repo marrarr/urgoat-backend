@@ -1,4 +1,4 @@
-package demo.security.service;
+package demo;
 
 import demo.czat.Czat;
 import demo.czat.CzatRepository;
@@ -8,7 +8,6 @@ import demo.post.Post;
 import demo.post.PostRepository;
 import demo.reakcja.Reakcja;
 import demo.reakcja.ReakcjaRepository;
-import demo.security.model.User;
 import demo.security.repository.UserRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;

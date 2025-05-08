@@ -2,12 +2,13 @@ package demo.post;
 
 import java.util.List;
 
-import demo.security.service.SerwisAplikacji;
+import demo.SerwisAplikacji;
 import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzRepository;
 import demo.reakcja.ReakcjaRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
+import demo.uzytkownik.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,9 @@ public class PostController {
     @Autowired
     private SerwisAplikacji serwisAplikacji;
     @Autowired
-    UzytkownikRepository uzytkownikRepository;
+    private UzytkownikRepository uzytkownikRepository;
+    @Autowired
+    private UzytkownikService uzytkownikService;
 
     @RequestMapping("/dodaj_post")
     public String dodajPost(Model model)
@@ -40,12 +43,13 @@ public class PostController {
     public String dodajPost(Model model, PostTransData postTransData) {
         String tresc = postTransData.getTresc();
 
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
+        Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
 
         serwisAplikacji.dodajPost(uzytkownik_aktualny.getUzytkownikID(), tresc);
         model.addAttribute("header", "Wynik");
-        model.addAttribute("message","Zostało porpawnie dodane");
+        model.addAttribute("message","Post został poprawnie dodany");
 
         return "viewmessage";
     }
@@ -55,19 +59,19 @@ public class PostController {
     @RequestMapping(value = "/wyswietl_posty", method = RequestMethod.GET)
     public String wyswietlPosty(Model model) {
 
-    List<Post> posty = postRepository.findAll();  // Pobierz wszystkie posty
-    for (Post post : posty) {
-        // Pobierz komentarze dla każdego postu
-        List<Komentarz> komentarze = komentarzRepository.findByPostPostID(Long.valueOf(post.getPostID()));
+        List<Post> posty = postRepository.findAll();  // Pobierz wszystkie posty
+        for (Post post : posty) {
+            // Pobierz komentarze dla każdego postu
+            List<Komentarz> komentarze = komentarzRepository.findByPostPostID(Long.valueOf(post.getPostID()));
 
 
-            post.setKomentarze(komentarze);  // Ustaw komentarze w poście
-        }
+                post.setKomentarze(komentarze);  // Ustaw komentarze w poście
+            }
 
-        model.addAttribute("header", "Lista wszystkich postów");
-        model.addAttribute("listaPostow", posty);  // Dodaj posty z komentarzami do modelu
+            model.addAttribute("header", "Lista wszystkich postów");
+            model.addAttribute("listaPostow", posty);  // Dodaj posty z komentarzami do modelu
 
-        return "wysposty";  // Przekierowanie do widoku
+            return "wysposty";  // Przekierowanie do widoku
     }
 
 }
