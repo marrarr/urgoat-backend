@@ -60,13 +60,30 @@ public class KomentarzService {
 
     public void usunKomentarz(long komentarzID) {
         Komentarz komentarz = komentarzRepository.findById(komentarzID).orElseThrow();
-
-        // post moze usunac tylko autor lub osoba z permisjami, np admin
         Uzytkownik uzytkownik_zalogowany = uzytkownikService.getZalogowanyUzytkownik();
         User user = userRepository.findByEmail(uzytkownik_zalogowany.getEmail()).orElseThrow();
+
+        // post moze usunac tylko autor lub osoba z permisjami, np admin
         if (user.getRole().equals("ROLE_ADMIN") ||
                 uzytkownik_zalogowany.getUzytkownikID() == komentarz.getUzytkownikID().getUzytkownikID()) {
             komentarzRepository.delete(komentarz);
+        } else {
+            throw new AccessDeniedException("Brak uprawnień do usunięcia komentarza");
+        }
+    }
+
+    public void aktualizujKomentarz(long komentarzID, String tresc) {
+        if (tresc.isBlank()) {
+            throw new IllegalArgumentException("Treść komentarza nie może być pusta.");
+        }
+
+        Komentarz komentarz = komentarzRepository.findById(komentarzID).orElseThrow();
+        Uzytkownik uzytkownik_zalogowany = uzytkownikService.getZalogowanyUzytkownik();
+
+        // post moze aktualizować tylko autor
+        if (uzytkownik_zalogowany.getUzytkownikID() == komentarz.getUzytkownikID().getUzytkownikID()) {
+            komentarz.setTresc(tresc);
+            komentarzRepository.save(komentarz);
         } else {
             throw new AccessDeniedException("Brak uprawnień do usunięcia komentarza");
         }
