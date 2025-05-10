@@ -30,6 +30,8 @@ public class PostController {
     private UzytkownikRepository uzytkownikRepository;
     @Autowired
     private UzytkownikService uzytkownikService;
+    @Autowired
+    private PostService postService;
 
     @RequestMapping("/dodaj_post")
     public String dodajPost(Model model)
@@ -43,35 +45,39 @@ public class PostController {
     public String dodajPost(Model model, PostTransData postTransData) {
         String tresc = postTransData.getTresc();
 
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
-        Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
+        if (tresc.isBlank()) {
+            model.addAttribute("header", "Wynik");
+            model.addAttribute("message","Post nie może być pusty");
 
-        serwisAplikacji.dodajPost(uzytkownik_aktualny.getUzytkownikID(), tresc);
-        model.addAttribute("header", "Wynik");
-        model.addAttribute("message","Post został poprawnie dodany");
+            return "viewmessage";
+        } else {
+            Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
 
-        return "viewmessage";
+            serwisAplikacji.dodajPost(uzytkownik_aktualny.getUzytkownikID(), tresc);
+            model.addAttribute("header", "Wynik");
+            model.addAttribute("message","Post został poprawnie dodany");
+
+            return "viewmessage";
+        }
     }
-    
 
-    
     @RequestMapping(value = "/wyswietl_posty", method = RequestMethod.GET)
     public String wyswietlPosty(Model model) {
+        List<PostTransData> postyTransData = postService.getPosty();
 
-        List<Post> posty = postRepository.findAll();  // Pobierz wszystkie posty
-        for (Post post : posty) {
-            // Pobierz komentarze dla każdego postu
-            List<Komentarz> komentarze = komentarzRepository.findByPostPostID(Long.valueOf(post.getPostID()));
+        model.addAttribute("header", "Lista wszystkich postów");
+        model.addAttribute("listaPostow", postyTransData);
 
-
-                post.setKomentarze(komentarze);  // Ustaw komentarze w poście
-            }
-
-            model.addAttribute("header", "Lista wszystkich postów");
-            model.addAttribute("listaPostow", posty);  // Dodaj posty z komentarzami do modelu
-
-            return "wysposty";  // Przekierowanie do widoku
+        return "wysposty";  // Przekierowanie do widoku
     }
 
+    @RequestMapping(value = "/strona_glowna", method = RequestMethod.GET)
+    public String wyswietlStroneGlowna(Model model) {
+        List<PostTransData> postyTransData = postService.getPostyZKomentarzamiOrazReakcjami();
+
+        model.addAttribute("header","Strona główna");
+        model.addAttribute("posty", postyTransData);
+
+        return "wysposty";
+    }
 }

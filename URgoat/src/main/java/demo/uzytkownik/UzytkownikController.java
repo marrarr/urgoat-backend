@@ -17,9 +17,6 @@ import java.util.List;
 public class UzytkownikController {
     @Autowired
     UzytkownikRepository uzytkownikRepository;
-
-    @Autowired
-    ZnajomyRepository znajomyRepository;
     @Autowired
     private UzytkownikService uzytkownikService;
 
