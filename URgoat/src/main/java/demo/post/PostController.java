@@ -53,7 +53,7 @@ public class PostController {
         } else {
             Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
 
-            serwisAplikacji.dodajPost(uzytkownik_aktualny.getUzytkownikID(), tresc);
+            postService.dodajPost(uzytkownik_aktualny.getUzytkownikID(), tresc);
             model.addAttribute("header", "Wynik");
             model.addAttribute("message","Post został poprawnie dodany");
 

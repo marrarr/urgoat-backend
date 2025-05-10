@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/demo/komentarz/KomentarzService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/demo/post/PostService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/demo/reakcja/ReakcjaService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/demo/komentarz/KomentarzServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/demo/reakcja/ReakcjaServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/demo/uzytkownik/UzytkownikControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/demo/uzytkownik/UzytkownikRepositoryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/demo/uzytkownik/UzytkownikServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/MyController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/komentarz/Komentarz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/komentarz/Komentarz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/komentarz/KomentarzService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/komentarz/KomentarzService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/demo/post/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/post/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/security/usermanagementapp/UserManagementApp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/post/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/post/PostService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +146,7 @@
       <workItem from="1746800311265" duration="14073000" />
       <workItem from="1746871192166" duration="215000" />
       <workItem from="1746881135404" duration="2006000" />
+      <workItem from="1746888912961" duration="1455000" />
     </task>
     <task id="LOCAL-00001" summary="dodanie uzytkownikservice i metody do zwracania zalogowanego uzytkownika&#10;zmiany w kontrolerach">
       <option name="closed" value="true" />

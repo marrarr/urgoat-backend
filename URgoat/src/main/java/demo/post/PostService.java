@@ -6,6 +6,7 @@ import demo.komentarz.KomentarzTransData;
 import demo.reakcja.Reakcja;
 import demo.reakcja.ReakcjaService;
 import demo.reakcja.ReakcjaTransData;
+import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
 import demo.uzytkownik.UzytkownikService;
 import demo.uzytkownik.UzytkownikTransData;
@@ -17,15 +18,19 @@ import java.util.List;
 
 @Service
 public class PostService {
-    @Autowired
-    PostRepository postRepository;
-    @Autowired
-    KomentarzService komentarzService;
-    @Autowired
-    ReakcjaService reakcjaService;
-    @Autowired
-    private UzytkownikService uzytkownikService;
+    private final PostRepository postRepository;
+    private final UzytkownikRepository uzytkownikRepository;
+    private final UzytkownikService uzytkownikService;
+    private final KomentarzService komentarzService;
+    private final ReakcjaService reakcjaService;
 
+    public PostService(PostRepository postRepository, UzytkownikRepository uzytkownikRepository, UzytkownikService uzytkownikService, KomentarzService komentarzService, ReakcjaService reakcjaService) {
+        this.postRepository = postRepository;
+        this.uzytkownikRepository = uzytkownikRepository;
+        this.uzytkownikService = uzytkownikService;
+        this.komentarzService = komentarzService;
+        this.reakcjaService = reakcjaService;
+    }
 
 
     public List<PostTransData> getPostyZKomentarzamiOrazReakcjami() {
@@ -64,6 +69,14 @@ public class PostService {
             ));
         }
         return postyTransData;
+    }
+
+    public void dodajPost(long userId, String tresc) {
+        Uzytkownik user = uzytkownikRepository.findById(userId).orElseThrow();
+        Post post = new Post();
+        post.setUzytkownikID(user);
+        post.setTresc(tresc);
+        postRepository.save(post);
     }
 
     public void usunPost(long postID) {
