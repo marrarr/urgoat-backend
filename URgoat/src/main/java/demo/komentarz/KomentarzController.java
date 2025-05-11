@@ -29,6 +29,8 @@ public class KomentarzController {
     private UzytkownikRepository uzytkownikRepository;
     @Autowired
     private UzytkownikService uzytkownikService;
+    @Autowired
+    private KomentarzService komentarzService;
 
     @RequestMapping("/dodaj_komentarz")
     public String dodajKomentarz(Model model, Long postID_link)
@@ -44,13 +46,9 @@ public class KomentarzController {
 
         String tresc = komentarzTransData.getTresc();
         int postID = komentarzTransData.getPostID() - 1;  // nie zmieniać
-        long long_postID=(long)postID;
-
-
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
-        serwisAplikacji.dodajKomentarz(uzytkownik_aktualny.getUzytkownikID(), postID, tresc);
+
+        komentarzService.dodajKomentarz(uzytkownik_aktualny.getUzytkownikID(), postID, tresc);
 
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");

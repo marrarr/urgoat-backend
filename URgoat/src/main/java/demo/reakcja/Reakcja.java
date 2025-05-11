@@ -13,12 +13,6 @@ public class Reakcja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reakcjaID;
 
-    //private int uzytkownikID;
-
-    //private int komentarzID;
-
-    //private int postID;
-
     private int reakcja;
 
 
