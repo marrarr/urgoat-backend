@@ -22,7 +22,7 @@
     <properties>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>demo.security.usermanagementapp.UserManagementApp</exec.mainClass>
+        <exec.mainClass>demo.Application</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -101,7 +101,7 @@
     </dependencies>
 
     <build>
-        <finalName>UserManagementApp</finalName>
+        <finalName>URgoat</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
