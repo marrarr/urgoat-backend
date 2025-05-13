@@ -41,6 +41,23 @@ public class ZnajomyController{
 
     }
 
+    @RequestMapping(value = "/lista_znajomych_uzytkownika", method = RequestMethod.GET)
+    public String listaZnajomychUzytkownika(Model model, Long uzytkownik)
+    {
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
+        Uzytkownik uzytkownik1 = uzytkownikRepository.findFirstByUzytkownikID(uzytkownik);
+        //Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
+
+        List<Znajomy> znajomy = znajomyRepository.findAllByUser(uzytkownik1);
+
+        model.addAttribute("header","Lista wszystkich znajomych");
+        model.addAttribute("listaZnajomych",znajomy);
+
+        return "wysznajomych";
+
+    }
+
     @RequestMapping("/dodaj_znajomego")
     public String dodajZnajomego(Model model, Long uzytkownik) {
 
