@@ -216,21 +216,47 @@
     </style>
 </head>
 <body>
-<div class="card-urgoat">
-    <h2 class="text-center mb-4">Twój profil </h2>
-    <article class="list-group-item" th:each="uzytkownik : ${profilUzytkownika}">
-        <p><img th:src="@{/${uzytkownik.zdjecie}}"/></p>
-        <p>Imie: <b th:text="${uzytkownik.imie}"></b></p>
-        <p>Nazwisko: <b th:text="${uzytkownik.nazwisko}"></b></p>
-        <p>Pseudonim: <b th:text="${uzytkownik.pseudonim}"></b></p>
-        <p>E-mail: <b th:text="${uzytkownik.email}"></b></p>
+    <div class="container mt-5">
+        <div class="card-urgoat">
+            <h2 class="text-center mb-4">Twój profil </h2>
+            <article class="list-group-item" th:each="uzytkownik : ${profilUzytkownika}">
+                <p><img th:src="@{/${uzytkownik.zdjecie}}"/></p>
+                <p>Imie: <b th:text="${uzytkownik.imie}"></b></p>
+                <p>Nazwisko: <b th:text="${uzytkownik.nazwisko}"></b></p>
+                <p>Pseudonim: <b th:text="${uzytkownik.pseudonim}"></b></p>
+                <p>E-mail: <b th:text="${uzytkownik.email}"></b></p>
 
 
-    </article>
-    <div class="profile-buttons">
-        <div class="main-buttons">
-            <a th:href="@{/}" class="btn btn-urgoat">Strona główna</a>
-            <a th:href="@{/friends}" class="btn btn-urgoat">Lista znajomych</a>
+            </article>
+            <div class="profile-buttons">
+                <div class="main-buttons">
+                    <a th:href="@{/}" class="btn btn-urgoat">Strona główna</a>
+                    <a th:href="@{/friends}" class="btn btn-urgoat">Lista znajomych</a>
+                    <a th:href="@{/edytuj_profil}" class="btn btn-urgoat">Edytuj profil</a>
+                </div>
+                <a th:href="@{/logout}" class="btn btn-logout">Wyloguj</a>
+            </div>
+<!--            <div th:if="${user != null and user.zdjecie != null and user.zdjecie != ''}">-->
+<!--                <img th:src="@{'/images/' + ${user.zdjecie}}" alt="Zdjęcie profilowe" class="profile-image">-->
+<!--            </div>-->
+<!--            <div th:unless="${user != null and user.zdjecie != null and user.zdjecie != ''}">-->
+<!--                <div class="profile-image-placeholder">Brak zdjęcia</div>-->
+<!--            </div>-->
+<!--            <div th:if="${user != null}" class="profile-info">-->
+<!--                <p>Imię: <span th:text="${user.imie != null ? user.imie : 'Brak danych'}">Brak danych</span></p>-->
+<!--                <p>Nazwisko: <span th:text="${user.nazwisko != null ? user.nazwisko : 'Brak danych'}">Brak danych</span></p>-->
+<!--            </div>-->
+<!--            <div th:unless="${user != null}" class="profile-info">-->
+<!--                <p>Błąd: Dane użytkownika niedostępne</p>-->
+<!--            </div>-->
+<!--            <div class="profile-buttons">-->
+<!--                <div class="main-buttons">-->
+<!--                    <a th:href="@{/}" class="btn btn-urgoat">Strona główna</a>-->
+<!--                    <a th:href="@{/friends}" class="btn btn-urgoat">Lista znajomych</a>-->
+<!--                    <a th:href="@{/edytuj_profil}" class="btn btn-urgoat">Edytuj profil</a>-->
+<!--                </div>-->
+<!--                <a th:href="@{/logout}" class="btn btn-logout">Wyloguj</a>-->
+<!--            </div>-->
         </div>
     </div>
 

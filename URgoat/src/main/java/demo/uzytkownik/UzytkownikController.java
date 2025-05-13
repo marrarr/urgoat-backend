@@ -44,4 +44,13 @@ public class UzytkownikController {
 
         return "wysprofil";
     }
+
+    @RequestMapping("/wyswietl_profil_aktualnego_uzytkownika")
+    public String wyswietlProfilAktualnegoUzytkownika(Model model) {
+        Uzytkownik uzytkownik1 = uzytkownikService.getZalogowanyUzytkownik();
+        model.addAttribute("header", "Profil"); //Dodanie obiektu do pamieci lokalnej modelu
+        model.addAttribute("profilUzytkownika", uzytkownik1); //Dodanie obiektu do pamieci lokalnej modelu
+
+        return "wysprofiluzyt";
+    }
 }
