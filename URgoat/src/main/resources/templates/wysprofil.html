@@ -217,7 +217,7 @@
 </head>
 <body>
 <div class="card-urgoat">
-    <h2 class="text-center mb-4">Twój profil </h2>
+    <h2 class="text-center mb-4">Profil </h2>
     <article class="list-group-item" th:each="uzytkownik : ${profilUzytkownika}">
         <p><img th:src="@{/${uzytkownik.zdjecie}}"/></p>
         <p>Imie: <b th:text="${uzytkownik.imie}"></b></p>
@@ -228,9 +228,9 @@
 
     </article>
     <div class="profile-buttons">
-        <div class="main-buttons">
-            <a th:href="@{/}" class="btn btn-urgoat">Strona główna</a>
-            <a th:href="@{/friends}" class="btn btn-urgoat">Lista znajomych</a>
+        <div class="main-buttons" th:each="uzytkownik : ${profilUzytkownika}">
+            <a th:href="@{/strona_glowna}" class="btn btn-urgoat">Strona główna</a>
+            <a th:href="@{/lista_znajomych_uzytkownika(uzytkownik=${uzytkownik.uzytkownikID})}" class="btn btn-urgoat">Lista znajomych</a>
         </div>
     </div>
 
