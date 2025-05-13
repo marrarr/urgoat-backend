@@ -3,6 +3,7 @@
 /URgoat/target/
 
 # katalogi IDE
+URgoat/.idea/
 /.idea/
 /*.iml
 *.class
