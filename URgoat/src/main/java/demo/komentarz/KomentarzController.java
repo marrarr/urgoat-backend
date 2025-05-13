@@ -1,11 +1,11 @@
 package demo.komentarz;
 
-import demo.security.service.SerwisAplikacji;
-import demo.post.Post;
+import demo.SerwisAplikacji;
 import demo.post.PostRepository;
 import demo.reakcja.ReakcjaRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
+import demo.uzytkownik.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,6 +27,10 @@ public class KomentarzController {
     private SerwisAplikacji serwisAplikacji;
     @Autowired
     private UzytkownikRepository uzytkownikRepository;
+    @Autowired
+    private UzytkownikService uzytkownikService;
+    @Autowired
+    private KomentarzService komentarzService;
 
     @RequestMapping("/dodaj_komentarz")
     public String dodajKomentarz(Model model, Long postID_link)
@@ -42,12 +46,9 @@ public class KomentarzController {
 
         String tresc = komentarzTransData.getTresc();
         int postID = komentarzTransData.getPostID() - 1;  // nie zmieniać
-        long long_postID=(long)postID;
+        Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
 
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
-        serwisAplikacji.dodajKomentarz(uzytkownik_aktualny.getUzytkownikID(), postID, tresc);
+        komentarzService.dodajKomentarz(uzytkownik_aktualny.getUzytkownikID(), postID, tresc);
 
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");
@@ -58,12 +59,8 @@ public class KomentarzController {
     @RequestMapping(value = "/wyswietl_komentarze", method = RequestMethod.GET)
     public String wyswietlKomentarze(Model model, Long postID)
     {
-//        KomentarzTransData komentarzTransData = new KomentarzTransData();
-//        model.addAttribute("komentarzTransData", komentarzTransData);
-//
         List<Komentarz> komentarze = komentarzRepository.findByPostPostID(postID);
-//        int idposttest = komentarzTransData.getPostID();
-//        System.out.println("ID" +idposttest);
+
         model.addAttribute("header","Lista wszystkich komentarzy"); //Dodanie obiektu do pamieci lokalnej modelu
         model.addAttribute("listaKomentarzy",komentarze); //Dodanie obiektu do pamieci lokalnej modelu
 

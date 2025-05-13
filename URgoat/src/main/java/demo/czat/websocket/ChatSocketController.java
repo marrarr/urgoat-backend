@@ -2,8 +2,7 @@ package demo.czat.websocket;
 
 import demo.czat.Czat;
 import demo.czat.CzatRepository;
-import demo.security.service.SerwisAplikacji;
-import demo.wiadomosc.Wiadomosc;
+import demo.SerwisAplikacji;
 import demo.wiadomosc.WiadomoscRepository;
 import demo.wiadomosc.WiadomoscTransData;
 import org.springframework.beans.factory.annotation.Autowired;

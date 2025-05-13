@@ -4,13 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="" />
+    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/komentarz/KomentarzController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/komentarz/KomentarzController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/post/PostTransData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/post/PostTransData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/reakcja/Reakcja.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/reakcja/Reakcja.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/reakcja/ReakcjaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/reakcja/ReakcjaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikTransData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikTransData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/demo/komentarz/KomentarzServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/demo/komentarz/KomentarzServiceTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="dostosowanie-do-testow" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectColorInfo">{
@@ -21,27 +42,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.Application.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Dane/Dzieła/Projekty/Java/Bazan/Spring3MVC_DB_security_roles3&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "JUnit.KomentarzServiceTest.executor": "Run",
+    "JUnit.UzytkownikServiceTest.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.Application.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "testy",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Dane/Dzieła/Projekty/Java/Bazan/Spring3MVC_DB_security_roles3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Spring Boot.Application">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="demo.komentarz" />
+      <recent name="demo.reakcja" />
+      <recent name="demo.uzytkownik" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.KomentarzServiceTest">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="demo.Application" />
       <module name="URgoat" />
@@ -51,6 +89,36 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KomentarzServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="URgoat" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="demo.komentarz.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="demo.komentarz" />
+      <option name="MAIN_CLASS_NAME" value="demo.komentarz.KomentarzServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UzytkownikServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="URgoat" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="demo.uzytkownik.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="demo.uzytkownik" />
+      <option name="MAIN_CLASS_NAME" value="demo.uzytkownik.UzytkownikServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -65,6 +133,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.KomentarzServiceTest" />
+        <item itemvalue="JUnit.UzytkownikServiceTest" />
         <item itemvalue="Application.Application" />
       </list>
     </recent_temporary>
@@ -88,10 +158,44 @@
       <workItem from="1746119944250" duration="793000" />
       <workItem from="1746276251556" duration="12000" />
       <workItem from="1746547985233" duration="144000" />
+      <workItem from="1746647725375" duration="2289000" />
+      <workItem from="1746658146238" duration="6000" />
+      <workItem from="1746712292781" duration="5000" />
+      <workItem from="1746730941873" duration="2291000" />
+      <workItem from="1746736966130" duration="3416000" />
+      <workItem from="1746800311265" duration="14073000" />
+      <workItem from="1746871192166" duration="215000" />
+      <workItem from="1746881135404" duration="2006000" />
+      <workItem from="1746888912961" duration="4577000" />
+      <workItem from="1746962348461" duration="2300000" />
     </task>
+    <task id="LOCAL-00001" summary="dodanie uzytkownikservice i metody do zwracania zalogowanego uzytkownika&#10;zmiany w kontrolerach">
+      <option name="closed" value="true" />
+      <created>1746732032241</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746732032241</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="dodanie uzytkownikservice i metody do zwracania zalogowanego uzytkownika&#10;zmiany w kontrolerach" />
+    <option name="LAST_COMMIT_MESSAGE" value="dodanie uzytkownikservice i metody do zwracania zalogowanego uzytkownika&#10;zmiany w kontrolerach" />
   </component>
 </project>

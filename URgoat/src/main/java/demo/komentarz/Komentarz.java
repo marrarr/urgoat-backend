@@ -14,10 +14,6 @@ public class Komentarz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int komentarzID;
 
-    //private int postID;
-
-    //private int uzytkownikID;
-
     @Column(columnDefinition = "TEXT")
     private String tresc;
 

@@ -15,10 +15,6 @@ public class PostTransData {
     private List<ReakcjaTransData> reakcje;
 
 
-
-
-
-
     public PostTransData() {}
 
     public PostTransData(int postId, String tresc, UzytkownikTransData autor, byte[] zdjecie, List<KomentarzTransData> komentarze, List<ReakcjaTransData> reakcje) {

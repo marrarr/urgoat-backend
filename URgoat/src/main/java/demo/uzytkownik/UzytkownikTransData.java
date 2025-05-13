@@ -11,6 +11,10 @@ public class UzytkownikTransData {
         this.pseudonim = pseudonim;
     }
 
+    public UzytkownikTransData() {
+
+    }
+
     public int getUzytkownikID() {
         return uzytkownikID;
     }

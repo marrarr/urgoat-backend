@@ -1,6 +1,6 @@
 package demo.reakcja;
 
-import demo.security.service.SerwisAplikacji;
+import demo.SerwisAplikacji;
 import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzRepository;
 import demo.post.Post;
