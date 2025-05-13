@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -53,4 +55,26 @@ public class UzytkownikController {
 
         return "wysprofiluzyt";
     }
+
+    @RequestMapping(value = "/edytuj_profil", method = RequestMethod.GET)
+    public String edytujProfil(Model model) {
+        model.addAttribute("header", "Edycja formularz");
+        return "form_edycja_profilu";
+    }
+
+    @RequestMapping(value = "/edytuj_profil", method = RequestMethod.POST)
+    public String zapiszEdycjeProfilu(Model model,
+                                      @RequestParam("imie") String imie,
+                                      @RequestParam("nazwisko") String nazwisko,
+                                      @RequestParam("zdjecie") MultipartFile zdjecie) {
+        Long id = (long) uzytkownikService.getZalogowanyUzytkownik().getUzytkownikID();
+        uzytkownikService.aktualizujDane(id, imie, nazwisko, zdjecie);
+
+        Uzytkownik uzytkownik1 = uzytkownikService.getZalogowanyUzytkownik();
+        model.addAttribute("header", "Profil"); //Dodanie obiektu do pamieci lokalnej modelu
+        model.addAttribute("profilUzytkownika", uzytkownik1); //Dodanie obiektu do pamieci lokalnej modelu
+        return "wysprofiluzyt";
+    }
+
+
 }
