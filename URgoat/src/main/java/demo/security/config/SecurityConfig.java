@@ -34,7 +34,9 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/wyswietl_posty")
+
+                .defaultSuccessUrl("/strona_glowna")
+
                 .permitAll()
             )
             .logout(logout -> logout
