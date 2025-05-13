@@ -1,0 +1,46 @@
+services:
+  psql-db:
+    image: postgres:17.0
+    container_name: psql-db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=student
+      - POSTGRES_DB=Baza
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    stdin_open: true
+    tty: true
+    ports:
+      - '5433:5432'
+
+  urgoat-app:
+    container_name: urgoat-app
+    build:
+      context: ./URgoat
+      dockerfile: ./Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/Baza
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=student
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - psql-db
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - psql-db
+
+# ⬇⬇⬇ To musi być POZA services!
+volumes:
+  postgres_data:
+    driver: local
