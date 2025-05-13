@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52dc6330-a1b0-4a2c-a1b3-b8fd12ad7592" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/wysprofiluzyt.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/uzytkownik/UzytkownikController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/wysposty.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/wysposty.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/wysprofil.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/wysprofil.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/wysznajomych.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/wysznajomych.html" afterDir="false" />
-    </list>
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +48,7 @@
     "Spring Boot.Application.executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "ros2",
+
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/xdust/Documents/GitHub/urgoat-backend/URgoat/src/main/resources/templates",
     "node.js.detected.package.eslint": "true",
@@ -83,7 +75,7 @@
       <recent name="demo.uzytkownik" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Application">
+
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="demo.Application" />
       <module name="URgoat" />
@@ -164,6 +156,8 @@
       <workItem from="1746881135404" duration="2006000" />
       <workItem from="1746888912961" duration="4577000" />
       <workItem from="1746962348461" duration="2300000" />
+      <workItem from="1747132004629" duration="337000" />
+      <workItem from="1747132360136" duration="2275000" />
     </task>
     <task id="LOCAL-00001" summary="dodanie uzytkownikservice i metody do zwracania zalogowanego uzytkownika&#10;zmiany w kontrolerach">
       <option name="closed" value="true" />
