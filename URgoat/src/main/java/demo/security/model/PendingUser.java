@@ -22,6 +22,12 @@ public class PendingUser {
     @Column(name = "verification_code", nullable = false)
     private String verificationCode;
 
+
+
+    private String imie;
+    private String nazwisko;
+    private byte[] image;
+
     // Getters and Setters
     public Long getId() {
         return id;
@@ -61,5 +67,28 @@ public class PendingUser {
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+    public String getImie() {
+        return imie;
+    }
+
+    public void setImie(String imie) {
+        this.imie = imie;
+    }
+
+    public String getNazwisko() {
+        return nazwisko;
+    }
+
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

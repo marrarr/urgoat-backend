@@ -1,14 +1,20 @@
 package demo.security.service;
 
+import demo.SerwisAplikacji;
 import demo.security.model.PendingUser;
 import demo.security.model.User;
 import demo.security.repository.PendingUserRepository;
 import demo.security.repository.UserRepository;
+import demo.uzytkownik.Uzytkownik;
+import demo.uzytkownik.UzytkownikRepository;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.logging.Logger;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
@@ -17,18 +23,23 @@ public class UserService {
     private final UserRepository userRepository;
     private final PendingUserRepository pendingUserRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SerwisAplikacji serwisAplikacji;
+    private final UzytkownikRepository uzytkownikRepository;
 
     public UserService(
             UserRepository userRepository,
             PendingUserRepository pendingUserRepository,
-            PasswordEncoder passwordEncoder
-    ) {
+            PasswordEncoder passwordEncoder,
+            SerwisAplikacji serwisAplikacji,
+            UzytkownikRepository uzytkownikRepository) {
         this.userRepository = userRepository;
         this.pendingUserRepository = pendingUserRepository;
         this.passwordEncoder = passwordEncoder;
+        this.serwisAplikacji = serwisAplikacji;
+        this.uzytkownikRepository = uzytkownikRepository;
     }
 
-    public void registerUser(String username, String email, String password) {
+    public void registerUser(String username, String email, String password, String imie, String nazwisko, byte[] image) {
         if (userRepository.findByUsername(username).isPresent() ||
                 pendingUserRepository.findByEmail(email).isPresent()) {
             throw new RuntimeException("Uzytkownik lub email juz istnieje");
@@ -38,6 +49,12 @@ public class UserService {
         pendingUser.setUsername(username);
         pendingUser.setEmail(email);
         pendingUser.setPassword(passwordEncoder.encode(password));
+
+
+        pendingUser.setImie(imie);
+        pendingUser.setNazwisko(nazwisko);
+        pendingUser.setImage(image);
+
         String code = String.format("%06d", new Random().nextInt(999999));
         pendingUser.setVerificationCode(code);
         pendingUserRepository.save(pendingUser);
@@ -49,6 +66,7 @@ public class UserService {
         Optional<PendingUser> pendingUserOpt = pendingUserRepository.findByEmail(email);
         if (pendingUserOpt.isPresent()) {
             PendingUser pendingUser = pendingUserOpt.get();
+
             if (code.equals(pendingUser.getVerificationCode())) {
                 User user = new User();
                 user.setUsername(pendingUser.getUsername());
@@ -57,6 +75,16 @@ public class UserService {
                 user.setRole("ROLE_USER");
                 user.setVerified(true);
                 userRepository.save(user);
+
+                Uzytkownik uzytkownik = new Uzytkownik();
+                uzytkownik.setUserAccount(user);
+                uzytkownik.setEmail(email);
+                uzytkownik.setPseudonim(pendingUser.getUsername());
+                uzytkownik.setImie(pendingUser.getImie());
+                uzytkownik.setNazwisko(pendingUser.getNazwisko());
+                uzytkownik.setPermisje(1);
+               // uzytkownik.setZdjecie(pendingUser.getImage());
+                uzytkownikRepository.save(uzytkownik);
 
                 pendingUserRepository.delete(pendingUser);
                 return true;

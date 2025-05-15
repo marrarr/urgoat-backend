@@ -8,6 +8,7 @@ import demo.post.Post;
 import demo.post.PostRepository;
 import demo.reakcja.Reakcja;
 import demo.reakcja.ReakcjaRepository;
+import demo.security.model.User;
 import demo.security.repository.UserRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
@@ -135,11 +136,15 @@ public class SerwisAplikacji {
     
     //--------------------DODAWANIE UZYTKOWNIKA---------------
 
-    public void dodajUzytkownika(String imie, String nazwisko, byte[] zdjecie) {
+    public void dodajUzytkownika(String email, String imie, String nazwisko, byte[] zdjecie) {
+        User user = userRepository.findByEmail(email).orElseThrow();
         // Tworzenie nowego użytkownika
         Uzytkownik uzytkownik = new Uzytkownik(imie, nazwisko, zdjecie, null, null, 0);
-        
+        uzytkownik.setPseudonim(user.getUsername());
+        uzytkownik.setEmail(user.getEmail());
+
         // Zapis do bazy danych
         uzytkownikRepository.save(uzytkownik);
     }
+
 }

@@ -86,10 +86,8 @@ public class UserController {
             session.setAttribute("captcha", captcha);
 
             // Rejestracja użytkownika w encji User przez userService
-            userService.registerUser(username, email, password);
+            userService.registerUser(username, email, password, imie, nazwisko, zdjecieBytes);
 
-            // Rejestracja danych w encji Uzytkownik przez SerwisAplikacji
-            serwisAplikacji.dodajUzytkownika(imie, nazwisko, zdjecieBytes);
 
             model.addAttribute("email", email);
             return "verify";
