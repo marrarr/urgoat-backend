@@ -25,7 +25,7 @@ public class Uzytkownik {
     @Column(length = 64)
     private String nazwisko;
 
-    @Lob
+   // @Lob
     private byte[] zdjecie;
 
     @Column(length = 64)

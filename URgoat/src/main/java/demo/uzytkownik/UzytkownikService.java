@@ -40,7 +40,7 @@ public class UzytkownikService {
 
         uzytkownik.setImie(imie);
         uzytkownik.setNazwisko(nazwisko);
-  /*      try {
+ /*       try {
             uzytkownik.setZdjecie(zdjecie.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -11,6 +11,7 @@ import demo.uzytkownik.UzytkownikRepository;
 import demo.uzytkownik.UzytkownikService;
 import demo.uzytkownik.UzytkownikTransData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class PostService {
 
     public List<PostTransData> getPostyZKomentarzamiOrazReakcjami() {
         // Przygotowanie postów
-        List<Post> posty = postRepository.findAll();
+        List<Post> posty = postRepository.findAll(Sort.by(Sort.Direction.DESC, "postID"));
         List<PostTransData> postyTransData = new ArrayList<>();
         for (Post post : posty) {
             UzytkownikTransData uzytkownikTransData = uzytkownikService.toTransData(post.getUzytkownikID());

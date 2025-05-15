@@ -83,7 +83,7 @@ public class UserService {
                 uzytkownik.setImie(pendingUser.getImie());
                 uzytkownik.setNazwisko(pendingUser.getNazwisko());
                 uzytkownik.setPermisje(1);
-               // uzytkownik.setZdjecie(pendingUser.getImage());
+                uzytkownik.setZdjecie(pendingUser.getImage());
                 uzytkownikRepository.save(uzytkownik);
 
                 pendingUserRepository.delete(pendingUser);
