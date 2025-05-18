@@ -80,4 +80,10 @@ public class PostController {
 
         return "wysposty";
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String przekierujNaStroneGlwona(Model model) {
+
+        return "redirect:/strona_glowna";
+    }
 }
