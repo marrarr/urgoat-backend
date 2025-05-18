@@ -44,33 +44,4 @@ class PostServiceTest {
     @AfterEach
     void tearDown() {
     }
-
-    @Test
-    void getPostyZKomentarzamiOrazReakcjami() {
-        Uzytkownik uzytkownik = new Uzytkownik();
-        uzytkownik.setUzytkownikID(1);
-
-        Post post = new Post();
-        post.setPostID(1);
-        post.setTresc("Diss na miszora i jego wpływ na wynik wyborczy Macieja Miaciaka.");
-        post.setUzytkownikID(uzytkownik);
-        post.setZdjecie(null);
-    }
-
-    @Test
-    void getPosty() {
-    }
-
-    @Test
-    void dodajPost() {
-
-    }
-
-    @Test
-    void usunPost() {
-    }
-
-    @Test
-    void zaktualizujPost() {
-    }
 }

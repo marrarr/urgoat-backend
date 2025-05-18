@@ -35,9 +35,9 @@ public class KomentarzService {
                 komentarz.getKomentarzID(),
                 komentarz.getTresc(),
                 komentarz.getZdjecie(),
-                komentarz.getPostID().getPostID(),
-                uzytkownikService.toTransData(komentarz.getUzytkownikID()),
-                reakcjaService.toTransData(komentarz.getReakcje(), komentarz.getUzytkownikID())
+                komentarz.getPost().getPostID(),
+                uzytkownikService.toTransData(komentarz.getUzytkownik()),
+                reakcjaService.toTransData(komentarz.getReakcje())
         );
     }
 
@@ -52,8 +52,8 @@ public class KomentarzService {
         Uzytkownik user = uzytkownikRepository.findById(userId).orElseThrow();
         Post post = postRepository.findById(postId).orElseThrow();
         Komentarz komentarz = new Komentarz();
-        komentarz.setUzytkownikID(user);
-        komentarz.setPostID(post);
+        komentarz.setUzytkownik(user);
+        komentarz.setPost(post);
         komentarz.setTresc(tresc);
         komentarzRepository.save(komentarz);
     }
@@ -65,7 +65,7 @@ public class KomentarzService {
 
         // post moze usunac tylko autor lub osoba z permisjami, np admin
         if (user.getRole().equals("ROLE_ADMIN") ||
-                uzytkownik_zalogowany.getUzytkownikID() == komentarz.getUzytkownikID().getUzytkownikID()) {
+                uzytkownik_zalogowany.getUzytkownikID() == komentarz.getUzytkownik().getUzytkownikID()) {
             komentarzRepository.delete(komentarz);
         } else {
             throw new AccessDeniedException("Brak uprawnień do usunięcia komentarza");
@@ -81,7 +81,7 @@ public class KomentarzService {
         Uzytkownik uzytkownik_zalogowany = uzytkownikService.getZalogowanyUzytkownik();
 
         // post moze aktualizować tylko autor
-        if (uzytkownik_zalogowany.getUzytkownikID() == komentarz.getUzytkownikID().getUzytkownikID()) {
+        if (uzytkownik_zalogowany.getUzytkownikID() == komentarz.getUzytkownik().getUzytkownikID()) {
             komentarz.setTresc(tresc);
             komentarzRepository.save(komentarz);
         } else {

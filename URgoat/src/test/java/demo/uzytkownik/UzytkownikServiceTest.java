@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class UzytkownikServiceTest {
-    private UzytkownikService uzytkownikService;
     private UzytkownikRepository uzytkownikRepository;
+    private UzytkownikService uzytkownikService;
 
     @BeforeEach
     void setUp() {
@@ -78,6 +78,4 @@ class UzytkownikServiceTest {
         assertArrayEquals(new byte[]{1, 2, 3}, result.getZdjecie());
         assertEquals("coolFox99", result.getPseudonim());
     }
-
-
 }

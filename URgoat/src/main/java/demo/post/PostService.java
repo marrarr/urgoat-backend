@@ -39,9 +39,9 @@ public class PostService {
         List<Post> posty = postRepository.findAll(Sort.by(Sort.Direction.DESC, "postID"));
         List<PostTransData> postyTransData = new ArrayList<>();
         for (Post post : posty) {
-            UzytkownikTransData uzytkownikTransData = uzytkownikService.toTransData(post.getUzytkownikID());
+            UzytkownikTransData uzytkownikTransData = uzytkownikService.toTransData(post.getUzytkownik());
             List<KomentarzTransData> komentarzeTransData = komentarzService.toTransData(post.getKomentarze());
-            List<ReakcjaTransData> reakcjeTransData = reakcjaService.toTransData(post.getReakcje(), post.getUzytkownikID());
+            List<ReakcjaTransData> reakcjeTransData = reakcjaService.toTransData(post.getReakcje());
 
             postyTransData.add(new PostTransData(
                     post.getPostID(),
@@ -75,7 +75,7 @@ public class PostService {
     public void dodajPost(long userId, String tresc) {
         Uzytkownik user = uzytkownikRepository.findById(userId).orElseThrow();
         Post post = new Post();
-        post.setUzytkownikID(user);
+        post.setUzytkownik(user);
         post.setTresc(tresc);
         postRepository.save(post);
     }

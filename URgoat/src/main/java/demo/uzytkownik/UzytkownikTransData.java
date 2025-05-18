@@ -1,5 +1,10 @@
 package demo.uzytkownik;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class UzytkownikTransData {
     private int uzytkownikID;
     private byte[] zdjecie;
@@ -13,17 +18,5 @@ public class UzytkownikTransData {
 
     public UzytkownikTransData() {
 
-    }
-
-    public int getUzytkownikID() {
-        return uzytkownikID;
-    }
-
-    public byte[] getZdjecie() {
-        return zdjecie;
-    }
-
-    public String getPseudonim() {
-        return pseudonim;
     }
 }

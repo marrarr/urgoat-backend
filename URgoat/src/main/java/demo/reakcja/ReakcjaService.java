@@ -8,7 +8,6 @@ import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
 import demo.uzytkownik.UzytkownikService;
 import demo.uzytkownik.UzytkownikTransData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -29,10 +28,10 @@ public class ReakcjaService {
         this.reakcjaRepository = reakcjaRepository;
     }
 
-    public ReakcjaTransData toTransData(Reakcja reakcja, Uzytkownik uzytkownik) {
-        Integer postID = reakcja.getPostID() != null ? reakcja.getPostID().getPostID() : null;
-        Integer komentarzID = reakcja.getKomentarzID() != null ? reakcja.getKomentarzID().getKomentarzID() : null;
-        UzytkownikTransData uzytkownikKomentarzTransData = uzytkownikService.toTransData(uzytkownik);
+    public ReakcjaTransData toTransData(Reakcja reakcja) {
+        Integer postID = reakcja.getPost() != null ? reakcja.getPost().getPostID() : null;
+        Integer komentarzID = reakcja.getKomentarz() != null ? reakcja.getKomentarz().getKomentarzID() : null;
+        UzytkownikTransData uzytkownikKomentarzTransData = uzytkownikService.toTransData(reakcja.getUzytkownik());
 
         return new ReakcjaTransData(
                 postID,
@@ -42,27 +41,35 @@ public class ReakcjaService {
         );
     }
 
-    public List<ReakcjaTransData> toTransData(List<Reakcja> reakcje, Uzytkownik uzytkownik) {
+    public List<ReakcjaTransData> toTransData(List<Reakcja> reakcje) {
         return reakcje
                 .stream()
-                .map(reakcja -> toTransData(reakcja, uzytkownik))
+                .map(reakcja -> toTransData(reakcja))
                 .toList();
     }
 
     public void dodajReakcje(long userId, Long postId, Long komentarzId, int kodReakcji) {
         Uzytkownik user = uzytkownikRepository.findById(userId).orElseThrow();
         Reakcja reakcja = new Reakcja();
-        reakcja.setUzytkownikID(user);
+        reakcja.setUzytkownik(user);
         reakcja.setReakcja(kodReakcji);
+
+        if (postId == null && komentarzId == null) {
+            throw new IllegalArgumentException("Reakcja nie jest przypisana do posta lub komentarza");
+        }
+
+        if (postId != null && komentarzId != null) {
+            throw new IllegalArgumentException("Reakcja nie może być przypisana jednocześnie do posta i komentarza");
+        }
 
         if (postId != null) {
             Post post = postRepository.findById(postId).orElseThrow();
-            reakcja.setPostID(post);
+            reakcja.setPost(post);
         }
 
         if (komentarzId != null) {
             Komentarz komentarz = komentarzRepository.findById(komentarzId).orElseThrow();
-            reakcja.setKomentarzID(komentarz);
+            reakcja.setKomentarz(komentarz);
         }
 
         reakcjaRepository.save(reakcja);
@@ -73,7 +80,7 @@ public class ReakcjaService {
         Reakcja reakcja = reakcjaRepository.findById(reakcjaID).orElseThrow();
 
         // reakcje moze aktualizować tylko autor
-        if (uzytkownik_zalogowany.getUzytkownikID() == reakcja.getUzytkownikID().getUzytkownikID()) {
+        if (uzytkownik_zalogowany.getUzytkownikID() == reakcja.getUzytkownik().getUzytkownikID()) {
             reakcjaRepository.delete(reakcja);
         } else {
             throw new AccessDeniedException("Brak uprawnień do usunięcia komentarza");

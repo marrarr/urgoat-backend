@@ -6,13 +6,16 @@ import demo.reakcja.Reakcja;
 import demo.security.model.User;
 import demo.znajomy.Znajomy;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "uzytkownik")
+@Getter
+@Setter
 public class Uzytkownik {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uzytkownikID;
@@ -45,8 +48,27 @@ public class Uzytkownik {
     )
     private User userAccount;
 
-    @ManyToMany(mappedBy = "uzytkownicy") // 🔹 Lista czatów, w których uczestniczy użytkownik
+    @ManyToMany(mappedBy = "uzytkownicy")
     private List<Czat> czaty;
+
+    @OneToMany(mappedBy = "uzytkownik")
+    private List<Post> posty;
+
+    @OneToMany(mappedBy = "uzytkownik")
+    private  List<Komentarz> komentarze;
+
+    @OneToMany(mappedBy = "uzytkownik")
+    private  List<Reakcja> reakcje;
+
+    @OneToMany(mappedBy = "uzytkownik")
+    private  List<Znajomy> znajomi1;
+
+    @OneToMany(mappedBy = "uzytkownik2")
+    private  List<Znajomy> znajomi2;
+
+
+    public Uzytkownik() {
+    }
 
     //konstruktor użytkownika bez czatID i zdjecia
     public Uzytkownik(String imie, String nazwisko, String pseudonim, String email, int permisje){
@@ -87,55 +109,4 @@ public class Uzytkownik {
         this.email = email;
         this.permisje = permisje;
     }
-
-    @OneToMany(mappedBy = "uzytkownik")
-    private List<Post> posty;
-
-    @OneToMany(mappedBy = "uzytkownik")
-    private  List<Komentarz> komentarze;
-
-    @OneToMany(mappedBy = "uzytkownik")
-    private  List<Reakcja> reakcje;
-
-    @OneToMany(mappedBy = "uzytkownik")
-    private  List<Znajomy> znajomi1;
-
-    @OneToMany(mappedBy = "uzytkownik2")
-    private  List<Znajomy> znajomi2;
-
-    public Uzytkownik() {
-
-    }
-
-    public List<Czat> getCzaty() { return czaty;}
-    public void setCzaty(List<Czat> czaty) {this.czaty = czaty;}
-
-    public int getUzytkownikID(){return uzytkownikID;}
-    public void setUzytkownikID(int uzytkownikID){this.uzytkownikID = uzytkownikID;}
-
-    public int getCzatID(){return czatID;}
-    public void setCzatID(int czatID){this.czatID = czatID;}
-
-    public String getImie(){return imie;}
-    public void setImie(String imie){this.imie = imie;}
-
-    public String getNazwisko(){return nazwisko;}
-    public void setNazwisko(String nazwisko){this.nazwisko = nazwisko;}
-
-    public byte[] getZdjecie() {return zdjecie;}
-    public void setZdjecie(byte[] zdjecie) {this.zdjecie = zdjecie;}
-
-    public String getPseudonim(){return pseudonim;}
-    public void setPseudonim(String pseudonim){this.pseudonim = pseudonim;}
-
-    public String getEmail(){return email;}
-    public void setEmail(String email){this.email = email;}
-
-    public int getPermisje(){return permisje;}
-    public void setPermisje(int permisje){this.permisje = permisje;}
-
-    //getery i setery służace do powiazanie przez obiekt klas Users - Uzytkownik
-    public User getUserAccount() {return userAccount;}
-    public void setUserAccount(User userAccount) {this.userAccount = userAccount;}
-
 }
