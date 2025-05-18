@@ -15,16 +15,19 @@ import java.util.List;
 
 @Service
 public class ReakcjaService {
-    @Autowired
-    private UzytkownikService uzytkownikService;
-    @Autowired
-    private UzytkownikRepository uzytkownikRepository;
-    @Autowired
-    private PostRepository postRepository;
-    @Autowired
-    private KomentarzRepository komentarzRepository;
-    @Autowired
-    private ReakcjaRepository reakcjaRepository;
+    private final UzytkownikService uzytkownikService;
+    private final UzytkownikRepository uzytkownikRepository;
+    private final PostRepository postRepository;
+    private final KomentarzRepository komentarzRepository;
+    private final ReakcjaRepository reakcjaRepository;
+
+    public ReakcjaService(UzytkownikService uzytkownikService, UzytkownikRepository uzytkownikRepository, PostRepository postRepository, KomentarzRepository komentarzRepository, ReakcjaRepository reakcjaRepository) {
+        this.uzytkownikService = uzytkownikService;
+        this.uzytkownikRepository = uzytkownikRepository;
+        this.postRepository = postRepository;
+        this.komentarzRepository = komentarzRepository;
+        this.reakcjaRepository = reakcjaRepository;
+    }
 
     public ReakcjaTransData toTransData(Reakcja reakcja, Uzytkownik uzytkownik) {
         Integer postID = reakcja.getPostID() != null ? reakcja.getPostID().getPostID() : null;
