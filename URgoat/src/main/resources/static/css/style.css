@@ -69,15 +69,20 @@ body{
 .posst .dane {
     width: 90%;
     margin: auto;
-    height: 50px;
     display: flex;
+    padding: 5px;
     
 }
 .posst .dane .avatar {
-    background-image: url("/img/avatar.png");
-    background-size: cover;
     width: 50px;
     height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.posst .dane .avatar img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
 }
 .posst .dane .dane {
     width: 80%;
@@ -111,6 +116,9 @@ body{
 }
 .post-reakcje .reakcje {
     display: none;
+}
+.reakcje-suma {
+    margin-left: 10px;
 }
 
 .reakcje a {
@@ -257,8 +265,19 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #45a049;
 }
-
-
+.szukanie{
+    display: flex;
+    width: 100%;
+    padding-left: 10%;
+    margin-top: 10px;
+}
+.szukanie .button{
+    width: 20%;
+}
+.szukaj{
+    width: 70%;
+    margin-right: 1%;
+}
 
 /* --- Responsywność --- */
 

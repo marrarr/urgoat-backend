@@ -20,15 +20,22 @@
     </div>
 
     <div class="cont">
+        <div class="szukanie">
+          <textarea class="szukaj" id="wyszukiwarka"></textarea> 
+          <button class="button" id="przycisk-szukaj">Szukaj</button>
+        </div>
+
         <h4><strong th:text="${header}">Nagłówek</strong></h4>
         
         <div class="list-group">
-            <article class="list-group-item" th:each="post : ${posty}">
+            <article class="list-group-item post" th:each="post : ${posty}">
                 <div class="posst">
                     <div class="dane">
-                        <div class="avatar">
-                            <img th:src="@{/photo/{id}(id=${post.autor.uzytkownikID})}" class="profile-image"/>
-                        </div>
+                         <a th:href="@{/wyswietl_profil(uzytkownik=${post.autor.uzytkownikID})}">
+                            <div class="avatar">
+                                <img th:src="@{/photo/{id}(id=${post.autor.uzytkownikID})}" class="profile-image"/>
+                            </div>
+                         </a>
                         <div class="dane" th:text="${post.autor.pseudonim}">Autor</div>
                     </div>
 
@@ -38,9 +45,9 @@
 
                     <div class="reakcje">
                         <a th:href="@{/dodaj_komentarz(postID=${post.postId}+1)}">Dodaj komentarz</a>
-                        <a th:href="@{/wyswietl_komentarze(postID=${post.postId})}">Wyświetl komentarze</a>
+                        <!--<a th:href="@{/wyswietl_komentarze(postID=${post.postId+1})}">Wyświetl komentarze</a>-->
                         <a th:href="@{/dodaj_reakcje_post(postID=${post.postId}-1)}">Dodaj reakcję</a>
-                        <a th:href="@{/wyswietl_reakcje_post(postID=${post.postId})}">Wyświetl reakcje</a>
+                        <a th:href="@{/wyswietl_reakcje_post(postID=${post.postId-1})}">Wyświetl reakcje</a>
                     </div>
 
                     <div class="post-reakcje" th:if="${post.reakcje.size() > 0}">
@@ -113,6 +120,21 @@
     html += "</ul>";
 
     podsumowanie.innerHTML = html;
+  });
+  
+    document.getElementById('przycisk-szukaj').addEventListener('click', function () {
+    const zapytanie = document.getElementById('wyszukiwarka').value.toLowerCase().trim();
+    const posty = document.querySelectorAll('.post');
+
+    posty.forEach(post => {
+      const tresc = post.querySelector('.tresc').innerText.toLowerCase();
+      const autor = post.querySelector('.dane').innerText.toLowerCase();
+      if (tresc.includes(zapytanie) || autor.includes(zapytanie)) {
+        post.style.display = '';
+      } else {
+        post.style.display = 'none';
+      }
+    });
   });
 </script>
 </body>

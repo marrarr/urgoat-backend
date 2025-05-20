@@ -16,10 +16,16 @@
 
     </div>
   <div class="cont">
+      
+      <div class="szukanie">
+          <textarea class="szukaj" id="wyszukiwarka"></textarea> 
+          <button class="button" id="przycisk-szukaj">Szukaj</button>
+        </div>
+      
     <h4><strong th:text="${header}"></strong></h4>
 
     <div class="list-group">
-      <article class="list-group-item posst" th:each="uzytkownik : ${listaUzytkownikow}">
+      <article class="list-group-item posst uzytkownik" th:each="uzytkownik : ${listaUzytkownikow}">
         <div class="dane">
           <div class="avatar" th:style="'background-image:url(/'+${uzytkownik.zdjecie}+')'">
             <img th:src="@{/photo/{id}(id=${uzytkownik.uzytkownikID})}" class="profile-image"/>
@@ -39,5 +45,24 @@
       </article>
     </div>
   </div>
+    
+    <script>
+  document.getElementById('przycisk-szukaj').addEventListener('click', function () {
+    const zapytanie = document.getElementById('wyszukiwarka').value.toLowerCase().trim();
+    const uzytkownicy = document.querySelectorAll('.uzytkownik');
+
+    uzytkownicy.forEach(uzytkownik => {
+      const imie = uzytkownik.querySelector('b:nth-of-type(1)')?.innerText.toLowerCase() || '';
+      const nazwisko = uzytkownik.querySelector('b:nth-of-type(2)')?.innerText.toLowerCase() || '';
+
+      // Sprawdzamy, czy zapytanie zawiera się w imieniu LUB nazwisku
+      if (imie.includes(zapytanie) || nazwisko.includes(zapytanie)) {
+        uzytkownik.style.display = '';
+      } else {
+        uzytkownik.style.display = 'none';
+      }
+    });
+  });
+</script>
 </body>
 </html>
