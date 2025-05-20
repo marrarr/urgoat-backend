@@ -91,6 +91,6 @@ class UzytkownikServiceTest {
 
 
         assertThrows(IllegalArgumentException.class,
-                () -> uzytkownikService.aktualizujDane(13L, imie, nazwisko, null, null));
+                () -> uzytkownikService.aktualizujDane(13L, imie, nazwisko,  null));
     }
 }

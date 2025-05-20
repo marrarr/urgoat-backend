@@ -23,7 +23,9 @@
     <div class="list-group">
       <article class="list-group-item posst" th:each="znajomy : ${listaZnajomych}">
         <div class="dane">
-          <div class="avatar"></div>
+          <div class="avatar">
+            <img th:src="@{/photo/{id}(id=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="profile-image"/>
+          </div>
           <div class="dane">
             <h1>
               <b th:text="${znajomy.getUzytkownik2().getImie()}"></b>
@@ -33,7 +35,7 @@
         </div>
 
         <div class="reakcje">
-          <a th:href="@{/wyswietl_profil(uzytkownik=${znajomy.getUzytkownik().getUzytkownikID()})}" class="button">Zobacz profil</a>
+          <a th:href="@{/wyswietl_profil(uzytkownik=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Zobacz profil</a>
           <a th:href="@{/czat(znajomy=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Czat</a>
         </div>
       </article>

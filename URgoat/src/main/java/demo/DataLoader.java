@@ -21,6 +21,10 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Component
@@ -67,6 +71,23 @@ public class DataLoader implements ApplicationRunner{
             Uzytkownik user2 = new Uzytkownik("Natalia","Kowalska","Natik","natkowalska@gmail.com",1);
             Uzytkownik user3 = new Uzytkownik("Bartosz","Krawczyk","baczyk","bartoszkrawczyk@gmail.com",1);
             Uzytkownik user4 = new Uzytkownik("Damian","Ostry","ostyga","damianostry@gmail.com",1);
+            Path sciezkaDoPliku1 = Paths.get("src/main/resources/static/img/avatary_uzytkownikow/avatar4.png"); // ← lub dowolna ścieżka
+            Path sciezkaDoPliku2 = Paths.get("src/main/resources/static/img/avatary_uzytkownikow/avatar3.png"); // ← lub dowolna ścieżka
+            Path sciezkaDoPliku3 = Paths.get("src/main/resources/static/img/avatary_uzytkownikow/avatar2.png"); // ← lub dowolna ścieżka
+            Path sciezkaDoPliku4 = Paths.get("src/main/resources/static/img/avatary_uzytkownikow/avatar1.png"); // ← lub dowolna ścieżka
+            try {
+                byte[] obrazJakoBajty1 = Files.readAllBytes(sciezkaDoPliku1);
+                byte[] obrazJakoBajty2 = Files.readAllBytes(sciezkaDoPliku2);
+                byte[] obrazJakoBajty3 = Files.readAllBytes(sciezkaDoPliku3);
+                byte[] obrazJakoBajty4 = Files.readAllBytes(sciezkaDoPliku4);
+                user1.setZdjecie(obrazJakoBajty1);
+                user2.setZdjecie(obrazJakoBajty2);
+                user3.setZdjecie(obrazJakoBajty3);
+                user4.setZdjecie(obrazJakoBajty4);
+
+            } catch (IOException e) {
+                e.printStackTrace(); // lub zaloguj błąd
+            }
 
             uzytkownikRepository.save(user1);
             uzytkownikRepository.save(user2);

@@ -10,12 +10,18 @@ import demo.uzytkownik.UzytkownikRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.logging.Logger;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
 
 @Service
 public class UserService {
@@ -83,6 +89,24 @@ public class UserService {
                 uzytkownik.setImie(pendingUser.getImie());
                 uzytkownik.setNazwisko(pendingUser.getNazwisko());
                 uzytkownik.setPermisje(1);
+//TODO sprawdzanie wielkosci zdjecia
+//
+//                try {
+//                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(pendingUser.getImage()));
+//
+//                    if (image == null) {
+//                        throw new IllegalArgumentException("Nieprawidłowy format obrazu");
+//                    }
+//
+//                    if (image.getWidth() != 500 || image.getHeight() != 500) {
+//                        throw new IllegalArgumentException("Obraz musi mieć dokładnie 500x500 pikseli");
+//                    }
+//
+//                } catch (IOException e) {
+//                    throw new IllegalArgumentException("Nie udało się odczytać obrazu", e);
+//                }
+//
+
                 uzytkownik.setZdjecie(pendingUser.getImage());
                 uzytkownikRepository.save(uzytkownik);
 

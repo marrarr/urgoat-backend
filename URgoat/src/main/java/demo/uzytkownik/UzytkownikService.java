@@ -53,7 +53,7 @@ public class UzytkownikService {
         uzytkownikRepository.save(uzytkownik);
     }
 
-    public void aktualizujDane(Long uzytkownikID, String imie, String nazwisko, String pseudonim, MultipartFile zdjecie) throws IOException {
+    public void aktualizujDane(Long uzytkownikID, String imie, String nazwisko, MultipartFile zdjecie) throws IOException {
         Uzytkownik uzytkownik = uzytkownikRepository.findById(uzytkownikID).orElseThrow();
 
         if (imie == null || imie.isBlank()) {
@@ -68,19 +68,12 @@ public class UzytkownikService {
             uzytkownik.setNazwisko(nazwisko);
         }
 
-        if (pseudonim == null || pseudonim.isBlank()) {
-            throw new IllegalArgumentException("Pseudonim nie może być pusty.");
-        } else {
-            uzytkownik.setPseudonim(pseudonim);
-        }
-/*
-
         if (zdjecie == null || zdjecie.isEmpty()) {
             throw new IllegalArgumentException("Zdjęcie nie może być puste.");
         } else {
             uzytkownik.setZdjecie(zdjecie.getBytes());
         }
-*/
+
 
         uzytkownikRepository.save(uzytkownik);
     }

@@ -83,6 +83,8 @@ public class PostController {
         return "wysposty";  // Przekierowanie do widoku
     }
 
+
+
     @RequestMapping(value = "/strona_glowna", method = RequestMethod.GET)
     public String wyswietlStroneGlowna(Model model) {
         List<PostTransData> postyTransData = postService.getPostyZKomentarzamiOrazReakcjami();

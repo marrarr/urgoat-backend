@@ -21,7 +21,9 @@
     <div class="list-group">
       <article class="list-group-item posst" th:each="uzytkownik : ${listaUzytkownikow}">
         <div class="dane">
-          <div class="avatar" th:style="'background-image:url(/'+${uzytkownik.zdjecie}+')'"></div>
+          <div class="avatar" th:style="'background-image:url(/'+${uzytkownik.zdjecie}+')'">
+            <img th:src="@{/photo/{id}(id=${uzytkownik.uzytkownikID})}" class="profile-image"/>
+          </div>
           <div class="dane">
             <h1>
               <b th:text="${uzytkownik.imie}"></b>

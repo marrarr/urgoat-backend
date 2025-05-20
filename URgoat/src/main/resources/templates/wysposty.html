@@ -26,7 +26,9 @@
             <article class="list-group-item" th:each="post : ${posty}">
                 <div class="posst">
                     <div class="dane">
-                        <div class="avatar"></div>
+                        <div class="avatar">
+                            <img th:src="@{/photo/{id}(id=${post.autor.uzytkownikID})}" class="profile-image"/>
+                        </div>
                         <div class="dane" th:text="${post.autor.pseudonim}">Autor</div>
                     </div>
 
