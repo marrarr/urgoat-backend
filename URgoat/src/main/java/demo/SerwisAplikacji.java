@@ -92,18 +92,5 @@ public class SerwisAplikacji {
         Czat grupa = new Czat(uczestnicy);
         czatRepository.save(grupa);
     }
-    
-    //--------------------DODAWANIE UZYTKOWNIKA---------------
-
-    public void dodajUzytkownika(String email, String imie, String nazwisko, byte[] zdjecie) {
-        User user = userRepository.findByEmail(email).orElseThrow();
-        // Tworzenie nowego użytkownika
-        Uzytkownik uzytkownik = new Uzytkownik(imie, nazwisko, zdjecie, null, null, 0);
-        uzytkownik.setPseudonim(user.getUsername());
-        uzytkownik.setEmail(user.getEmail());
-
-        // Zapis do bazy danych
-        uzytkownikRepository.save(uzytkownik);
-    }
 
 }

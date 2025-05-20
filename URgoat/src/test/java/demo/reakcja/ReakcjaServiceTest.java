@@ -67,7 +67,7 @@ class ReakcjaServiceTest {
         //
         UzytkownikTransData uzytkownikTransData = new UzytkownikTransData();
         uzytkownikTransData.setUzytkownikID(uzytkownik.getUzytkownikID());
-        when(uzytkownikService.toTransData(uzytkownik)).thenReturn(uzytkownikTransData);
+        when(uzytkownikService.toTransDataBezImieniaNazwiska(uzytkownik)).thenReturn(uzytkownikTransData);
 
         //
         ReakcjaTransData reakcjaTransData = reakcjaService.toTransData(reakcja);
@@ -95,7 +95,7 @@ class ReakcjaServiceTest {
         //
         UzytkownikTransData uzytkownikTransData = new UzytkownikTransData();
         uzytkownikTransData.setUzytkownikID(uzytkownik.getUzytkownikID());
-        when(uzytkownikService.toTransData(uzytkownik)).thenReturn(uzytkownikTransData);
+        when(uzytkownikService.toTransDataBezImieniaNazwiska(uzytkownik)).thenReturn(uzytkownikTransData);
 
         //
         ReakcjaTransData reakcjaTransData = reakcjaService.toTransData(reakcja);
@@ -135,8 +135,8 @@ class ReakcjaServiceTest {
         uzytkownikTransData2.setUzytkownikID(uzytkownik2.getUzytkownikID());
 
         // zachowanie mocka
-        when(uzytkownikService.toTransData(uzytkownik1)).thenReturn(uzytkownikTransData1);
-        when(uzytkownikService.toTransData(uzytkownik2)).thenReturn(uzytkownikTransData2);
+        when(uzytkownikService.toTransDataBezImieniaNazwiska(uzytkownik1)).thenReturn(uzytkownikTransData1);
+        when(uzytkownikService.toTransDataBezImieniaNazwiska(uzytkownik2)).thenReturn(uzytkownikTransData2);
 
         // testowana metoda
         List<ReakcjaTransData> reakcjeTransData = reakcjaService.toTransData(reakcje);

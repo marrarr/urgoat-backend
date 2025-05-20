@@ -78,13 +78,19 @@
       <!-- Imię -->
       <div class="form-group">
         <label for="imie">Imię</label>
-        <input type="text" id="imie" name="imie" class="form-control" required/>
+        <input type="text" id="imie" name="imie" class="form-control" th:value="${dane.getImie()}" required/>
       </div>
 
       <!-- Nazwisko -->
       <div class="form-group">
         <label for="nazwisko">Nazwisko</label>
-        <input type="text" id="nazwisko" name="nazwisko" class="form-control" required/>
+        <input type="text" id="nazwisko" name="nazwisko" class="form-control" th:value="${dane.getNazwisko()}" required/>
+      </div>
+
+      <!-- Pseudonim -->
+      <div class="form-group">
+        <label for="pseudonim">Pseudonim</label>
+        <input type="text" id="pseudonim" name="pseudonim" class="form-control" th:value="${dane.getPseudonim()}" required/>
       </div>
 
       <!-- Zdjęcie -->
@@ -97,6 +103,10 @@
         <button type="submit" class="btn btn-urgoat">Zapisz zmiany</button>
       </div>
     </form>
+
+    <div th:if="${status}" class="alert alert-danger mt-3" role="alert" th:text="${status}">
+    </div>
+
   </div>
 </div>
 

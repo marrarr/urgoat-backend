@@ -1,16 +1,13 @@
 package demo.post;
 
-import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzService;
 import demo.komentarz.KomentarzTransData;
-import demo.reakcja.Reakcja;
 import demo.reakcja.ReakcjaService;
 import demo.reakcja.ReakcjaTransData;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
 import demo.uzytkownik.UzytkownikService;
 import demo.uzytkownik.UzytkownikTransData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +36,7 @@ public class PostService {
         List<Post> posty = postRepository.findAll(Sort.by(Sort.Direction.DESC, "postID"));
         List<PostTransData> postyTransData = new ArrayList<>();
         for (Post post : posty) {
-            UzytkownikTransData uzytkownikTransData = uzytkownikService.toTransData(post.getUzytkownik());
+            UzytkownikTransData uzytkownikTransData = uzytkownikService.toTransDataBezImieniaNazwiska(post.getUzytkownik());
             List<KomentarzTransData> komentarzeTransData = komentarzService.toTransData(post.getKomentarze());
             List<ReakcjaTransData> reakcjeTransData = reakcjaService.toTransData(post.getReakcje());
 

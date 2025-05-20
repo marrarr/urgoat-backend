@@ -36,7 +36,7 @@ public class KomentarzService {
                 komentarz.getTresc(),
                 komentarz.getZdjecie(),
                 komentarz.getPost().getPostID(),
-                uzytkownikService.toTransData(komentarz.getUzytkownik()),
+                uzytkownikService.toTransDataBezImieniaNazwiska(komentarz.getUzytkownik()),
                 reakcjaService.toTransData(komentarz.getReakcje())
         );
     }

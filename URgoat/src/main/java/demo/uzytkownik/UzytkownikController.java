@@ -1,11 +1,6 @@
 package demo.uzytkownik;
 
-import demo.security.repository.UserRepository;
-import demo.security.service.UserService;
-import demo.znajomy.Znajomy;
-import demo.znajomy.ZnajomyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -58,7 +54,9 @@ public class UzytkownikController {
 
     @RequestMapping(value = "/edytuj_profil", method = RequestMethod.GET)
     public String edytujProfil(Model model) {
+        Uzytkownik uzytkownik = uzytkownikService.getZalogowanyUzytkownik();
         model.addAttribute("header", "Edycja formularz");
+        model.addAttribute("dane", uzytkownikService.toTransData(uzytkownik));
         return "form_edycja_profilu";
     }
 
@@ -66,14 +64,22 @@ public class UzytkownikController {
     public String zapiszEdycjeProfilu(Model model,
                                       @RequestParam("imie") String imie,
                                       @RequestParam("nazwisko") String nazwisko,
-                                      @RequestParam("zdjecie") MultipartFile zdjecie) {
-        Long id = (long) uzytkownikService.getZalogowanyUzytkownik().getUzytkownikID();
-        uzytkownikService.aktualizujDane(id, imie, nazwisko, zdjecie);
+                                      @RequestParam("pseudonim") String pseudonim,
+                                      @RequestParam("zdjecie") MultipartFile zdjecie
+    ) {
+        Uzytkownik zalogowanyUzytkownik = uzytkownikService.getZalogowanyUzytkownik();
+        Long id = (long) zalogowanyUzytkownik.getUzytkownikID();
+        try {
+            uzytkownikService.aktualizujDane(id, imie, nazwisko, pseudonim, zdjecie);
+        } catch (IOException | IllegalArgumentException e) {
+            model.addAttribute("header", "Edycja formularz");
+            model.addAttribute("dane", uzytkownikService.toTransData(zalogowanyUzytkownik));
+            model.addAttribute("status", e.getMessage());
 
-        Uzytkownik uzytkownik1 = uzytkownikService.getZalogowanyUzytkownik();
-        model.addAttribute("header", "Profil"); //Dodanie obiektu do pamieci lokalnej modelu
-        model.addAttribute("profilUzytkownika", uzytkownik1); //Dodanie obiektu do pamieci lokalnej modelu
-        return "wysprofiluzyt";
+            return "form_edycja_profilu";
+        }
+
+        return "redirect:/wyswietl_profil_aktualnego_uzytkownika";
     }
 
 

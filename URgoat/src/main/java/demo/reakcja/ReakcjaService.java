@@ -31,7 +31,7 @@ public class ReakcjaService {
     public ReakcjaTransData toTransData(Reakcja reakcja) {
         Integer postID = reakcja.getPost() != null ? reakcja.getPost().getPostID() : null;
         Integer komentarzID = reakcja.getKomentarz() != null ? reakcja.getKomentarz().getKomentarzID() : null;
-        UzytkownikTransData uzytkownikKomentarzTransData = uzytkownikService.toTransData(reakcja.getUzytkownik());
+        UzytkownikTransData uzytkownikKomentarzTransData = uzytkownikService.toTransDataBezImieniaNazwiska(reakcja.getUzytkownik());
 
         return new ReakcjaTransData(
                 postID,
