@@ -219,15 +219,15 @@
     <div class="container mt-5">
         <div class="card-urgoat">
             <h2 class="text-center mb-4">Twój profil </h2>
-            <article class="list-group-item" th:each="uzytkownik : ${profilUzytkownika}">
-                <p><img th:src="@{/${uzytkownik.zdjecie}}"/></p>
-                <p>Imie: <b th:text="${uzytkownik.imie}"></b></p>
-                <p>Nazwisko: <b th:text="${uzytkownik.nazwisko}"></b></p>
-                <p>Pseudonim: <b th:text="${uzytkownik.pseudonim}"></b></p>
-                <p>E-mail: <b th:text="${uzytkownik.email}"></b></p>
-
-
-            </article>
+            <th:block th:object="${profilUzytkownika}">
+                <p>
+                    <img th:src="@{/photo/{id}(id=*{uzytkownikID})}" class="profile-image"/>
+                </p>
+                <p>Imię: <b th:text="*{imie}"></b></p>
+                <p>Nazwisko: <b th:text="*{nazwisko}"></b></p>
+                <p>Pseudonim: <b th:text="*{pseudonim}"></b></p>
+                <p>E-mail: <b th:text="*{email}"></b></p>
+            </th:block>
             <div class="profile-buttons">
                 <div class="main-buttons">
 
