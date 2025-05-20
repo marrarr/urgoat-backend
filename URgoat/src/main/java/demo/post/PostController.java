@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PostController {
@@ -61,6 +63,16 @@ public class PostController {
         }
     }
 
+    @RequestMapping(value = "/usun_post", method = RequestMethod.DELETE)
+    public String usunPost(Model model, Long id) {
+        postService.usunPost(id);
+
+        model.addAttribute("header", "Wynik");
+        model.addAttribute("message","Post został usunięty");
+
+        return "viewmessage";
+    }
+
     @RequestMapping(value = "/wyswietl_posty", method = RequestMethod.GET)
     public String wyswietlPosty(Model model) {
         List<PostTransData> postyTransData = postService.getPosty();
@@ -80,4 +92,11 @@ public class PostController {
 
         return "wysposty";
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String przekierujNaStroneGlwona(Model model) {
+        return "redirect:/strona_glowna";
+    }
+
+
 }

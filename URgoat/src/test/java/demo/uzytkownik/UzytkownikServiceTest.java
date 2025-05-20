@@ -1,5 +1,6 @@
 package demo.uzytkownik;
 
+import demo.security.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -7,22 +8,25 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class UzytkownikServiceTest {
-    private UzytkownikService uzytkownikService;
     private UzytkownikRepository uzytkownikRepository;
+    private UserRepository userRepository;
+    private UzytkownikService uzytkownikService;
 
     @BeforeEach
     void setUp() {
         uzytkownikRepository = mock(UzytkownikRepository.class);
-        uzytkownikService = new UzytkownikService(uzytkownikRepository);
+        uzytkownikService = new UzytkownikService(uzytkownikRepository, userRepository);
     }
 
     @Test
-    void getZalogowanyUzytkownik() {
-        // Mockujemy SecurityContextHolder
+    void getZalogowanyUzytkownik_powinnoZwrocicZalogowanegoUzytkownika() {
+        // mock SecurityContextHolder
         Authentication auth = mock(Authentication.class);
         when(auth.getName()).thenReturn("janek");
 
@@ -32,52 +36,61 @@ class UzytkownikServiceTest {
         try (MockedStatic<SecurityContextHolder> mocked = mockStatic(SecurityContextHolder.class)) {
             mocked.when(SecurityContextHolder::getContext).thenReturn(securityContext);
 
-            // Mock repo
-            Uzytkownik fakeUser = new Uzytkownik();
-            fakeUser.setPseudonim("janek");
+            Uzytkownik uzytkownik = new Uzytkownik();
+            uzytkownik.setPseudonim("janek");
 
-            when(uzytkownikRepository.findFirstByPseudonim("janek")).thenReturn(fakeUser);
+            when(uzytkownikRepository.findFirstByPseudonim("janek")).thenReturn(uzytkownik);
 
             // Test
-            Uzytkownik result = uzytkownikService.getZalogowanyUzytkownik();
-            assertNotNull(result);
-            assertEquals("janek", result.getPseudonim());
+            Uzytkownik zalogowanyUzytkownik = uzytkownikService.getZalogowanyUzytkownik();
+            assertNotNull(zalogowanyUzytkownik);
+            assertEquals("janek", zalogowanyUzytkownik.getPseudonim());
         }
     }
 
     @Test
-    void toTransDataZdjecieNull() {
-        // given
+    void toTransData_powinnoPoprawnieZmappowac_ZdjecieNull() {
+        //
         Uzytkownik uzytkownik = new Uzytkownik();
         uzytkownik.setUzytkownikID(1);
         uzytkownik.setZdjecie(null);
         uzytkownik.setPseudonim("coolFox99");
 
-        // when
-        UzytkownikTransData result = uzytkownikService.toTransData(uzytkownik);
+        //
+        UzytkownikTransData result = uzytkownikService.toTransDataBezImieniaNazwiska(uzytkownik);
 
-        // then
+        //
         assertEquals(1, result.getUzytkownikID());
         assertNull(result.getZdjecie());
         assertEquals("coolFox99", result.getPseudonim());
     }
 
     @Test
-    void toTransDataZdjecie() {
-        // given
+    void toTransData_powinnoZmappowac_ZdjecieNieJestNull() {
+        //
         Uzytkownik uzytkownik = new Uzytkownik();
         uzytkownik.setUzytkownikID(1);
         uzytkownik.setZdjecie(new byte[]{1, 2, 3});
         uzytkownik.setPseudonim("coolFox99");
 
-        // when
-        UzytkownikTransData result = uzytkownikService.toTransData(uzytkownik);
+        //
+        UzytkownikTransData result = uzytkownikService.toTransDataBezImieniaNazwiska(uzytkownik);
 
-        // then
+        //
         assertEquals(1, result.getUzytkownikID());
         assertArrayEquals(new byte[]{1, 2, 3}, result.getZdjecie());
         assertEquals("coolFox99", result.getPseudonim());
     }
 
+    @Test
+    void aktualizujDate_powinnoRzucicWyjatek_gdyImieLubNazwiskoJestPuste() {
+        String imie = "     ";
+        String nazwisko = "";
 
+        when(uzytkownikRepository.findById(13L)).thenReturn(Optional.of(new Uzytkownik()));
+
+
+        assertThrows(IllegalArgumentException.class,
+                () -> uzytkownikService.aktualizujDane(13L, imie, nazwisko, null, null));
+    }
 }

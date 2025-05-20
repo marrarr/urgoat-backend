@@ -2,12 +2,14 @@ package demo.wiadomosc;
 
 import demo.czat.Czat;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "wiadomosc")
-
+@Getter
+@Setter
 public class Wiadomosc {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int wiadomoscID;
@@ -52,19 +54,4 @@ public class Wiadomosc {
         this.zdjecie = zdjecie;
         this.reakcja = reakcja;
     }
-
-
-    public Czat getCzatID(){return czat;}
-    public void setCzatID(Czat czatID){this.czat = czatID;}
-
-    public String getTresc(){return tresc;}
-    public void setTresc(String tresc){this.tresc = tresc;}
-
-    public byte[] getZdjecie() {return zdjecie;}
-    public void setZdjecie(byte[] zdjecie) {this.zdjecie = zdjecie;}
-
-    public int getReakcja(){return reakcja;}
-    public void setReakcja(int reakcja){this.reakcja = reakcja;}
-
-
 }

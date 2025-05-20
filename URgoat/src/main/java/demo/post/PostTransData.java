@@ -3,9 +3,13 @@ package demo.post;
 import demo.komentarz.KomentarzTransData;
 import demo.reakcja.ReakcjaTransData;
 import demo.uzytkownik.UzytkownikTransData;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class PostTransData {
     private int postId;
     private String tresc;
@@ -25,20 +29,4 @@ public class PostTransData {
         this.komentarze = komentarze;
         this.reakcje = reakcje;
     }
-
-    // Gettery i settery
-    public int getPostId() { return postId; }
-    public void setPostId(int postId) { this.postId = postId; }
-    public String getTresc() { return tresc; }
-    public void setTresc(String tresc) { this.tresc = tresc; }
-    public UzytkownikTransData getAutor() { return autor; }
-    public void setAutor(UzytkownikTransData autor) { this.autor = autor; }
-    public byte[] getZdjecie() { return zdjecie; }
-    public void setZdjecie(byte[] zdjecie) { this.zdjecie = zdjecie; }
-    public List<KomentarzTransData> getKomentarze() { return komentarze; }
-    public void setKomentarze(List<KomentarzTransData> komentarze) { this.komentarze = komentarze; }
-    public List<ReakcjaTransData> getReakcje() {
-        return reakcje;
-    }
-    public void setReakcje(List<ReakcjaTransData> reakcje) {}
 }

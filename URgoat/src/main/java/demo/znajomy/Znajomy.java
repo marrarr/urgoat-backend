@@ -2,19 +2,17 @@ package demo.znajomy;
 
 import demo.uzytkownik.Uzytkownik;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "znajomy")
-
+@Getter
+@Setter
 public class Znajomy {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int znajomyID;
-
-    //private int uzytkownikID;
-
-    //private int uzytkownik2ID;
 
     @ManyToOne
     @JoinColumn(name = "uzytkownikID")
@@ -30,15 +28,4 @@ public class Znajomy {
         this.uzytkownik = uzytkownik;
         this.uzytkownik2 = uzytkownik2;
     }
-
-    public int getZnajomyID(){return znajomyID;}
-    public void setZnajomyID(int znajomyID){this.znajomyID = znajomyID;}
-
-    public Uzytkownik getUzytkownikID(){return uzytkownik;}
-    public void setUzytkownikID(Uzytkownik uzytkownik){this.uzytkownik = uzytkownik;}
-
-    public Uzytkownik getUzytkownik2ID(){return uzytkownik2;}
-    public void setUzytkownik2ID(Uzytkownik uzytkownik2){this.uzytkownik2 = uzytkownik2;}
-
-
 }

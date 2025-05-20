@@ -4,12 +4,16 @@ import demo.post.Post;
 import demo.reakcja.Reakcja;
 import demo.uzytkownik.Uzytkownik;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 @Entity
 @Table(name = "komentarz")
+@Getter
+@Setter
 public class Komentarz {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int komentarzID;
@@ -19,6 +23,18 @@ public class Komentarz {
 
     @Lob
     private byte[] zdjecie;
+
+    @ManyToOne
+    @JoinColumn(name = "postID")
+    private Post post;
+
+    @ManyToOne
+    @JoinColumn(name = "uzytkownikID")
+    private Uzytkownik uzytkownik;
+
+    @OneToMany(mappedBy = "komentarz")
+    private List<Reakcja> reakcje;
+
 
     public Komentarz(){}
 
@@ -35,42 +51,4 @@ public class Komentarz {
         this.tresc = tresc;
         this.zdjecie = zdjecie;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "postID")
-    private Post post;
-
-    @ManyToOne
-    @JoinColumn(name = "uzytkownikID")
-    private Uzytkownik uzytkownik;
-
-    public List<Reakcja> getReakcje() {
-        return reakcje;
-    }
-
-    public void setReakcje(List<Reakcja> reakcje) {
-        this.reakcje = reakcje;
-    }
-
-    @OneToMany(mappedBy = "komentarz")
-    private List<Reakcja> reakcje;
-
-    public int getKomentarzID(){return komentarzID;}
-    public void setKomentarzID(int komentarzID){this.komentarzID = komentarzID;}
-
-    public Post getPostID(){return post;}
-    public void setPostID(Post postID){this.post = postID;}
-
-    public Uzytkownik getUzytkownikID(){return uzytkownik;}
-    public void setUzytkownikID(Uzytkownik uzytkownikID){this.uzytkownik = uzytkownikID;}
-
-    public String getTresc(){return tresc;}
-    public void setTresc(String tresc){this.tresc = tresc;}
-
-    public byte[] getZdjecie() {return zdjecie;}
-    public void setZdjecie(byte[] zdjecie) {this.zdjecie = zdjecie;}
-
-
-
-
 }
