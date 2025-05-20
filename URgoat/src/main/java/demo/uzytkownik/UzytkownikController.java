@@ -5,12 +5,12 @@ import demo.security.service.UserService;
 import demo.znajomy.Znajomy;
 import demo.znajomy.ZnajomyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -45,6 +45,20 @@ public class UzytkownikController {
         model.addAttribute("profilUzytkownika", uzytkownik1); //Dodanie obiektu do pamieci lokalnej modelu
 
         return "wysprofil";
+    }
+
+    @GetMapping("/photo/{id}")
+    public ResponseEntity<byte[]> getUserPhoto(@PathVariable int id) {
+        long long_id=id;
+        Uzytkownik u = uzytkownikRepository.findById(long_id).orElse(null);
+
+        if (u == null || u.getZdjecie() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG) // albo dynamicznie: MediaType.parseMediaType(u.getContentType())
+                .body(u.getZdjecie());
     }
 
     @RequestMapping("/wyswietl_profil_aktualnego_uzytkownika")
