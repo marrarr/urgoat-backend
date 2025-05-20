@@ -28,8 +28,6 @@ public class ZnajomyController{
     @RequestMapping(value = "/lista_znajomych", method = RequestMethod.GET)
     public String listaZnajomych(Model model)
     {
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
 
         List<Znajomy> znajomy = znajomyRepository.findAllByUser(uzytkownik_aktualny);

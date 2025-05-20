@@ -26,15 +26,15 @@
           <div class="avatar"></div>
           <div class="dane">
             <h1>
-              <b th:text="${znajomy.getUzytkownik2ID().getImie()}"></b>
-              <b th:text="${znajomy.getUzytkownik2ID().getNazwisko()}"></b>
+              <b th:text="${znajomy.getUzytkownik2().getImie()}"></b>
+              <b th:text="${znajomy.getUzytkownik2().getNazwisko()}"></b>
             </h1>
           </div>
         </div>
 
         <div class="reakcje">
-          <a th:href="@{/wyswietl_profil(uzytkownik=${znajomy.getUzytkownik2ID().getUzytkownikID()})}" class="button">Zobacz profil</a>
-          <a th:href="@{/czat(znajomy=${znajomy.getUzytkownik2ID().getUzytkownikID()})}" class="button">Czat</a>
+          <a th:href="@{/wyswietl_profil(uzytkownik=${znajomy.getUzytkownik().getUzytkownikID()})}" class="button">Zobacz profil</a>
+          <a th:href="@{/czat(znajomy=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Czat</a>
         </div>
       </article>
     </div>
