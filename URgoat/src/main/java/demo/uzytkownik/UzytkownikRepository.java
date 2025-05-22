@@ -29,4 +29,5 @@ public interface UzytkownikRepository extends JpaRepository<Uzytkownik, Long>{
 
     Optional<Uzytkownik> findByUserAccount_Username(String username);
 
+    Uzytkownik findByEmail(String email);
 }

@@ -6,6 +6,7 @@ import demo.reakcja.Reakcja;
 import demo.security.model.User;
 import demo.znajomy.Znajomy;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,7 @@ public class Uzytkownik {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uzytkownikID;
 
-    private int czatID;
+    //private int czatID;
 
     @Column(length = 64)
     private String imie;
@@ -89,7 +90,8 @@ public class Uzytkownik {
         this.permisje = permisje;
     }
 
-    //konstruktor użytkownika bez zdjęcia
+
+ /*   //konstruktor użytkownika bez zdjęcia
     public Uzytkownik(int czatID, String imie, String nazwisko, String pseudonim, String email, int permisje){
         this.czatID = czatID;
         this.imie = imie;
@@ -98,8 +100,8 @@ public class Uzytkownik {
         this.email = email;
         this.permisje = permisje;
     }
-
-    //konstruktor pełny
+*/
+ /*   //konstruktor pełny
     public Uzytkownik(int czatID,String imie, String nazwisko, byte[] zdjecie, String pseudonim, String email, int permisje){
         this.czatID = czatID;
         this.imie = imie;
@@ -108,5 +110,15 @@ public class Uzytkownik {
         this.pseudonim = pseudonim;
         this.email = email;
         this.permisje = permisje;
-    }
+    }*/
+
+        public Uzytkownik(User user, String email, String pseudonim, String imie, String nazwisko, byte[] zdjecie, int permisje) {
+            userAccount = user;
+            this.email = email;
+            this.pseudonim = pseudonim;
+            this.imie = imie;
+            this.nazwisko = nazwisko;
+            this.zdjecie = zdjecie;
+            this.permisje = permisje;
+        }
 }
