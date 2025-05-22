@@ -1,6 +1,7 @@
 package demo.uzytkownik;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,5 +26,7 @@ public interface UzytkownikRepository extends JpaRepository<Uzytkownik, Long>{
 
     @Query("SELECT u FROM Uzytkownik u WHERE u.uzytkownikID <> :id")
     List<Uzytkownik> findAllExceptById(@Param("id") int id);
+
+    Optional<Uzytkownik> findByUserAccount_Username(String username);
 
 }

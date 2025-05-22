@@ -81,12 +81,13 @@ public class UzytkownikController {
     public String zapiszEdycjeProfilu(Model model,
                                       @RequestParam("imie") String imie,
                                       @RequestParam("nazwisko") String nazwisko,
+                                      @RequestParam("pseudonim") String pseudonim,
                                       @RequestParam("zdjecie") MultipartFile zdjecie
     ) {
         Uzytkownik zalogowanyUzytkownik = uzytkownikService.getZalogowanyUzytkownik();
         Long id = (long) zalogowanyUzytkownik.getUzytkownikID();
         try {
-            uzytkownikService.aktualizujDane(id, imie, nazwisko,zdjecie);
+            uzytkownikService.aktualizujDane(id, imie, nazwisko, pseudonim, zdjecie);
         } catch (IOException | IllegalArgumentException e) {
             model.addAttribute("header", "Edycja formularz");
             model.addAttribute("dane", uzytkownikService.toTransData(zalogowanyUzytkownik));
