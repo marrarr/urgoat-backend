@@ -1,4 +1,4 @@
-package demo.security;
+package demo.common;
 
 import demo.security.model.User;
 import demo.security.repository.UserRepository;
@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(1)
+@Order(2)
 public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
@@ -80,6 +80,18 @@ public class DataInitializer implements CommandLineRunner {
             System.out.println("Konto ostyga pomyslnie utworzone!");
         } else {
             System.out.println("Konto ostyga juz istnieje!");
+        }
+        if (userRepository.findByUsername("mega").isEmpty()) {
+            User ostyga = new User();
+            ostyga.setUsername("mega");
+            ostyga.setEmail("megamocny@gmail.com");
+            ostyga.setPassword(passwordEncoder.encode("123"));
+            ostyga.setRole("ROLE_USER");
+            ostyga.setVerified(true);
+            userRepository.save(ostyga);
+            System.out.println("Konto mega pomyslnie utworzone!");
+        } else {
+            System.out.println("Konto mega juz istnieje!");
         }
     }
 }
