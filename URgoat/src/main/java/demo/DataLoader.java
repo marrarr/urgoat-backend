@@ -10,6 +10,7 @@ import demo.reakcja.ReakcjaRepository;
 import demo.security.model.User;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
+import demo.uzytkownik.UzytkownikService;
 import demo.wiadomosc.Wiadomosc;
 import demo.wiadomosc.WiadomoscRepository;
 import demo.znajomy.Znajomy;
@@ -19,9 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,6 +43,7 @@ public class DataLoader implements ApplicationRunner{
     private WiadomoscRepository wiadomoscRepository;
     private ZnajomyRepository znajomyRepository;
     private UserRepository userRepository;
+    private final UzytkownikService uzytkownikService;
 
     @Autowired
     public DataLoader(UzytkownikRepository uzytkownikRepository,
@@ -48,7 +53,7 @@ public class DataLoader implements ApplicationRunner{
                       ReakcjaRepository reakcjaRepository,
                       WiadomoscRepository wiadomoscRepository,
                       ZnajomyRepository znajomyRepository,
-                      UserRepository userRepository) {
+                      UserRepository userRepository, UzytkownikService uzytkownikService) {
         this.uzytkownikRepository = uzytkownikRepository;
         this.czatRepository = czatRepository;
         this.komentarzRepository = komentarzRepository;
@@ -57,6 +62,7 @@ public class DataLoader implements ApplicationRunner{
         this.wiadomoscRepository = wiadomoscRepository;
         this.znajomyRepository = znajomyRepository;
         this.userRepository = userRepository;
+        this.uzytkownikService = uzytkownikService;
     }
 
     public void run(ApplicationArguments args) {
@@ -66,33 +72,69 @@ public class DataLoader implements ApplicationRunner{
         if (uzytkownikRepository.count() == 0) //Przykladowe dane dodajemy tylko jak tabela jest pusta
         {
             System.out.println("=== WYKONUJE SIĘ DataLoader ===");
-            //użytkownicy
-            Uzytkownik user1 = new Uzytkownik("Adam","Nawrocki","Ados","adamnawrocki@gmail.com",1);
-            Uzytkownik user2 = new Uzytkownik("Natalia","Kowalska","Natik","natkowalska@gmail.com",1);
-            Uzytkownik user3 = new Uzytkownik("Bartosz","Krawczyk","baczyk","bartoszkrawczyk@gmail.com",1);
-            Uzytkownik user4 = new Uzytkownik("Damian","Ostry","ostyga","damianostry@gmail.com",1);
-            Path sciezkaDoPliku1 = Paths.get("src/main/resources/static/img/avatary_uzytkownikow/avatar4.png"); // ← lub dowolna ścieżka
-            Path sciezkaDoPliku2 = Paths.get("src/main/resources/static/img/avatary_uzytkownikow/avatar3.png"); // ← lub dowolna ścieżka
-            Path sciezkaDoPliku3 = Paths.get("src/main/resources/static/img/avatary_uzytkownikow/avatar2.png"); // ← lub dowolna ścieżka
-            Path sciezkaDoPliku4 = Paths.get("src/main/resources/static/img/avatary_uzytkownikow/avatar1.png"); // ← lub dowolna ścieżka
+            //sigma boys
+            ClassPathResource zdjecie = new ClassPathResource("static/avatary_uzytkownikow/avatar4.png");
+            byte[] zdjecieBajty;
             try {
-                byte[] obrazJakoBajty1 = Files.readAllBytes(sciezkaDoPliku1);
-                byte[] obrazJakoBajty2 = Files.readAllBytes(sciezkaDoPliku2);
-                byte[] obrazJakoBajty3 = Files.readAllBytes(sciezkaDoPliku3);
-                byte[] obrazJakoBajty4 = Files.readAllBytes(sciezkaDoPliku4);
-                user1.setZdjecie(obrazJakoBajty1);
-                user2.setZdjecie(obrazJakoBajty2);
-                user3.setZdjecie(obrazJakoBajty3);
-                user4.setZdjecie(obrazJakoBajty4);
+                zdjecieBajty = zdjecie.getInputStream().readAllBytes();
 
+                uzytkownikService.dodajUzytkownika(
+                        "adamnawrocki@gmail.com",
+                        "Adam",
+                        "Nawrocki",
+                        zdjecieBajty
+                );
             } catch (IOException e) {
-                e.printStackTrace(); // lub zaloguj błąd
+                throw new RuntimeException(e);
             }
 
-            uzytkownikRepository.save(user1);
-            uzytkownikRepository.save(user2);
-            uzytkownikRepository.save(user3);
-            uzytkownikRepository.save(user4);
+            zdjecie = new ClassPathResource("static/avatary_uzytkownikow/avatar3.png");
+            try {
+                zdjecieBajty = zdjecie.getInputStream().readAllBytes();
+
+                uzytkownikService.dodajUzytkownika(
+                        "natkowalska@gmail.com",
+                        "Natalia",
+                        "Kowalska",
+                        zdjecieBajty
+                );
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            zdjecie = new ClassPathResource("static/avatary_uzytkownikow/avatar2.png");
+            try {
+                zdjecieBajty = zdjecie.getInputStream().readAllBytes();
+
+                uzytkownikService.dodajUzytkownika(
+                        "bartoszkrawczyk@gmail.com",
+                        "Bartosz",
+                        "Krawczyk",
+                        zdjecieBajty
+                );
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            zdjecie = new ClassPathResource("static/avatary_uzytkownikow/avatar1.png");
+            try {
+                zdjecieBajty = zdjecie.getInputStream().readAllBytes();
+
+                uzytkownikService.dodajUzytkownika(
+                        "damianostry@gmail.com",
+                        "Damian",
+                        "Ostry",
+                        zdjecieBajty
+                );
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+            Uzytkownik user1 = uzytkownikRepository.findByEmail("adamnawrocki@gmail.com");
+            Uzytkownik user2 = uzytkownikRepository.findByEmail("natkowalska@gmail.com");
+            Uzytkownik user3 = uzytkownikRepository.findByEmail("bartoszkrawczyk@gmail.com");
+            Uzytkownik user4 = uzytkownikRepository.findByEmail("damianostry@gmail.com");
 
             //znajomi
             Znajomy znajomy1 = new Znajomy(user1, user2);

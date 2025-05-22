@@ -42,14 +42,34 @@ public class UzytkownikService {
         );
     }
 
-    public void dodajUzytkownika(String email, String imie, String nazwisko, byte[] zdjecie) {
+    public void dodajUzytkownika(String email, String imie, String nazwisko, byte[] zdjecie) throws IOException {
         User user = userRepository.findByEmail(email).orElseThrow();
-        // Tworzenie nowego użytkownika
-        Uzytkownik uzytkownik = new Uzytkownik(imie, nazwisko, zdjecie, null, null, 0);
-        uzytkownik.setPseudonim(user.getUsername());
-        uzytkownik.setEmail(user.getEmail());
 
-        // Zapis do bazy danych
+        if (imie == null || imie.isBlank()) {
+            throw new IllegalArgumentException("Imię nie może być puste.");
+        }
+
+        if (nazwisko == null || nazwisko.isBlank()) {
+            throw new IllegalArgumentException("Nazwisko nie może być puste.");
+        }
+
+        if (zdjecie == null || zdjecie.length == 0) {
+            // TODO basic zdjecie
+            throw new IllegalArgumentException("Zdjęcie nie może być puste.");
+        }
+
+        Uzytkownik uzytkownik = new Uzytkownik(
+                user,
+                user.getEmail(),
+                user.getUsername(),
+                imie,
+                nazwisko,
+                zdjecie,
+                1
+        );
+
+        uzytkownik.setUserAccount(user);
+
         uzytkownikRepository.save(uzytkownik);
     }
 
