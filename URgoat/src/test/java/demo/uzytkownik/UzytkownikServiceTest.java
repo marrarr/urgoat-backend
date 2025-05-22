@@ -39,7 +39,7 @@ class UzytkownikServiceTest {
             Uzytkownik uzytkownik = new Uzytkownik();
             uzytkownik.setPseudonim("janek");
 
-            when(uzytkownikRepository.findFirstByPseudonim("janek")).thenReturn(uzytkownik);
+            when(uzytkownikRepository.findByUserAccount_Username("janek")).thenReturn(Optional.of(uzytkownik));
 
             // Test
             Uzytkownik zalogowanyUzytkownik = uzytkownikService.getZalogowanyUzytkownik();
@@ -91,6 +91,6 @@ class UzytkownikServiceTest {
 
 
         assertThrows(IllegalArgumentException.class,
-                () -> uzytkownikService.aktualizujDane(13L, imie, nazwisko,  null));
+                () -> uzytkownikService.aktualizujDane(13L, imie, nazwisko, null, null));
     }
 }

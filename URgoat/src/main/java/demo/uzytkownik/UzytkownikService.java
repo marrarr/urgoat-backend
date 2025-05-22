@@ -21,7 +21,7 @@ public class UzytkownikService {
 
     public Uzytkownik getZalogowanyUzytkownik() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return uzytkownikRepository.findFirstByPseudonim(username);
+        return uzytkownikRepository.findByUserAccount_Username(username).orElseThrow();
     }
 
     public UzytkownikTransData toTransDataBezImieniaNazwiska(Uzytkownik uzytkownik) {
@@ -53,7 +53,7 @@ public class UzytkownikService {
         uzytkownikRepository.save(uzytkownik);
     }
 
-    public void aktualizujDane(Long uzytkownikID, String imie, String nazwisko, MultipartFile zdjecie) throws IOException {
+    public void aktualizujDane(Long uzytkownikID, String imie, String nazwisko, String pseudonim, MultipartFile zdjecie) throws IOException {
         Uzytkownik uzytkownik = uzytkownikRepository.findById(uzytkownikID).orElseThrow();
 
         if (imie == null || imie.isBlank()) {
@@ -64,6 +64,12 @@ public class UzytkownikService {
 
         if (nazwisko == null || nazwisko.isBlank()) {
             throw new IllegalArgumentException("Nazwisko nie może być puste.");
+        } else {
+            uzytkownik.setNazwisko(nazwisko);
+        }
+
+        if (pseudonim == null || pseudonim.isBlank()) {
+            throw new IllegalArgumentException("Pseudonim nie może być pusty.");
         } else {
             uzytkownik.setNazwisko(nazwisko);
         }
