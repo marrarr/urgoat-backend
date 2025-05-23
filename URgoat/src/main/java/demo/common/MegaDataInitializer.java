@@ -91,6 +91,7 @@ public class MegaDataInitializer implements CommandLineRunner {
             //
             List<Uzytkownik> wszyscyUzytkownicy = uzytkownikRepository.findAll();
 
+            // znajomi
             for (Uzytkownik uzytkownik : wszyscyUzytkownicy) {
                 // losujemy ile znajomych ma mieć
                 int liczbaZnajomych = faker.number().numberBetween(0, 10);
@@ -110,6 +111,7 @@ public class MegaDataInitializer implements CommandLineRunner {
                 }
             }
 
+            // posty i komentarze
             for (Uzytkownik uzytkownik : wszyscyUzytkownicy) {
                 int liczbaPostow = faker.number().numberBetween(0, 6);
                 for (int i = 0; i < liczbaPostow; i++) {
@@ -130,6 +132,7 @@ public class MegaDataInitializer implements CommandLineRunner {
                 }
             }
 
+            // czaty i wiadomości
             for (int i = 0; i < 100; i++) { // stwórzmy 100 czatów
                 Uzytkownik u1 = wszyscyUzytkownicy.get(faker.number().numberBetween(0, wszyscyUzytkownicy.size()));
                 Uzytkownik u2;
@@ -147,6 +150,11 @@ public class MegaDataInitializer implements CommandLineRunner {
                     wiadomoscRepository.save(wiadomosc);
                 }
             }
+
+            //TODO
+            // reakcje
+
+            // grupy
         }
     }
 }
