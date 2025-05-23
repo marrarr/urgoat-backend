@@ -1,4 +1,5 @@
 package demo.common;
+
 import demo.czat.Czat;
 import demo.czat.CzatRepository;
 import demo.komentarz.Komentarz;
@@ -17,34 +18,31 @@ import demo.znajomy.Znajomy;
 import demo.znajomy.ZnajomyRepository;
 import demo.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@Order(3)
-public class DataLoader implements ApplicationRunner{
 
-    private UzytkownikRepository uzytkownikRepository;
-    private CzatRepository czatRepository;
-    private KomentarzRepository komentarzRepository;
-    private PostRepository postRepository ;
-    private ReakcjaRepository reakcjaRepository;
-    private WiadomoscRepository wiadomoscRepository;
-    private ZnajomyRepository znajomyRepository;
-    private UserRepository userRepository;
+@Component
+@Order(2)
+public class DataLoader implements CommandLineRunner {
+
+    private final UzytkownikRepository uzytkownikRepository;
+    private final CzatRepository czatRepository;
+    private final KomentarzRepository komentarzRepository;
+    private final PostRepository postRepository;
+    private final ReakcjaRepository reakcjaRepository;
+    private final WiadomoscRepository wiadomoscRepository;
+    private final ZnajomyRepository znajomyRepository;
     private final UzytkownikService uzytkownikService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public DataLoader(UzytkownikRepository uzytkownikRepository,
@@ -54,7 +52,7 @@ public class DataLoader implements ApplicationRunner{
                       ReakcjaRepository reakcjaRepository,
                       WiadomoscRepository wiadomoscRepository,
                       ZnajomyRepository znajomyRepository,
-                      UserRepository userRepository, UzytkownikService uzytkownikService) {
+                      UserRepository userRepository, UzytkownikService uzytkownikService, PasswordEncoder passwordEncoder) {
         this.uzytkownikRepository = uzytkownikRepository;
         this.czatRepository = czatRepository;
         this.komentarzRepository = komentarzRepository;
@@ -64,15 +62,65 @@ public class DataLoader implements ApplicationRunner{
         this.znajomyRepository = znajomyRepository;
         this.userRepository = userRepository;
         this.uzytkownikService = uzytkownikService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public void run(ApplicationArguments args) {
+    @Override
+    public void run(String... args) {
 
         System.out.println("=== WYKONUJE SIĘ DataLoader ===");
 
-        if (uzytkownikRepository.count() == 0) //Przykladowe dane dodajemy tylko jak tabela jest pusta
-        {
-            System.out.println("=== WYKONUJE SIĘ DataLoader ===");
+        // Jeśli admina nie ma w bazie to załaduj te dane
+        if (userRepository.findByUsername("admin").isEmpty()) {
+
+            User admin = new User();
+            admin.setUsername("admin");
+            admin.setEmail("admin@example.com");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setRole("ROLE_ADMIN");
+            admin.setVerified(true);
+            userRepository.save(admin);
+
+            User Ados = new User();
+            Ados.setUsername("Ados");
+            Ados.setEmail("adamnawrocki@gmail.com");
+            Ados.setPassword(passwordEncoder.encode("ados123"));
+            Ados.setRole("ROLE_USER");
+            Ados.setVerified(true);
+            userRepository.save(Ados);
+
+            User Natik = new User();
+            Natik.setUsername("Natik");
+            Natik.setEmail("natkowalska@gmail.com");
+            Natik.setPassword(passwordEncoder.encode("natik123"));
+            Natik.setRole("ROLE_USER");
+            Natik.setVerified(true);
+            userRepository.save(Natik);
+
+            User baczyk = new User();
+            baczyk.setUsername("baczyk");
+            baczyk.setEmail("bartoszkrawczyk@gmail.com");
+            baczyk.setPassword(passwordEncoder.encode("bacz123"));
+            baczyk.setRole("ROLE_USER");
+            baczyk.setVerified(true);
+            userRepository.save(baczyk);
+
+            User ostyga = new User();
+            ostyga.setUsername("ostyga");
+            ostyga.setEmail("damianostry@gmail.com");
+            ostyga.setPassword(passwordEncoder.encode("dami123"));
+            ostyga.setRole("ROLE_USER");
+            ostyga.setVerified(true);
+            userRepository.save(ostyga);
+
+            User mega = new User();
+            mega.setUsername("mega");
+            mega.setEmail("megamocny@gmail.com");
+            mega.setPassword(passwordEncoder.encode("123"));
+            mega.setRole("ROLE_USER");
+            mega.setVerified(true);
+            userRepository.save(mega);
+
             //sigma boys
             ClassPathResource zdjecie = new ClassPathResource("static/avatary_uzytkownikow/avatar4.png");
             byte[] zdjecieBajty;
@@ -153,10 +201,14 @@ public class DataLoader implements ApplicationRunner{
             Uzytkownik user5 = uzytkownikRepository.findByEmail("megamocny@gmail.com");
 
             //znajomi
-            Znajomy znajomy1 = new Znajomy(user1, user2); Znajomy znajomy2 = new Znajomy(user2, user1);
-            Znajomy znajomy3 = new Znajomy(user1, user5); Znajomy znajomy4 = new Znajomy(user5, user1);
-            Znajomy znajomy5 = new Znajomy(user5, user3); Znajomy znajomy6 = new Znajomy(user3, user5);
-            Znajomy znajomy7 = new Znajomy(user5, user2); Znajomy znajomy8 = new Znajomy(user2, user5);
+            Znajomy znajomy1 = new Znajomy(user1, user2);
+            Znajomy znajomy2 = new Znajomy(user2, user1);
+            Znajomy znajomy3 = new Znajomy(user1, user5);
+            Znajomy znajomy4 = new Znajomy(user5, user1);
+            Znajomy znajomy5 = new Znajomy(user5, user3);
+            Znajomy znajomy6 = new Znajomy(user3, user5);
+            Znajomy znajomy7 = new Znajomy(user5, user2);
+            Znajomy znajomy8 = new Znajomy(user2, user5);
 
             znajomyRepository.save(znajomy1);
             znajomyRepository.save(znajomy2);
@@ -181,12 +233,12 @@ public class DataLoader implements ApplicationRunner{
 
             //Posty
             List<Post> posty = new ArrayList<>();
-            posty.add(new Post(user1,"UwU neko nyaa~~"));
-            posty.add(new Post(user3,"Drugi post testowy!"));
-            posty.add(new Post(user3,"nie ma takiego dowodu!! jest nagroda pol miliona eurogabek dla czlowieka ktory wskaze CIEŃ dowodu...!!!"));
-            posty.add(new Post(user5,"wbijam na bombsite a na na nanana na"));
-            posty.add(new Post(user2,"https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
-            posty.add(new Post(user4,"lbjgljlsja"));
+            posty.add(new Post(user1, "UwU neko nyaa~~"));
+            posty.add(new Post(user3, "Drugi post testowy!"));
+            posty.add(new Post(user3, "nie ma takiego dowodu!! jest nagroda pol miliona eurogabek dla czlowieka ktory wskaze CIEŃ dowodu...!!!"));
+            posty.add(new Post(user5, "wbijam na bombsite a na na nanana na"));
+            posty.add(new Post(user2, "https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+            posty.add(new Post(user4, "lbjgljlsja"));
 
             postRepository.saveAll(posty);
 
