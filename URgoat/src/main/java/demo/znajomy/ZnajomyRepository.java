@@ -23,4 +23,5 @@ public interface ZnajomyRepository extends JpaRepository<Znajomy, Long>{
     int sprawdz_znajomych(@Param("user") Uzytkownik user,@Param("user2") Uzytkownik user2);
 
 
+    boolean existsByUzytkownikAndUzytkownik2(Uzytkownik uzytkownik, Uzytkownik uzytkownik2);
 }

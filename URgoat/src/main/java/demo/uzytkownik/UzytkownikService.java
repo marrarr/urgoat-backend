@@ -3,6 +3,7 @@ package demo.uzytkownik;
 import demo.security.model.User;
 import demo.security.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +22,8 @@ public class UzytkownikService {
 
     public Uzytkownik getZalogowanyUzytkownik() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return uzytkownikRepository.findByUserAccount_Username(username).orElseThrow();
+        return uzytkownikRepository.findByUserAccount_Username(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika o loginie: " + username));
     }
 
     public UzytkownikTransData toTransDataBezImieniaNazwiska(Uzytkownik uzytkownik) {
