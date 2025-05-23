@@ -8,6 +8,7 @@ import demo.komentarz.KomentarzRepository;
 import demo.post.Post;
 import demo.post.PostRepository;
 import demo.reakcja.ReakcjaRepository;
+import demo.reakcja.ReakcjaService;
 import demo.security.model.User;
 import demo.security.repository.UserRepository;
 import demo.uzytkownik.Uzytkownik;
@@ -25,7 +26,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @Order(1)
@@ -43,8 +46,9 @@ public class MegaDataInitializer implements CommandLineRunner {
     private final WiadomoscRepository wiadomoscRepository;
     private final ZnajomyRepository znajomyRepository;
     private final UzytkownikService uzytkownikService;
+    private final ReakcjaService reakcjaService;
 
-    public MegaDataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, UzytkownikRepository uzytkownikRepository, CzatRepository czatRepository, KomentarzRepository komentarzRepository, PostRepository postRepository, ReakcjaRepository reakcjaRepository, WiadomoscRepository wiadomoscRepository, ZnajomyRepository znajomyRepository, UzytkownikService uzytkownikService) {
+    public MegaDataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, UzytkownikRepository uzytkownikRepository, CzatRepository czatRepository, KomentarzRepository komentarzRepository, PostRepository postRepository, ReakcjaRepository reakcjaRepository, WiadomoscRepository wiadomoscRepository, ZnajomyRepository znajomyRepository, UzytkownikService uzytkownikService, ReakcjaService reakcjaService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.uzytkownikRepository = uzytkownikRepository;
@@ -55,6 +59,7 @@ public class MegaDataInitializer implements CommandLineRunner {
         this.wiadomoscRepository = wiadomoscRepository;
         this.znajomyRepository = znajomyRepository;
         this.uzytkownikService = uzytkownikService;
+        this.reakcjaService = reakcjaService;
     }
 
     @Override
@@ -113,7 +118,19 @@ public class MegaDataInitializer implements CommandLineRunner {
 
             // posty i komentarze
             for (Uzytkownik uzytkownik : wszyscyUzytkownicy) {
-                int liczbaPostow = faker.number().numberBetween(0, 6);
+                double los = Math.random(); // 0.0 do 1.0
+                int iloscPostow;
+
+                if (los < 0.5) {
+                    iloscPostow = faker.number().numberBetween(0, 2); // 50% przypadków
+                } else if (los < 0.85) {
+                    iloscPostow = faker.number().numberBetween(3, 6); // 35% przypadków
+                } else {
+                    iloscPostow = faker.number().numberBetween(7, 13); // 15% przypadków
+                }
+
+                int liczbaPostow = iloscPostow;
+
                 for (int i = 0; i < liczbaPostow; i++) {
                     String trescPostu = faker.lorem().sentence();
 
@@ -129,6 +146,48 @@ public class MegaDataInitializer implements CommandLineRunner {
                         Komentarz komentarz = new Komentarz(post, komentujacy, trescKomentarza);
                         komentarzRepository.save(komentarz);
                     }
+                }
+
+                // Ograniczenie ilości
+                if (postRepository.count() > 300) {
+                    break;
+                }
+            }
+
+            // reakcje
+            List<Post> wszystkiePosty = postRepository.findAll();
+            for (Post post : wszystkiePosty) {
+                //TODO osobna metoda
+                double los = Math.random(); // 0.0 do 1.0
+                int iloscReakcji;
+
+                if (los < 0.45) {
+                    iloscReakcji = faker.number().numberBetween(0, 20); // 45% przypadków
+                } else if (los < 0.75) {
+                    iloscReakcji = faker.number().numberBetween(20, 50); // 30% przypadków
+                } else if (los < 0.97) {
+                    iloscReakcji = faker.number().numberBetween(50, 100); // 22% przypadków
+                } else {
+                    iloscReakcji = faker.number().numberBetween(100, 200); // 3% przypadków
+                }
+                //
+
+                Set<Uzytkownik> juzReagowali = new HashSet<>();
+                for (int i = 0; i < iloscReakcji; i++) {
+                    Uzytkownik reagujacy = wszyscyUzytkownicy.get(faker.number().numberBetween(0, wszyscyUzytkownicy.size()));
+                    if (reagujacy.equals(post.getUzytkownik()) || juzReagowali.contains(reagujacy)) {
+                        i--;
+                        continue;
+                    } else {
+                        juzReagowali.add(reagujacy);
+                    }
+
+                    reakcjaService.dodajReakcje(
+                            reagujacy.getUzytkownikID(),
+                            (long) post.getPostID(),
+                            null,
+                            faker.number().numberBetween(1, 4)
+                    );
                 }
             }
 
@@ -152,9 +211,18 @@ public class MegaDataInitializer implements CommandLineRunner {
             }
 
             //TODO
-            // reakcje
-
             // grupy
+
+
+
+
+            System.out.println("=====================================");
+            System.out.println("=====================================");
+            System.out.println("=====================================");
+            System.out.println("      >> KONIEC WCZYTYWANIA <<");
+            System.out.println("=====================================");
+            System.out.println("=====================================");
+            System.out.println("=====================================");
         }
     }
 }
