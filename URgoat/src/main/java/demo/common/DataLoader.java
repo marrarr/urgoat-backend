@@ -129,7 +129,7 @@ public class DataLoader implements CommandLineRunner {
 
                 uzytkownikService.dodajUzytkownika(
                         "adamnawrocki@gmail.com",
-                        "Miłosz",
+                        "Adam",
                         "Nawrocki",
                         zdjecieBajty
                 );
@@ -143,7 +143,7 @@ public class DataLoader implements CommandLineRunner {
 
                 uzytkownikService.dodajUzytkownika(
                         "natkowalska@gmail.com",
-                        "Wiktor",
+                        "Natalia",
                         "Kowalska",
                         zdjecieBajty
                 );
@@ -157,7 +157,7 @@ public class DataLoader implements CommandLineRunner {
 
                 uzytkownikService.dodajUzytkownika(
                         "bartoszkrawczyk@gmail.com",
-                        "Radek",
+                        "Bartosz",
                         "Krawczyk",
                         zdjecieBajty
                 );
@@ -171,7 +171,7 @@ public class DataLoader implements CommandLineRunner {
 
                 uzytkownikService.dodajUzytkownika(
                         "damianostry@gmail.com",
-                        "Seba",
+                        "Damian",
                         "Ostry",
                         zdjecieBajty
                 );
@@ -179,14 +179,14 @@ public class DataLoader implements CommandLineRunner {
                 throw new RuntimeException(e);
             }
 
-            zdjecie = new ClassPathResource("static/avatary_uzytkownikow/avatar2.png");
+            zdjecie = new ClassPathResource("static/avatary_uzytkownikow/avatar5.jpg");
             try {
                 zdjecieBajty = zdjecie.getInputStream().readAllBytes();
 
                 uzytkownikService.dodajUzytkownika(
                         "megamocny@gmail.com",
-                        "Marek",
-                        "Piorun",
+                        "Gro",
+                        "Goroth",
                         zdjecieBajty
                 );
             } catch (IOException e) {
