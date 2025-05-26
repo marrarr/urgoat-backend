@@ -59,4 +59,25 @@ public class Wiadomosc {
         this.zdjecie = zdjecie;
         this.reakcja = reakcja;
     }
+
+    public Wiadomosc(Czat czat, String tresc, Uzytkownik uzytkownik) {
+        this.czat = czat;
+        this.tresc = tresc;
+        this.uzytkownik = uzytkownik;
+    }
+
+    public Wiadomosc(Czat czat, String tresc, byte[] zdjecie, Uzytkownik uzytkownik) {
+        this.czat = czat;
+        this.tresc = tresc;
+        this.zdjecie = zdjecie;
+        this.uzytkownik = uzytkownik;
+    }
+
+    public Wiadomosc(Czat czat, String tresc, byte[] zdjecie, int reakcja, Uzytkownik uzytkownik) {
+        this.czat = czat;
+        this.tresc = tresc;
+        this.zdjecie = zdjecie;
+        this.reakcja = reakcja;
+        this.uzytkownik = uzytkownik;
+    }
 }

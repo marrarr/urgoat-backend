@@ -4,59 +4,130 @@
   <title>Czat</title>
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+  <style>
+    #czat-box {
+      height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .wiadomosc {
+      margin-bottom: 10px;
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+    }
+    .zdjecie-msg {
+      max-width: 200px;
+      max-height: 200px;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
 <h2>Czat z <span th:text="${znajomy}"></span></h2>
-<div id="czat-box"></div>
+<div id="czat-box">
+  <!-- Existing messages -->
+  <div th:each="msg : ${wiadomosci}" class="wiadomosc">
+    <b th:text="${msg.nadawcaDisplayName} ?: 'Unknown'"></b>:
+    <span th:text="${msg.tresc}"></span>
+    <img th:if="${msg.zdjecie != null}"
+         class="zdjecie-msg"
+         th:src="'data:image/jpeg;base64,' + ${msg.zdjecie}" />
+  </div>
+</div>
 
 <form id="form">
-  <input type="text" id="wiadomosc" placeholder="Wpisz wiadomość" required/>
-  <input type="file" id="zdjecie"/>
+  <input type="text" id="wiadomosc" placeholder="Wpisz wiadomość"/>
+  <input type="file" id="zdjecie" accept="image/*"/>
   <button type="submit">Wyślij</button>
 </form>
 
 <script th:inline="javascript">
-  let czatId = [[${czatId}]];
-  let nadawcaEmail = [[${nadawcaEmail}]];
+  const czatId = [[${czatId}]];
+  const currentUserEmail = [[${currentUserEmail}]];
 
-  let socket = new SockJS('/ws');
-  let stompClient = Stomp.over(socket);
+  // WebSocket connection
+  const socket = new SockJS('/ws');
+  const stompClient = Stomp.over(socket);
 
-  stompClient.connect({}, function () {
-    stompClient.subscribe('/topic/czat/' + czatId, function (response) {
-      let wiadomosc = JSON.parse(response.body);
-      let div = document.createElement('div');
-      div.innerHTML = "<b>" + wiadomosc.nadawcaEmail + ":</b> " + wiadomosc.tresc;
-      document.getElementById("czat-box").appendChild(div);
+  // Connect and subscribe
+  stompClient.connect({}, function() {
+    console.log('Connected to WebSocket');
+
+    stompClient.subscribe('/topic/czat/' + czatId, function(response) {
+      const message = JSON.parse(response.body);
+      displayMessage(message);
     });
+
+    // Load initial messages
+    loadInitialMessages();
   });
 
-  document.getElementById('form').addEventListener('submit', function (e) {
+  // Load initial messages from server
+  // function loadInitialMessages() {
+  //   fetch(`/api/czat/${czatId}/wiadomosci`)
+  //           .then(response => response.json())
+  //           .then(messages => {
+  //             messages.forEach(msg => displayMessage(msg));
+  //           })
+  //           .catch(error => console.error('Error loading messages:', error));
+  // }
+
+  // Display a message in the chat box
+  function displayMessage(message) {
+    const chatBox = document.getElementById("czat-box");
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'wiadomosc';
+
+    let html = `<b>${message.nadawcaDisplayName || 'Unknown'}:</b> `;
+    if (message.tresc) {
+      html += message.tresc;
+    }
+
+    if (message.zdjecie) {
+      html += `<br><img class="zdjecie-msg" src="data:image/jpeg;base64,${message.zdjecie}" />`;
+    }
+
+    messageDiv.innerHTML = html;
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // Handle form submission
+  document.getElementById('form').addEventListener('submit', function(e) {
     e.preventDefault();
-    let tresc = document.getElementById('wiadomosc').value;
-    let plik = document.getElementById('zdjecie').files[0];
+    const tresc = document.getElementById('wiadomosc').value;
+    const plik = document.getElementById('zdjecie').files[0];
+
+    if (!tresc && !plik) return;
 
     if (plik) {
-      let reader = new FileReader();
-      reader.onload = function () {
-        let base64 = reader.result.split(',')[1];
-        wyslijWiadomosc(tresc, base64);
+      const reader = new FileReader();
+      reader.onload = function() {
+        const base64 = reader.result.split(',')[1];
+        sendMessage(tresc, base64);
       };
       reader.readAsDataURL(plik);
     } else {
-      wyslijWiadomosc(tresc, null);
+      sendMessage(tresc, null);
     }
-
-    document.getElementById('wiadomosc').value = '';
   });
 
-  function wyslijWiadomosc(tresc, zdjecie) {
-    stompClient.send("/app/chat.send/" + czatId, {}, JSON.stringify({
+  // Send message via WebSocket
+  function sendMessage(tresc, zdjecie) {
+    const message = {
       tresc: tresc,
-      nadawcaEmail: nadawcaEmail,
+      nadawcaEmail: currentUserEmail,
       czatId: czatId,
-      zdjecie: zdjecie ? atob(zdjecie) : null
-    }));
+      zdjecie: zdjecie
+    };
+
+    stompClient.send(`/app/chat.send/${czatId}`, {}, JSON.stringify(message));
+
+    // Clear inputs
+    document.getElementById('wiadomosc').value = '';
+    document.getElementById('zdjecie').value = '';
   }
 </script>
 </body>

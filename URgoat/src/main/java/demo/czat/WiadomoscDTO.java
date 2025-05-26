@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 public class WiadomoscDTO {
     private String tresc;
     private String nadawcaEmail;
+    private String nadawcaDisplayName; // New field
     private int czatId;
-    private byte[] zdjecie;
+    private String zdjecie;
+    private int wiadomoscId; // New field
 }
