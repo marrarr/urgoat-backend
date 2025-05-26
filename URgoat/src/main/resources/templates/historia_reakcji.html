@@ -48,7 +48,7 @@
     <h4><strong th:text="${headerKomentarze}"></strong></h4>
 
     <div class="list-group">
-      <article class="list-group-item posst uzytkownik" th:each="reakcje : ${listaReakcjiKomentarzy}" th:if="${reakcje.komentarz != null}">
+      <article class="list-group-item posst uzytkownik" th:each="reakcje : ${listaReakcjiPosty}" th:if="${reakcje.komentarz != null}">
         <div class="dane">
           <div class="dane">
             <h6>Użytkownik:

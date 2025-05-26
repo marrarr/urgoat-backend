@@ -157,26 +157,11 @@ public class UzytkownikController {
     public String listaReakcji(Model model)
     {
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
-
         List<Reakcja> reakcje_posty = reakcjaRepository.findByUzytkownik(uzytkownik_aktualny);
-        List<Reakcja> reakcje_komentarze = reakcjaRepository.findByUzytkownik(uzytkownik_aktualny);
 
         model.addAttribute("headerPosty","Lista wszystkich twoich reakcji do postów");
         model.addAttribute("listaReakcjiPosty",reakcje_posty);
-        System.out.println(reakcje_posty.size());
-        System.out.println(reakcje_posty.get(0).getUzytkownik().getImie());
-
-
-
-
-
-        System.out.println(reakcje_komentarze.size());
-
-
-
         model.addAttribute("headerKomentarze","Lista wszystkich twoich reakcji do komentarzy");
-        model.addAttribute("listaReakcjiKomentarzy",reakcje_komentarze);
-        model.addAttribute("abc",reakcje_posty.get(0).getPost());
 
         return "historia_reakcji";
 
