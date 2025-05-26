@@ -11,6 +11,7 @@ import demo.uzytkownik.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class KomentarzService {
                 .toList();
     }
 
+    @Transactional
     public void dodajKomentarz(long userId, long postId, String tresc) {
         Uzytkownik user = uzytkownikRepository.findById(userId).orElseThrow();
         Post post = postRepository.findById(postId).orElseThrow();
@@ -58,6 +60,7 @@ public class KomentarzService {
         komentarzRepository.save(komentarz);
     }
 
+    @Transactional
     public void usunKomentarz(long komentarzID) {
         Komentarz komentarz = komentarzRepository.findById(komentarzID).orElseThrow();
         Uzytkownik uzytkownik_zalogowany = uzytkownikService.getZalogowanyUzytkownik();
@@ -72,6 +75,7 @@ public class KomentarzService {
         }
     }
 
+    @Transactional
     public void aktualizujKomentarz(long komentarzID, String tresc) {
         if (tresc.isBlank()) {
             throw new IllegalArgumentException("Treść komentarza nie może być pusta.");

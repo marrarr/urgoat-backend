@@ -10,6 +10,8 @@ import demo.uzytkownik.UzytkownikService;
 import demo.uzytkownik.UzytkownikTransData;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -48,6 +50,7 @@ public class ReakcjaService {
                 .toList();
     }
 
+    @Transactional
     public void dodajReakcje(long userId, Long postId, Long komentarzId, int kodReakcji) {
         Uzytkownik user = uzytkownikRepository.findById(userId).orElseThrow();
         Reakcja reakcja = new Reakcja();
@@ -75,6 +78,7 @@ public class ReakcjaService {
         reakcjaRepository.save(reakcja);
     }
 
+    @Transactional
     public void usunReakcje(long reakcjaID) {
         Uzytkownik uzytkownik_zalogowany = uzytkownikService.getZalogowanyUzytkownik();
         Reakcja reakcja = reakcjaRepository.findById(reakcjaID).orElseThrow();

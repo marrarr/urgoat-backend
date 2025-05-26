@@ -5,6 +5,7 @@ import demo.security.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -44,6 +45,7 @@ public class UzytkownikService {
         );
     }
 
+    @Transactional
     public void dodajUzytkownika(String email, String imie, String nazwisko, byte[] zdjecie) throws IOException {
         User user = userRepository.findByEmail(email).orElseThrow();
 
@@ -75,6 +77,7 @@ public class UzytkownikService {
         uzytkownikRepository.save(uzytkownik);
     }
 
+    @Transactional
     public void aktualizujDane(Long uzytkownikID, String imie, String nazwisko, String pseudonim, MultipartFile zdjecie) throws IOException {
         Uzytkownik uzytkownik = uzytkownikRepository.findById(uzytkownikID).orElseThrow();
 

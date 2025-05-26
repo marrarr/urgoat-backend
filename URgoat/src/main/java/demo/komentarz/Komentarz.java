@@ -22,6 +22,7 @@ public class Komentarz {
     private String tresc;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] zdjecie;
 
     @ManyToOne

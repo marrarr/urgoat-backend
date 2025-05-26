@@ -10,6 +10,7 @@ import demo.uzytkownik.UzytkownikService;
 import demo.uzytkownik.UzytkownikTransData;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,7 @@ public class PostService {
         return postyTransData;
     }
 
+    @Transactional
     public void dodajPost(long userId, String tresc) {
         Uzytkownik user = uzytkownikRepository.findById(userId).orElseThrow();
         Post post = new Post();
@@ -77,11 +79,13 @@ public class PostService {
         postRepository.save(post);
     }
 
+    @Transactional
     public void usunPost(long postID) {
         Post post = postRepository.findById(postID).orElseThrow();
         postRepository.delete(post);
     }
 
+    @Transactional
     public void zaktualizujPost(long postID, String tresc) {
         Post post = postRepository.findById(postID).orElseThrow();
         post.setTresc(tresc);
