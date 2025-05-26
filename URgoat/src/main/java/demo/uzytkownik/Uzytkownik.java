@@ -4,6 +4,7 @@ import demo.komentarz.Komentarz;
 import demo.post.Post;
 import demo.reakcja.Reakcja;
 import demo.security.model.User;
+import demo.wiadomosc.Wiadomosc;
 import demo.znajomy.Znajomy;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -21,7 +22,6 @@ public class Uzytkownik {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uzytkownikID;
 
-    //private int czatID;
 
     @Column(length = 64)
     private String imie;
@@ -62,6 +62,9 @@ public class Uzytkownik {
     private  List<Reakcja> reakcje;
 
     @OneToMany(mappedBy = "uzytkownik")
+    private  List<Wiadomosc> wiadomosci;
+
+    @OneToMany(mappedBy = "uzytkownik")
     private  List<Znajomy> znajomi1;
 
     @OneToMany(mappedBy = "uzytkownik2")
@@ -90,27 +93,6 @@ public class Uzytkownik {
         this.permisje = permisje;
     }
 
-
- /*   //konstruktor użytkownika bez zdjęcia
-    public Uzytkownik(int czatID, String imie, String nazwisko, String pseudonim, String email, int permisje){
-        this.czatID = czatID;
-        this.imie = imie;
-        this.nazwisko = nazwisko;
-        this.pseudonim = pseudonim;
-        this.email = email;
-        this.permisje = permisje;
-    }
-*/
- /*   //konstruktor pełny
-    public Uzytkownik(int czatID,String imie, String nazwisko, byte[] zdjecie, String pseudonim, String email, int permisje){
-        this.czatID = czatID;
-        this.imie = imie;
-        this.nazwisko = nazwisko;
-        this.zdjecie = zdjecie;
-        this.pseudonim = pseudonim;
-        this.email = email;
-        this.permisje = permisje;
-    }*/
 
         public Uzytkownik(User user, String email, String pseudonim, String imie, String nazwisko, byte[] zdjecie, int permisje) {
             userAccount = user;

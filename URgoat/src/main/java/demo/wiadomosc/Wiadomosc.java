@@ -1,6 +1,7 @@
 package demo.wiadomosc;
 
 import demo.czat.Czat;
+import demo.uzytkownik.Uzytkownik;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,10 @@ public class Wiadomosc {
     @ManyToOne
     @JoinColumn(name = "czatID")
     private Czat czat;
+
+    @ManyToOne
+    @JoinColumn(name = "uzytkownikID")
+    private Uzytkownik uzytkownik;
 
     public Wiadomosc(){}
 
@@ -53,5 +58,26 @@ public class Wiadomosc {
         this.tresc = tresc;
         this.zdjecie = zdjecie;
         this.reakcja = reakcja;
+    }
+
+    public Wiadomosc(Czat czat, String tresc, Uzytkownik uzytkownik) {
+        this.czat = czat;
+        this.tresc = tresc;
+        this.uzytkownik = uzytkownik;
+    }
+
+    public Wiadomosc(Czat czat, String tresc, byte[] zdjecie, Uzytkownik uzytkownik) {
+        this.czat = czat;
+        this.tresc = tresc;
+        this.zdjecie = zdjecie;
+        this.uzytkownik = uzytkownik;
+    }
+
+    public Wiadomosc(Czat czat, String tresc, byte[] zdjecie, int reakcja, Uzytkownik uzytkownik) {
+        this.czat = czat;
+        this.tresc = tresc;
+        this.zdjecie = zdjecie;
+        this.reakcja = reakcja;
+        this.uzytkownik = uzytkownik;
     }
 }

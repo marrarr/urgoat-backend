@@ -221,15 +221,31 @@ public class DataLoader implements CommandLineRunner {
 
             //czat
             Czat czat1 = new Czat(List.of(user1, user2));
+            Czat czat2 = new Czat(List.of(user3, user5));
 
             czatRepository.save(czat1);
+            czatRepository.save(czat2);
 
             //wiadomości czatowe
-            Wiadomosc wiadomosc1 = new Wiadomosc(czat1, "Cześć, co tam?");
-            Wiadomosc wiadomosc2 = new Wiadomosc(czat1, "Dobrze a co u cb?");
+            Wiadomosc wiadomosc1 = new Wiadomosc(czat1, "Cześć, co tam?", null, user1);
+            Wiadomosc wiadomosc2 = new Wiadomosc(czat1, "Dobrze a co u cb?", null, user2);
+            Wiadomosc wiadomosc3 = new Wiadomosc(czat1, "A spoko, a wgl byłaś na otwarciu?", null, user1);
+            Wiadomosc wiadomosc4 = new Wiadomosc(czat1, "jakim otwarciu??? :D", null, user2);
+
+            Wiadomosc wiadomosc5 = new Wiadomosc(czat2, "bajo-jajo", null, user3);
+            Wiadomosc wiadomosc6 = new Wiadomosc(czat2, "bajo-jajo", null, user3);
+            Wiadomosc wiadomosc7 = new Wiadomosc(czat2, "bajo-jajo", null, user3);
+            Wiadomosc wiadomosc8 = new Wiadomosc(czat2, "bajo jajo", null, user5);
 
             wiadomoscRepository.save(wiadomosc1);
             wiadomoscRepository.save(wiadomosc2);
+            wiadomoscRepository.save(wiadomosc3);
+            wiadomoscRepository.save(wiadomosc4);
+            wiadomoscRepository.save(wiadomosc5);
+            wiadomoscRepository.save(wiadomosc6);
+            wiadomoscRepository.save(wiadomosc7);
+            wiadomoscRepository.save(wiadomosc8);
+
 
             //Posty
             List<Post> posty = new ArrayList<>();
@@ -238,7 +254,7 @@ public class DataLoader implements CommandLineRunner {
             posty.add(new Post(user3, "nie ma takiego dowodu!! jest nagroda pol miliona eurogabek dla czlowieka ktory wskaze CIEŃ dowodu...!!!"));
             posty.add(new Post(user5, "wbijam na bombsite a na na nanana na"));
             posty.add(new Post(user2, "https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
-            posty.add(new Post(user4, "lbjgljlsja"));
+            posty.add(new Post(user4, "123"));
 
             postRepository.saveAll(posty);
 
@@ -249,6 +265,10 @@ public class DataLoader implements CommandLineRunner {
             komentarze.add(new Komentarz(posty.get(2), user2, "co ty gadasz czlowieku..."));
             komentarze.add(new Komentarz(posty.get(2), user3, "cichaj babo"));
             komentarze.add(new Komentarz(posty.get(2), user4, "zgadzam sie z toba Bartosz!!"));
+            komentarze.add(new Komentarz(posty.get(3), user4, "aaa"));
+            komentarze.add(new Komentarz(posty.get(3), user4, "bbb"));
+            komentarze.add(new Komentarz(posty.get(3), user4, "ccc"));
+            komentarze.add(new Komentarz(posty.get(3), user5, "123123"));
 
             komentarzRepository.saveAll(komentarze);
 
@@ -257,12 +277,33 @@ public class DataLoader implements CommandLineRunner {
             List<Reakcja> reakcje = new ArrayList<>();
 
             reakcje.add(new Reakcja(user1, null, posty.get(0), 1));
+            reakcje.add(new Reakcja(user1, null, posty.get(1), 2));
+            reakcje.add(new Reakcja(user1, null, posty.get(2), 2));
+            reakcje.add(new Reakcja(user1, null, posty.get(5), 1));
+            reakcje.add(new Reakcja(user1, null, posty.get(5), 3));
+
             reakcje.add(new Reakcja(user2, null, posty.get(0), 2));
+            reakcje.add(new Reakcja(user2, null, posty.get(1), 2));
+            reakcje.add(new Reakcja(user2, null, posty.get(2), 2));
+            reakcje.add(new Reakcja(user2, null, posty.get(3), 2));
+            reakcje.add(new Reakcja(user2, null, posty.get(4), 2));
+            reakcje.add(new Reakcja(user2, null, posty.get(5), 2));
+
             reakcje.add(new Reakcja(user3, null, posty.get(0), 1));
-            reakcje.add(new Reakcja(user2, null, posty.get(2), 1));
-            reakcje.add(new Reakcja(user4, komentarze.get(3), null, 1));
-            reakcje.add(new Reakcja(user1, komentarze.get(3), null, 1));
-            reakcje.add(new Reakcja(user2, komentarze.get(3), null, 2));
+            reakcje.add(new Reakcja(user3, null, posty.get(3), 1));
+            reakcje.add(new Reakcja(user3, null, posty.get(4), 1));
+
+            reakcje.add(new Reakcja(user4, null, posty.get(2), 3));
+
+            reakcje.add(new Reakcja(user5, komentarze.get(1), null, 1));
+            reakcje.add(new Reakcja(user5, komentarze.get(2), null, 3));
+            reakcje.add(new Reakcja(user5, komentarze.get(3), null, 2));
+            reakcje.add(new Reakcja(user5, komentarze.get(4), null, 3));
+
+            reakcje.add(new Reakcja(user2, komentarze.get(1), null, 3));
+            reakcje.add(new Reakcja(user2, komentarze.get(2), null, 3));
+            reakcje.add(new Reakcja(user2, komentarze.get(3), null, 3));
+            reakcje.add(new Reakcja(user2, komentarze.get(4), null, 3));
 
             reakcjaRepository.saveAll(reakcje);
 
