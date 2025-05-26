@@ -29,7 +29,8 @@ public class Uzytkownik {
     @Column(length = 64)
     private String nazwisko;
 
-   // @Lob
+//    @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] zdjecie;
 
     @Column(length = 64)

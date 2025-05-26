@@ -26,7 +26,7 @@ public class User {
     @Column(nullable = false)
     private boolean verified;
 
-    @OneToOne(mappedBy = "userAccount")
+    @OneToOne(mappedBy = "userAccount", fetch = FetchType.LAZY)
     private Uzytkownik profil;
 
     // Getters and Setters
