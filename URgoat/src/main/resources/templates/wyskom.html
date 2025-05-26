@@ -10,15 +10,17 @@
 
  <body>
         <div class="container">                
-            <h4><strong th:text="${header}"/></h4>      
+            <h4><strong th:text="${id}"/></h4>
         </div>
         
         <div class="container">
             <div class="list-group">
+
                 <article class="list-group-item" th:each="komentarze : ${listaKomentarzy}">
                      <h1><b th:text="${komentarze.komentarzID}"></b></h1>
-                    <h4><b th:number="${komentarze.postID}"></b></h4>
-                    <p><b th:text="${komentarze.tresc}"></b></p>
+<!--                    <h4><b th:number="${komentarze.postID}"></b></h4>-->
+                    <p><b th:text="${komentarze.getTresc()}"></b></p>
+                    <a th:href="@{/dodaj_reakcje_komentarz(komentarzID=${komentarze.komentarzID}-1)}">Dodaj reakcję</a>
 
                 </article>
             </div>

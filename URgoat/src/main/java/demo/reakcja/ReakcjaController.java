@@ -86,4 +86,35 @@ public class ReakcjaController {
 
         return "viewmessage";
     }
+
+    @RequestMapping("/dodaj_reakcje_komentarz")
+    public String dodajReakcjeKomentarz(Model model, Long komentarzID_link)
+    {
+        ReakcjaTransData reakcjaTransData = new ReakcjaTransData();
+        model.addAttribute("reakcjaTransData", reakcjaTransData);
+        model.addAttribute("komentarzId_link", komentarzID_link);
+        return "addreakcjakom";
+    }
+
+    @RequestMapping(value = "/dodaj_reakcje_komentarz", method = RequestMethod.POST)
+    public String dodajReakcjeKomentarz(Model model, ReakcjaTransData reakcjaTransData) {
+
+        int reakcja = reakcjaTransData.getReakcja();
+        int komentarzID = reakcjaTransData.getKomentarzID();
+
+        long long_komentarzID=(long)komentarzID;
+        Komentarz komentarz = komentarzRepository.findAll().get(komentarzID);
+
+        Post post = null;
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Uzytkownik uzytkownik_aktualny = uzytkownikRepository.findFirstByPseudonim(username);
+        reakcjaRepository.save(new Reakcja(uzytkownik_aktualny, komentarz, post, reakcja));
+
+        model.addAttribute("header", "Wynik");
+        model.addAttribute("message","Zostało porpawnie dodane");
+
+        return "viewmessage";
+    }
+
 }

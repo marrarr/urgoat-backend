@@ -63,6 +63,7 @@ public class KomentarzController {
 
         model.addAttribute("header","Lista wszystkich komentarzy"); //Dodanie obiektu do pamieci lokalnej modelu
         model.addAttribute("listaKomentarzy",komentarze); //Dodanie obiektu do pamieci lokalnej modelu
+        model.addAttribute("id",postID); //Dodanie obiektu do pamieci lokalnej modelu
 
         return "wyskom"; //Przekierowanie na strone
 
