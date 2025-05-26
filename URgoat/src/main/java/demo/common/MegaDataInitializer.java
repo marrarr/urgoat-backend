@@ -219,7 +219,7 @@ public class MegaDataInitializer implements CommandLineRunner {
             System.out.println("=====================================");
             System.out.println("=====================================");
             System.out.println("=====================================");
-            System.out.println("      >> KONIEC WCZYTYWANIA <<");
+            System.out.println("    >> KONIEC WCZYTYWANIA MEGA <<");
             System.out.println("=====================================");
             System.out.println("=====================================");
             System.out.println("=====================================");
