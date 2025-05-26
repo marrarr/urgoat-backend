@@ -1,29 +1,63 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-  <title>czat</title>
+  <title>Czat</title>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
 </head>
-
-
 <body>
-<div class="container">
-  <h4><strong th:text="${uzytkownik.getPseudonim()}"/></h4>
-</div>
+<h2>Czat z <span th:text="${znajomy}"></span></h2>
+<div id="czat-box"></div>
 
-<div class="container">
-  <div class="list-group">
-    <article class="list-group-item" th:each="komentarze : ${listaKomentarzy}">
-      <h1><b th:text="${komentarze.komentarzID}"></b></h1>
-      <h4><b th:number="${komentarze.postID}"></b></h4>
-      <p><b th:text="${komentarze.tresc}"></b></p>
+<form id="form">
+  <input type="text" id="wiadomosc" placeholder="Wpisz wiadomość" required/>
+  <input type="file" id="zdjecie"/>
+  <button type="submit">Wyślij</button>
+</form>
 
-    </article>
-  </div>
+<script th:inline="javascript">
+  let czatId = [[${czatId}]];
+  let nadawcaEmail = [[${nadawcaEmail}]];
 
-  <a href="/strona_glowna">Strona główna</a>
-</div>
+  let socket = new SockJS('/ws');
+  let stompClient = Stomp.over(socket);
+
+  stompClient.connect({}, function () {
+    stompClient.subscribe('/topic/czat/' + czatId, function (response) {
+      let wiadomosc = JSON.parse(response.body);
+      let div = document.createElement('div');
+      div.innerHTML = "<b>" + wiadomosc.nadawcaEmail + ":</b> " + wiadomosc.tresc;
+      document.getElementById("czat-box").appendChild(div);
+    });
+  });
+
+  document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    let tresc = document.getElementById('wiadomosc').value;
+    let plik = document.getElementById('zdjecie').files[0];
+
+    if (plik) {
+      let reader = new FileReader();
+      reader.onload = function () {
+        let base64 = reader.result.split(',')[1];
+        wyslijWiadomosc(tresc, base64);
+      };
+      reader.readAsDataURL(plik);
+    } else {
+      wyslijWiadomosc(tresc, null);
+    }
+
+    document.getElementById('wiadomosc').value = '';
+  });
+
+  function wyslijWiadomosc(tresc, zdjecie) {
+    stompClient.send("/app/chat.send/" + czatId, {}, JSON.stringify({
+      tresc: tresc,
+      nadawcaEmail: nadawcaEmail,
+      czatId: czatId,
+      zdjecie: zdjecie ? atob(zdjecie) : null
+    }));
+  }
+</script>
 </body>
 </html>

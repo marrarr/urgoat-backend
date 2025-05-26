@@ -1,6 +1,7 @@
 package demo.wiadomosc;
 
 import demo.czat.Czat;
+import demo.uzytkownik.Uzytkownik;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,10 @@ public class Wiadomosc {
     @ManyToOne
     @JoinColumn(name = "czatID")
     private Czat czat;
+
+    @ManyToOne
+    @JoinColumn(name = "uzytkownikID")
+    private Uzytkownik uzytkownik;
 
     public Wiadomosc(){}
 

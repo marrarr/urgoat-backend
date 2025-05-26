@@ -41,7 +41,9 @@
 
         <div class="reakcje">
           <a th:href="@{/wyswietl_profil(uzytkownik=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Zobacz profil</a>
-          <a th:href="@{/czat(znajomy=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Czat</a>
+          <a th:href="@{/czat/rozmowa/{id}(id=${znajomy.getUzytkownik2().getUzytkownikID()})}">Czat</a>
+
+
         </div>
       </article>
     </div>
