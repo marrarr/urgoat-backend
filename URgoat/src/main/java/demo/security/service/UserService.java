@@ -7,21 +7,16 @@ import demo.security.repository.PendingUserRepository;
 import demo.security.repository.UserRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
-import org.slf4j.LoggerFactory;
+import demo.uzytkownik.UzytkownikService;
 import org.springframework.stereotype.Service;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.logging.Logger;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.imageio.ImageIO;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -31,18 +26,19 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final SerwisAplikacji serwisAplikacji;
     private final UzytkownikRepository uzytkownikRepository;
-
+    private final UzytkownikService uzytkownikService;
     public UserService(
             UserRepository userRepository,
             PendingUserRepository pendingUserRepository,
             PasswordEncoder passwordEncoder,
             SerwisAplikacji serwisAplikacji,
-            UzytkownikRepository uzytkownikRepository) {
+            UzytkownikRepository uzytkownikRepository, UzytkownikService uzytkownikService) {
         this.userRepository = userRepository;
         this.pendingUserRepository = pendingUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.serwisAplikacji = serwisAplikacji;
         this.uzytkownikRepository = uzytkownikRepository;
+        this.uzytkownikService = uzytkownikService;
     }
 
     public void registerUser(String username, String email, String password, String imie, String nazwisko, byte[] image) {
@@ -68,7 +64,8 @@ public class UserService {
         System.out.println("Kod weryfikacyjny dla " + email + ": " + code);
     }
 
-    public boolean verifyUser(String email, String code) {
+    @Transactional
+    public boolean verifyUser(String email, String code) throws IOException {
         Optional<PendingUser> pendingUserOpt = pendingUserRepository.findByEmail(email);
         if (pendingUserOpt.isPresent()) {
             PendingUser pendingUser = pendingUserOpt.get();
@@ -82,13 +79,13 @@ public class UserService {
                 user.setVerified(true);
                 userRepository.save(user);
 
-                Uzytkownik uzytkownik = new Uzytkownik();
-                uzytkownik.setUserAccount(user);
-                uzytkownik.setEmail(email);
-                uzytkownik.setPseudonim(pendingUser.getUsername());
-                uzytkownik.setImie(pendingUser.getImie());
-                uzytkownik.setNazwisko(pendingUser.getNazwisko());
-                uzytkownik.setPermisje(1);
+                uzytkownikService.dodajUzytkownika(
+                        user.getEmail(),
+                        pendingUser.getImie(),
+                        pendingUser.getNazwisko(),
+                        pendingUser.getImage()
+                );
+
 //TODO sprawdzanie wielkosci zdjecia
 //
 //                try {
@@ -107,8 +104,6 @@ public class UserService {
 //                }
 //
 
-                uzytkownik.setZdjecie(pendingUser.getImage());
-                uzytkownikRepository.save(uzytkownik);
 
                 pendingUserRepository.delete(pendingUser);
                 return true;

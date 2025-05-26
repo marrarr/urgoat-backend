@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +115,12 @@ public class UserController {
             @RequestParam String code,
             Model model
     ) {
-        boolean verified = userService.verifyUser(email, code);
+        boolean verified = false;
+        try {
+            verified = userService.verifyUser(email, code);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if (verified) {
             // Clear session after verification
             session.removeAttribute("captcha");

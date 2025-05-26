@@ -2,6 +2,7 @@ package demo.uzytkownik;
 
 import demo.security.model.User;
 import demo.security.repository.UserRepository;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -58,8 +59,13 @@ public class UzytkownikService {
         }
 
         if (zdjecie == null || zdjecie.length == 0) {
-            // TODO basic zdjecie
-            throw new IllegalArgumentException("Zdjęcie nie może być puste.");
+            ClassPathResource zdjecieSciezka = new ClassPathResource("static/avatary_uzytkownikow/default-avatar.png");
+            try {
+                zdjecie = zdjecieSciezka.getInputStream().readAllBytes();
+
+            } catch (IOException e) {
+                throw new IOException("Nie udało się wczytać zdjęcia.");
+            }
         }
 
         Uzytkownik uzytkownik = new Uzytkownik(
@@ -100,7 +106,9 @@ public class UzytkownikService {
         }
 
         if (zdjecie == null || zdjecie.isEmpty()) {
-            throw new IllegalArgumentException("Zdjęcie nie może być puste.");
+            ClassPathResource zdjecieSciezka = new ClassPathResource("static/avatary_uzytkownikow/default-avatar.png");
+            byte[] zdjecieBajty = zdjecieSciezka.getInputStream().readAllBytes();
+            uzytkownik.setZdjecie(zdjecieBajty);
         } else {
             uzytkownik.setZdjecie(zdjecie.getBytes());
         }

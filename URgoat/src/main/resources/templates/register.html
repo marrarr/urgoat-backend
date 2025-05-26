@@ -236,7 +236,7 @@
         </div>
         <div class="form-group">
             <label for="zdjecie">Zdjęcie:</label>
-            <input type="file" id="zdjecie" name="zdjecie" accept="image/*" required />
+            <input type="file" id="zdjecie" name="zdjecie" accept="image/*"  />
         </div>
         <div class="form-group">
             <label for="username">Nazwa użytkownika:</label>
@@ -359,7 +359,7 @@
                 const confirmPassword = document.getElementById('confirmPassword').value;
 
                 // Sprawdzenie, czy wszystkie pola są wypełnione
-                if (!imie || !nazwisko || zdjecie === 0 || !username || !email || !password || !confirmPassword) {
+                if (!imie || !nazwisko || !username || !email || !password || !confirmPassword) {
                     errorMessage.style.display = 'block';
                     errorMessage.textContent = 'Wszystkie pola muszą być wypełnione.';
                     return;

@@ -23,7 +23,6 @@ public class PendingUser {
     private String verificationCode;
 
 
-
     private String imie;
     private String nazwisko;
     private byte[] image;
