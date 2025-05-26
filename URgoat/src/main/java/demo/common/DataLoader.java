@@ -265,6 +265,15 @@ public class DataLoader implements CommandLineRunner {
             reakcje.add(new Reakcja(user2, komentarze.get(3), null, 2));
 
             reakcjaRepository.saveAll(reakcje);
+
+
+            System.out.println("=====================================");
+            System.out.println("=====================================");
+            System.out.println("=====================================");
+            System.out.println(" >> KONIEC WCZYTYWANIA DATALOADER <<");
+            System.out.println("=====================================");
+            System.out.println("=====================================");
+            System.out.println("=====================================");
         }
     }
 }
