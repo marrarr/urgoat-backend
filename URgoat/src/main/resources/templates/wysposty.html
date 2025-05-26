@@ -45,7 +45,7 @@
 
                     <div class="reakcje">
                         <a th:href="@{/dodaj_komentarz(postID=${post.postId}+1)}">Dodaj komentarz</a>
-                        <!--<a th:href="@{/wyswietl_komentarze(postID=${post.postId+1})}">Wyświetl komentarze</a>-->
+                        <a th:href="@{/wyswietl_komentarze(postID=${post.postId})}">Wyświetl komentarze</a>
                         <a th:href="@{/dodaj_reakcje_post(postID=${post.postId}-1)}">Dodaj reakcję</a>
                         <a th:href="@{/wyswietl_reakcje_post(postID=${post.postId-1})}">Wyświetl reakcje</a>
                     </div>
