@@ -34,7 +34,6 @@ public class Post{
     @OneToMany(mappedBy = "post")
     private List<Reakcja> reakcje;
 
-
     public Post(){}
 
     //Post bez zdjęcia
