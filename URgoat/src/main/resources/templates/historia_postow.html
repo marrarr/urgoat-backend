@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+
+  <title>Lista znajomych</title>
+</head>
+
+<body>
+  <div class='menu'>
+        <div class='logo'></div>
+        <a href="/strona_glowna"><div class="button">Strona główna</div></a><br><br>
+    </div>
+
+  <div class="cont">
+      
+      <div class="szukanie">
+          <textarea class="szukaj" id="wyszukiwarka"></textarea> 
+          <button class="button" id="przycisk-szukaj">Szukaj</button>
+        </div>
+    <h4><strong th:text="${header}"></strong></h4>
+
+    <div class="list-group">
+      <article class="list-group-item posst" th:each="posty : ${listaPostow}">
+        <div class="dane">
+          <div class="dane">
+            <h1>
+              <b th:text="${posty.getTresc()}"></b>
+
+            </h1>
+          </div>
+        </div>
+
+        <div class="reakcje">
+              <a class="button">Usuń post</a>
+              <a class="button">Edytuj post</a>
+<!--          <a th:href="@{/wyswietl_profil(uzytkownik=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Zobacz profil</a>-->
+<!--          <a th:href="@{/czat(znajomy=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Czat</a>-->
+        </div>
+      </article>
+    </div>
+
+  </div>
+    
+     <script>
+  document.getElementById('przycisk-szukaj').addEventListener('click', function () {
+    const zapytanie = document.getElementById('wyszukiwarka').value.toLowerCase().trim();
+    const uzytkownicy = document.querySelectorAll('.uzytkownik');
+
+    uzytkownicy.forEach(uzytkownik => {
+      const imie = uzytkownik.querySelector('b:nth-of-type(1)')?.innerText.toLowerCase() || '';
+      const nazwisko = uzytkownik.querySelector('b:nth-of-type(2)')?.innerText.toLowerCase() || '';
+
+      // Sprawdzamy, czy zapytanie zawiera się w imieniu LUB nazwisku
+      if (imie.includes(zapytanie) || nazwisko.includes(zapytanie)) {
+        uzytkownik.style.display = '';
+      } else {
+        uzytkownik.style.display = 'none';
+      }
+    });
+  });
+</script>
+</body>
+</html>

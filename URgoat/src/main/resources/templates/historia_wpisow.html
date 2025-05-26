@@ -1,49 +1,3 @@
-<!--
-    To jest stare rozwiązanie  <<<
-    To jest stare rozwiązanie  <<<
-    To jest stare rozwiązanie  <<<
-    To jest stare rozwiązanie  <<<
-    To jest stare rozwiązanie  <<<
-    To jest stare rozwiązanie  <<<
-    To jest stare rozwiązanie  <<<
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/" >
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <title>Lista uzytkownikow</title>
-</head>
-
-
-<body>
-<div class="container">
-    <h4><strong th:text="${header}"/></h4>
-</div>
-
-<div class="container">
-    <div class="list-group">
-        <article class="list-group-item" th:each="uzytkownik : ${profilUzytkownika}">
-            <h1><img th:src="@{/${uzytkownik.zdjecie}}"/></h1>
-            <h1>Imie: <b th:text="${uzytkownik.imie}"></b></h1>
-            <h1>Nazwisko: <b th:text="${uzytkownik.nazwisko}"></b></h1>
-            <h1>Pseudonim: <b th:text="${uzytkownik.pseudonim}"></b></h1>
-            <h1>E-mail: <b th:text="${uzytkownik.email}"></b></h1>
-
-
-        </article>
-    </div>
-
-    <a href="/index.html">Strona główna</a>
-</div>
-</body>
-</html>
-
--->
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -218,49 +172,17 @@
 <body>
     <div class="container mt-5">
         <div class="card-urgoat">
-            <h2 class="text-center mb-4">Twój profil </h2>
-            <th:block th:object="${profilUzytkownika}">
-                <p>
-                    <img th:src="@{/photo/{id}(id=*{uzytkownikID})}" class="profile-image"/>
-                </p>
-                <p>Imię: <b th:text="*{imie}"></b></p>
-                <p>Nazwisko: <b th:text="*{nazwisko}"></b></p>
-                <p>Pseudonim: <b th:text="*{pseudonim}"></b></p>
-                <p>E-mail: <b th:text="*{email}"></b></p>
-            </th:block>
+            <h2 class="text-center mb-4">Historia:</h2>
             <div class="profile-buttons">
                 <div class="main-buttons">
-
-                    <a th:href="@{/strona_glowna}" class="btn btn-urgoat">Strona główna</a>
-
-                    <a th:href="@{/lista_znajomych}" class="btn btn-urgoat">Lista znajomych</a>
-                    <a th:href="@{/edytuj_profil}" class="btn btn-urgoat">Edytuj profil</a>
+                    <a th:href="@{/historia_postow}" class="btn btn-urgoat">Postów</a>
+                    <a th:href="@{/historia_komentarzy}" class="btn btn-urgoat">Komentarzy</a>
+                    <a th:href="@{/historia_reakcji}" class="btn btn-urgoat">Reakcji</a>
 
                 </div>
-                <a th:href="@{/historia_wpisow}" class="btn btn-urgoat">Historia wpisów</a>
+                <a th:href="@{/strona_glowna}" class="btn btn-urgoat">Strona główna</a>
                 <a th:href="@{/logout}" class="btn btn-logout">Wyloguj</a>
             </div>
-<!--            <div th:if="${user != null and user.zdjecie != null and user.zdjecie != ''}">-->
-<!--                <img th:src="@{'/images/' + ${user.zdjecie}}" alt="Zdjęcie profilowe" class="profile-image">-->
-<!--            </div>-->
-<!--            <div th:unless="${user != null and user.zdjecie != null and user.zdjecie != ''}">-->
-<!--                <div class="profile-image-placeholder">Brak zdjęcia</div>-->
-<!--            </div>-->
-<!--            <div th:if="${user != null}" class="profile-info">-->
-<!--                <p>Imię: <span th:text="${user.imie != null ? user.imie : 'Brak danych'}">Brak danych</span></p>-->
-<!--                <p>Nazwisko: <span th:text="${user.nazwisko != null ? user.nazwisko : 'Brak danych'}">Brak danych</span></p>-->
-<!--            </div>-->
-<!--            <div th:unless="${user != null}" class="profile-info">-->
-<!--                <p>Błąd: Dane użytkownika niedostępne</p>-->
-<!--            </div>-->
-<!--            <div class="profile-buttons">-->
-<!--                <div class="main-buttons">-->
-<!--                    <a th:href="@{/}" class="btn btn-urgoat">Strona główna</a>-->
-<!--                    <a th:href="@{/friends}" class="btn btn-urgoat">Lista znajomych</a>-->
-<!--                    <a th:href="@{/edytuj_profil}" class="btn btn-urgoat">Edytuj profil</a>-->
-<!--                </div>-->
-<!--                <a th:href="@{/logout}" class="btn btn-logout">Wyloguj</a>-->
-<!--            </div>-->
         </div>
     </div>
 

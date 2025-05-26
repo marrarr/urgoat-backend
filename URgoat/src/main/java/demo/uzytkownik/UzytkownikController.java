@@ -1,5 +1,12 @@
 package demo.uzytkownik;
 
+import demo.komentarz.Komentarz;
+import demo.komentarz.KomentarzRepository;
+import demo.post.Post;
+import demo.post.PostRepository;
+import demo.reakcja.Reakcja;
+import demo.reakcja.ReakcjaRepository;
+import demo.znajomy.Znajomy;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.MediaType;
@@ -19,7 +26,16 @@ public class UzytkownikController {
     @Autowired
     UzytkownikRepository uzytkownikRepository;
     @Autowired
+    PostRepository postRepository;
+    @Autowired
+    ReakcjaRepository reakcjaRepository;
+    @Autowired
+    KomentarzRepository komentarzRepository;
+    @Autowired
     private UzytkownikService uzytkownikService;
+
+
+
 
     @RequestMapping(value = "/lista_uzytkownikow", method = RequestMethod.GET)
     public String listaUzytkownikow(Model model) {
@@ -98,6 +114,65 @@ public class UzytkownikController {
 
         return "redirect:/wyswietl_profil_aktualnego_uzytkownika";
     }
+
+
+    @RequestMapping("/historia_wpisow")
+    public String historiaWpisow(Model model) {
+        Uzytkownik uzytkownik1 = uzytkownikService.getZalogowanyUzytkownik();
+        model.addAttribute("header", "Profil"); //Dodanie obiektu do pamieci lokalnej modelu
+        model.addAttribute("profilUzytkownika", uzytkownik1); //Dodanie obiektu do pamieci lokalnej modelu
+
+        return "historia_wpisow";
+    }
+
+    @RequestMapping(value = "/historia_postow", method = RequestMethod.GET)
+    public String listaPostow(Model model)
+    {
+        Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
+
+        List<Post> posty = postRepository.findByUzytkownik(uzytkownik_aktualny);
+
+        model.addAttribute("header","Lista wszystkich twoich postów");
+        model.addAttribute("listaPostow",posty);
+
+        return "historia_postow";
+
+    }
+
+    @RequestMapping(value = "/historia_komentarzy", method = RequestMethod.GET)
+    public String listaKomentarzy(Model model)
+    {
+        Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
+
+        List<Komentarz> komentarze = komentarzRepository.findByUzytkownik(uzytkownik_aktualny);
+
+        model.addAttribute("header","Lista wszystkich twoich komentarzy do postów");
+        model.addAttribute("listaKomentarzy",komentarze);
+
+        return "historia_komentarzy";
+
+    }
+
+    @RequestMapping(value = "/historia_reakcji", method = RequestMethod.GET)
+    public String listaReakcji(Model model)
+    {
+        Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
+
+        List<Reakcja> reakcje_posty = reakcjaRepository.findByUzytkownik(uzytkownik_aktualny);
+        List<Reakcja> reakcje_komentarze = reakcjaRepository.findByUzytkownik(uzytkownik_aktualny);
+
+        model.addAttribute("headerPosty","Lista wszystkich twoich reakcji do postów");
+        model.addAttribute("listaReakcjiPosty",reakcje_posty);
+        System.out.println(reakcje_posty.size());
+        System.out.println(reakcje_komentarze.size());
+        model.addAttribute("headerKomentarze","Lista wszystkich twoich reakcji do komentarzy");
+        model.addAttribute("listaReakcjiKomentarzy",reakcje_komentarze);
+
+        return "historia_reakcji";
+
+    }
+
+
 
 
 }
