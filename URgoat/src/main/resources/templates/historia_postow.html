@@ -37,8 +37,8 @@
         </div>
 
         <div class="reakcje">
-              <a class="button">Usuń post</a>
-              <a class="button">Edytuj post</a>
+              <a th:href="@{/usun_post(id=${posty.getPostID})}" class="button">Usuń post</a>
+              <a th:href="@{/edytuj_post(id=${posty.getPostID()})}" class="button">Edytuj post</a>
 <!--          <a th:href="@{/wyswietl_profil(uzytkownik=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Zobacz profil</a>-->
 <!--          <a th:href="@{/czat(znajomy=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Czat</a>-->
         </div>

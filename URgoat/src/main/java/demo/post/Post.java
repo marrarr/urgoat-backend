@@ -29,10 +29,10 @@ public class Post{
     @JoinColumn(name = "uzytkownikID")
     private Uzytkownik uzytkownik;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Komentarz> komentarze;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reakcja> reakcje;
 
     public Post(){}

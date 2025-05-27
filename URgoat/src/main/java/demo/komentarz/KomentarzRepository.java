@@ -15,4 +15,5 @@ public interface KomentarzRepository extends JpaRepository<Komentarz, Long>{
     List<Komentarz> findByUzytkownik(Uzytkownik uzytkownik);
 
     List<Komentarz> findByPostPostID(Long aLong);
+    Komentarz findByKomentarzID(Long komentarzID);
 }
