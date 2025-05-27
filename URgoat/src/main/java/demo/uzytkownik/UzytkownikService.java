@@ -1,5 +1,7 @@
 package demo.uzytkownik;
 
+import demo.log.LogOperacja;
+import demo.log.URgoatLogger;
 import demo.security.model.User;
 import demo.security.repository.UserRepository;
 import org.springframework.core.io.ClassPathResource;
@@ -81,6 +83,10 @@ public class UzytkownikService {
         uzytkownik.setUserAccount(user);
 
         uzytkownikRepository.save(uzytkownik);
+
+        URgoatLogger.uzytkownikInfo("Dodano użytkownika username=" + user.getUsername(),
+                getZalogowanyUzytkownik() == null ? null : getZalogowanyUzytkownik().getPseudonim(),
+                LogOperacja.DODAWANIE);
     }
 
     @Transactional
@@ -115,6 +121,10 @@ public class UzytkownikService {
 
 
         uzytkownikRepository.save(uzytkownik);
+
+        URgoatLogger.uzytkownikInfo("Aktualizowano dane użytkownika id=" + uzytkownik.getUzytkownikID(),
+                getZalogowanyUzytkownik().getPseudonim(),
+                LogOperacja.DODAWANIE);
     }
 
 }
