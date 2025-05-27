@@ -2,6 +2,8 @@ package demo.post;
 
 import demo.komentarz.KomentarzService;
 import demo.komentarz.KomentarzTransData;
+import demo.log.LogOperacja;
+import demo.log.URgoatLogger;
 import demo.reakcja.ReakcjaService;
 import demo.reakcja.ReakcjaTransData;
 import demo.uzytkownik.Uzytkownik;
@@ -22,6 +24,7 @@ public class PostService {
     private final UzytkownikService uzytkownikService;
     private final KomentarzService komentarzService;
     private final ReakcjaService reakcjaService;
+
 
     public PostService(PostRepository postRepository, UzytkownikRepository uzytkownikRepository, UzytkownikService uzytkownikService, KomentarzService komentarzService, ReakcjaService reakcjaService) {
         this.postRepository = postRepository;
@@ -77,12 +80,18 @@ public class PostService {
         post.setUzytkownik(user);
         post.setTresc(tresc);
         postRepository.save(post);
+        URgoatLogger.uzytkownikInfo("Dodano post id=" + post.getPostID() + ", dlugosc=" + post.getTresc().length(),
+                user.getPseudonim(),
+                LogOperacja.DODAWANIE);
     }
 
     @Transactional
     public void usunPost(long postID) {
         Post post = postRepository.findById(postID).orElseThrow();
         postRepository.delete(post);
+        URgoatLogger.uzytkownikInfo("Usunięto post id=" + post.getPostID(),
+                uzytkownikService.getZalogowanyUzytkownik().getPseudonim(),
+                LogOperacja.USUWANIE);
     }
 
     @Transactional
@@ -92,5 +101,8 @@ public class PostService {
 
         post.setTresc(tresc);
         postRepository.save(post);
+        URgoatLogger.uzytkownikInfo("Dodano post id=" + post.getPostID() + ", dlugosc=" + post.getTresc().length(),
+                uzytkownikService.getZalogowanyUzytkownik().getPseudonim(),
+                LogOperacja.AKTUALIZOWANIE);
     }
 }

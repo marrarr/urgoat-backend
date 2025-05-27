@@ -74,6 +74,7 @@ public class PostController {
         return "viewmessage";
     }
 
+
     @RequestMapping(value = "/edytuj_post", method = RequestMethod.GET)
     public String edytujPost(Model model, @RequestParam Long id) {
         if (id == null || id == 0) {
@@ -114,16 +115,6 @@ public class PostController {
         return "viewmessage";
     }
 
-
-    @RequestMapping(value = "/wyswietl_posty", method = RequestMethod.GET)
-    public String wyswietlPosty(Model model) {
-        List<PostTransData> postyTransData = postService.getPosty();
-
-        model.addAttribute("header", "Lista wszystkich postów");
-        model.addAttribute("listaPostow", postyTransData);
-
-        return "wysposty";  // Przekierowanie do widoku
-    }
 
 
 
