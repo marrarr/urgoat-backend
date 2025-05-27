@@ -44,10 +44,10 @@
                     </div>
 
                     <div class="reakcje">
-                        <a th:href="@{/dodaj_komentarz(postID=${post.postId}+1)}">Dodaj komentarz</a>
+                        <a th:href="@{/dodaj_komentarz(postID=${post.postId})}">Dodaj komentarz</a>
                         <a th:href="@{/wyswietl_komentarze(postID=${post.postId})}">Wyświetl komentarze</a>
-                        <a th:href="@{/dodaj_reakcje_post(postID=${post.postId}-1)}">Dodaj reakcję</a>
-                        <a th:href="@{/wyswietl_reakcje_post(postID=${post.postId-1})}">Wyświetl reakcje</a>
+                        <a th:href="@{/dodaj_reakcje_post(postID=${post.postId})}">Dodaj reakcję</a>
+                        <a th:href="@{/wyswietl_reakcje_post(postID=${post.postId})}">Wyświetl reakcje</a>
                     </div>
 
                     <div class="post-reakcje" th:if="${post.reakcje.size() > 0}">

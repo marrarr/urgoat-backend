@@ -33,11 +33,11 @@ public class KomentarzController {
     private KomentarzService komentarzService;
 
     @RequestMapping("/dodaj_komentarz")
-    public String dodajKomentarz(Model model, Long postID_link)
+    public String dodajKomentarz(Model model, Long postID)
     {
         KomentarzTransData komentarzTransData = new KomentarzTransData();
         model.addAttribute("komentarzTransData", komentarzTransData);
-        model.addAttribute("postId_link", postID_link);
+        //model.addAttribute("postId_link", postID);
         return "addkom";
     }
 
@@ -45,7 +45,7 @@ public class KomentarzController {
     public String dodajKomentarz(Model model, KomentarzTransData komentarzTransData) {
 
         String tresc = komentarzTransData.getTresc();
-        int postID = komentarzTransData.getPostID() - 1;  // nie zmieniać
+        int postID = komentarzTransData.getPostID();
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
 
         komentarzService.dodajKomentarz(uzytkownik_aktualny.getUzytkownikID(), postID, tresc);

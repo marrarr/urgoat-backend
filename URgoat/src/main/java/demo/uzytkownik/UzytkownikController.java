@@ -164,8 +164,8 @@ public class UzytkownikController {
         model.addAttribute("headerKomentarze","Lista wszystkich twoich reakcji do komentarzy");
 
         return "historia_reakcji";
-
     }
+
 
 
 
