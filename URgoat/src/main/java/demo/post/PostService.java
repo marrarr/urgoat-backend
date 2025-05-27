@@ -96,7 +96,9 @@ public class PostService {
 
     @Transactional
     public void zaktualizujPost(long postID, String tresc) {
-        Post post = postRepository.findById(postID).orElseThrow();
+        Post post = postRepository.findById(postID)
+                .orElseThrow(() -> new RuntimeException("Post nie został znaleziony: ID = " + postID));
+
         post.setTresc(tresc);
         postRepository.save(post);
         URgoatLogger.uzytkownikInfo("Dodano post id=" + post.getPostID() + ", dlugosc=" + post.getTresc().length(),

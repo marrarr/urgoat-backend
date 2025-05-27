@@ -16,6 +16,7 @@
 
 <form method="POST" th:object="${transData}">
   <div class ="form-group">
+      <input type="hidden" th:field="${transData.postId}">
     <label for="tresc">Treść posta:</label><br>
     <textarea th:field="${transData.tresc}" id="tresc" name="tresc" rows="4" cols="50" placeholder="Wpisz treść posta"></textarea><br>
   </div>
