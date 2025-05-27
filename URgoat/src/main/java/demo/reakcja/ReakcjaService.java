@@ -50,12 +50,13 @@ public class ReakcjaService {
                 .toList();
     }
 
+    // TODO gdyby reakcje na stronie były klikalne, a nie przez form, to zrobić usunięcie reakcji po wciśnięciu na już dodaną
+    // ale trzeba byloby jeszcze jakoś wyróżniać wcisnieta na stronie
     @Transactional
-    public void dodajReakcje(long userId, Long postId, Long komentarzId, int kodReakcji) {
-        Uzytkownik user = uzytkownikRepository.findById(userId).orElseThrow();
-        Reakcja reakcja = new Reakcja();
-        reakcja.setUzytkownik(user);
-        reakcja.setReakcja(kodReakcji);
+    public void dodajReakcje(long uzytkownikId, Long postId, Long komentarzId, int kodReakcji) {
+        if (kodReakcji == 0) {
+            return;
+        }
 
         if (postId == null && komentarzId == null) {
             throw new IllegalArgumentException("Reakcja nie jest przypisana do posta lub komentarza");
@@ -65,16 +66,43 @@ public class ReakcjaService {
             throw new IllegalArgumentException("Reakcja nie może być przypisana jednocześnie do posta i komentarza");
         }
 
+        Uzytkownik uzytkownik = uzytkownikRepository.findById(uzytkownikId).orElseThrow();
+        Reakcja reakcja = new Reakcja();
+        reakcja.setUzytkownik(uzytkownik);
+        reakcja.setReakcja(kodReakcji);
+
         if (postId != null) {
             Post post = postRepository.findById(postId).orElseThrow();
+            Reakcja istniejacaReakcja = reakcjaRepository
+                    .findByUzytkownik_UzytkownikIDAndPost_PostID((int)uzytkownikId, post.getPostID()).orElse(null);
+
+            if (istniejacaReakcja != null) {
+                reakcja = istniejacaReakcja;
+                reakcja.setReakcja(kodReakcji); // bo sie nadpisalo starym
+            }
             reakcja.setPost(post);
         }
 
         if (komentarzId != null) {
             Komentarz komentarz = komentarzRepository.findById(komentarzId).orElseThrow();
+            Reakcja istniejacaReakcja = reakcjaRepository
+                    .findByUzytkownik_UzytkownikIDAndKomentarz_KomentarzID((int)uzytkownikId, komentarz.getKomentarzID()).orElse(null);
+
+            if (istniejacaReakcja != null) {
+                reakcja = istniejacaReakcja;
+                reakcja.setReakcja(kodReakcji); // bo sie nadpisalo starym
+            }
+
             reakcja.setKomentarz(komentarz);
         }
 
+        reakcjaRepository.save(reakcja);
+    }
+
+    @Transactional
+    public void aktualizujReakcje(long reakcjaID, int kodReakcji) {
+        Reakcja reakcja = reakcjaRepository.findById(reakcjaID).orElseThrow();
+        reakcja.setReakcja(kodReakcji);
         reakcjaRepository.save(reakcja);
     }
 

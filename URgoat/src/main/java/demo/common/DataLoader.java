@@ -280,7 +280,6 @@ public class DataLoader implements CommandLineRunner {
             reakcje.add(new Reakcja(user1, null, posty.get(1), 2));
             reakcje.add(new Reakcja(user1, null, posty.get(2), 2));
             reakcje.add(new Reakcja(user1, null, posty.get(5), 1));
-            reakcje.add(new Reakcja(user1, null, posty.get(5), 3));
 
             reakcje.add(new Reakcja(user2, null, posty.get(0), 2));
             reakcje.add(new Reakcja(user2, null, posty.get(1), 2));

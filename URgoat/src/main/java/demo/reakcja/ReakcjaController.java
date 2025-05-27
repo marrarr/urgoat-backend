@@ -7,6 +7,7 @@ import demo.post.Post;
 import demo.post.PostRepository;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
+import demo.uzytkownik.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,10 @@ public class ReakcjaController {
     SerwisAplikacji serwisAplikacji;
     @Autowired
     private UzytkownikRepository uzytkownikRepository;
+    @Autowired
+    private UzytkownikService uzytkownikService;
+    @Autowired
+    private ReakcjaService reakcjaService;
 
 
     @RequestMapping(value = "/wyswietl_reakcje_post", method = RequestMethod.GET)
@@ -72,13 +77,13 @@ public class ReakcjaController {
         int reakcja = reakcjaTransData.getReakcja();
         int postID = reakcjaTransData.getPostID();
 
-        Post post = postRepository.findByPostID(postID);
-
-        Komentarz komentarz = null;
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Uzytkownik uzytkownik_aktualny = uzytkownikRepository.findFirstByPseudonim(username);
-        reakcjaRepository.save(new Reakcja(uzytkownik_aktualny, komentarz, post, reakcja));
+        Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
+        reakcjaService.dodajReakcje(
+                uzytkownik_aktualny.getUzytkownikID(),
+                (long)postID,
+                null,
+                reakcja
+        );
 
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");
@@ -101,15 +106,13 @@ public class ReakcjaController {
         int reakcja = reakcjaTransData.getReakcja();
         int komentarzID = reakcjaTransData.getKomentarzID();
 
-        long long_komentarzID=(long)komentarzID;
-        Komentarz komentarz = komentarzRepository.findByKomentarzID(long_komentarzID);
-        System.out.println("cotojest" + long_komentarzID);
-
-        Post post = null;
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Uzytkownik uzytkownik_aktualny = uzytkownikRepository.findFirstByPseudonim(username);
-        reakcjaRepository.save(new Reakcja(uzytkownik_aktualny, komentarz, post, reakcja));
+        Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
+        reakcjaService.dodajReakcje(
+                uzytkownik_aktualny.getUzytkownikID(),
+                null,
+                (long)komentarzID,
+                reakcja
+        );
 
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");

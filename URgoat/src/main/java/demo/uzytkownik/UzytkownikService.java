@@ -85,7 +85,7 @@ public class UzytkownikService {
         uzytkownikRepository.save(uzytkownik);
 
         URgoatLogger.uzytkownikInfo("Dodano użytkownika username=" + user.getUsername(),
-                getZalogowanyUzytkownik() == null ? null : getZalogowanyUzytkownik().getPseudonim(),
+                "server",
                 LogOperacja.DODAWANIE);
     }
 
