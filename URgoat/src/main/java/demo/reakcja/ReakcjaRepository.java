@@ -37,4 +37,6 @@ public interface ReakcjaRepository extends JpaRepository<Reakcja, Long> {
             "AND r.komentarz IS NOT NULL " +
             "AND r.post IS NULL")
     List<Reakcja> findReakcjeNaKomentarzeByUzytkownik(@Param("uzytkownik") Uzytkownik uzytkownik);
+
+
 }

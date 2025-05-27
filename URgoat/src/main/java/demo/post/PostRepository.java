@@ -12,4 +12,8 @@ public interface PostRepository extends JpaRepository<Post, Long>{
 
     // Posty zawierające frazę
     List<Post> findByTrescContainingIgnoreCase(String tresc);
+
+    Post findByPostID(int postID);
+
+
 }

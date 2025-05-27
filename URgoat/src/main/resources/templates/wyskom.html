@@ -20,7 +20,7 @@
                      <h1><b th:text="${komentarze.komentarzID}"></b></h1>
 <!--                    <h4><b th:number="${komentarze.postID}"></b></h4>-->
                     <p><b th:text="${komentarze.getTresc()}"></b></p>
-                    <a th:href="@{/dodaj_reakcje_komentarz(komentarzID=${komentarze.komentarzID}-1)}">Dodaj reakcję</a>
+                    <a th:href="@{/dodaj_reakcje_komentarz(komentarzID=${komentarze.komentarzID})}">Dodaj reakcję</a>
 
                 </article>
             </div>

@@ -63,14 +63,47 @@ public class PostController {
         }
     }
 
-    @RequestMapping(value = "/usun_post", method = RequestMethod.DELETE)
-    public String usunPost(Model model, Long id) {
+    @RequestMapping(value = "/usun_post", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String usunPost(Model model, @RequestParam Long id) {
         postService.usunPost(id);
 
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Post został usunięty");
 
         return "viewmessage";
+    }
+
+    @RequestMapping(value = "/edytuj_post", method = RequestMethod.GET)
+    public String edytujPost(Model model, Long id)
+    {
+
+        int intpostid= Integer.parseInt(id.toString());
+        Post post = postRepository.findByPostID(intpostid);
+        PostTransData transData = new PostTransData();
+        transData.setPostId(post.getPostID());
+        transData.setTresc(post.getTresc());
+        model.addAttribute("transData", transData);
+        return "aktualizacja_postu";
+    }
+
+    @RequestMapping(value = "/edytuj_post", method = RequestMethod.POST)
+    public String edytujPost(Model model, PostTransData postTransData) {
+        String tresc = postTransData.getTresc();
+
+        if (tresc.isBlank()) {
+            model.addAttribute("header", "Wynik");
+            model.addAttribute("message","Post nie może być pusty");
+
+            return "viewmessage";
+        } else {
+            Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
+
+            postService.zaktualizujPost(uzytkownik_aktualny.getUzytkownikID(), tresc);
+            model.addAttribute("header", "Wynik");
+            model.addAttribute("message","Post został zaktualizowany");
+
+            return "viewmessage";
+        }
     }
 
     @RequestMapping(value = "/wyswietl_posty", method = RequestMethod.GET)
@@ -99,6 +132,8 @@ public class PostController {
     public String przekierujNaStroneGlwona(Model model) {
         return "redirect:/strona_glowna";
     }
+
+
 
 
 }

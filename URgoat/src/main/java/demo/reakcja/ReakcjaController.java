@@ -35,7 +35,7 @@ public class ReakcjaController {
     public String wyswietlReakcje(Model model, Long postID)
     {
         int intpostid = Integer.parseInt(postID.toString());
-        Post post = postRepository.findAll().get(intpostid);
+        Post post = postRepository.findByPostID(intpostid);
 
         model.addAttribute("header","Reakcje"); //Dodanie obiektu do pamieci lokalnej modelu
         model.addAttribute("reakcja_lubieto", reakcjaRepository.countByPostAndReakcja(post, 1)); //Dodanie obiektu do pamieci lokalnej modelu
@@ -58,11 +58,11 @@ public class ReakcjaController {
 
 
     @RequestMapping("/dodaj_reakcje_post")
-    public String dodajReakcjePost(Model model, Long postID_link)
+    public String dodajReakcjePost(Model model, Long postID)
     {
         ReakcjaTransData reakcjaTransData = new ReakcjaTransData();
         model.addAttribute("reakcjaTransData", reakcjaTransData);
-        model.addAttribute("postId_link", postID_link);
+        model.addAttribute("postId_link", postID);
         return "addreakcja";
     }
 
@@ -72,8 +72,7 @@ public class ReakcjaController {
         int reakcja = reakcjaTransData.getReakcja();
         int postID = reakcjaTransData.getPostID();
 
-        long long_postID=(long)postID;
-        Post post = postRepository.findAll().get(postID);
+        Post post = postRepository.findByPostID(postID);
 
         Komentarz komentarz = null;
 
@@ -88,11 +87,11 @@ public class ReakcjaController {
     }
 
     @RequestMapping("/dodaj_reakcje_komentarz")
-    public String dodajReakcjeKomentarz(Model model, Long komentarzID_link)
+    public String dodajReakcjeKomentarz(Model model, Long komentarzID)
     {
         ReakcjaTransData reakcjaTransData = new ReakcjaTransData();
         model.addAttribute("reakcjaTransData", reakcjaTransData);
-        model.addAttribute("komentarzId_link", komentarzID_link);
+        model.addAttribute("komentarzId_link", komentarzID);
         return "addreakcjakom";
     }
 
@@ -103,7 +102,8 @@ public class ReakcjaController {
         int komentarzID = reakcjaTransData.getKomentarzID();
 
         long long_komentarzID=(long)komentarzID;
-        Komentarz komentarz = komentarzRepository.findAll().get(komentarzID);
+        Komentarz komentarz = komentarzRepository.findByKomentarzID(long_komentarzID);
+        System.out.println("cotojest" + long_komentarzID);
 
         Post post = null;
 
