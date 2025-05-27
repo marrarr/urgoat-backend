@@ -1,6 +1,7 @@
 package demo.post;
 
 import java.util.List;
+import java.util.Optional;
 
 import demo.SerwisAplikacji;
 import demo.komentarz.Komentarz;
@@ -74,11 +75,15 @@ public class PostController {
     }
 
     @RequestMapping(value = "/edytuj_post", method = RequestMethod.GET)
-    public String edytujPost(Model model, Long id)
-    {
+    public String edytujPost(Model model, @RequestParam Long id) {
+        if (id == null || id == 0) {
+            model.addAttribute("header", "Błąd");
+            model.addAttribute("message", "ID posta jest nieprawidłowe");
+            return "viewmessage";
+        }
 
-        int intpostid= Integer.parseInt(id.toString());
-        Post post = postRepository.findByPostID(intpostid);
+        int int_id= Integer.parseInt(id.toString());
+        Post post = postRepository.findByPostID(int_id);
         PostTransData transData = new PostTransData();
         transData.setPostId(post.getPostID());
         transData.setTresc(post.getTresc());
@@ -89,22 +94,26 @@ public class PostController {
     @RequestMapping(value = "/edytuj_post", method = RequestMethod.POST)
     public String edytujPost(Model model, PostTransData postTransData) {
         String tresc = postTransData.getTresc();
+        long id = postTransData.getPostId();
 
-        if (tresc.isBlank()) {
+        if (tresc == null || tresc.isBlank()) {
             model.addAttribute("header", "Wynik");
-            model.addAttribute("message","Post nie może być pusty");
-
-            return "viewmessage";
-        } else {
-            Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
-
-            postService.zaktualizujPost(uzytkownik_aktualny.getUzytkownikID(), tresc);
-            model.addAttribute("header", "Wynik");
-            model.addAttribute("message","Post został zaktualizowany");
-
+            model.addAttribute("message", "Post nie może być pusty");
             return "viewmessage";
         }
+
+        try {
+            postService.zaktualizujPost(id, tresc);
+            model.addAttribute("header", "Wynik");
+            model.addAttribute("message", "Post został zaktualizowany");
+        } catch (RuntimeException e) {
+            model.addAttribute("header", "Błąd");
+            model.addAttribute("message", e.getMessage());
+        }
+
+        return "viewmessage";
     }
+
 
     @RequestMapping(value = "/wyswietl_posty", method = RequestMethod.GET)
     public String wyswietlPosty(Model model) {

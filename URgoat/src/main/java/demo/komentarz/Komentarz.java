@@ -33,7 +33,7 @@ public class Komentarz {
     @JoinColumn(name = "uzytkownikID")
     private Uzytkownik uzytkownik;
 
-    @OneToMany(mappedBy = "komentarz")
+    @OneToMany(mappedBy = "komentarz",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reakcja> reakcje;
 
 
