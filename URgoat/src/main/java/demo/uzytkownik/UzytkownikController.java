@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -131,6 +132,7 @@ public class UzytkownikController {
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
 
         List<Post> posty = postRepository.findByUzytkownik(uzytkownik_aktualny);
+        Collections.reverse(posty);
 
         model.addAttribute("header","Lista wszystkich twoich postów");
         model.addAttribute("listaPostow",posty);
@@ -145,6 +147,7 @@ public class UzytkownikController {
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
 
         List<Komentarz> komentarze = komentarzRepository.findByUzytkownik(uzytkownik_aktualny);
+        Collections.reverse(komentarze);
 
         model.addAttribute("header","Lista wszystkich twoich komentarzy do postów");
         model.addAttribute("listaKomentarzy",komentarze);
@@ -158,6 +161,7 @@ public class UzytkownikController {
     {
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
         List<Reakcja> reakcje_posty = reakcjaRepository.findByUzytkownik(uzytkownik_aktualny);
+        Collections.reverse(reakcje_posty);
 
         model.addAttribute("headerPosty","Lista wszystkich twoich reakcji do postów");
         model.addAttribute("listaReakcjiPosty",reakcje_posty);
