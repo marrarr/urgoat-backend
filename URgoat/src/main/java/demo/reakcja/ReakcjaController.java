@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -114,6 +115,16 @@ public class ReakcjaController {
 
         model.addAttribute("header", "Wynik");
         model.addAttribute("message","Zostało porpawnie dodane");
+
+        return "viewmessage";
+    }
+
+    @RequestMapping(value = "/usun_reakcje", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String usunPost(Model model, @RequestParam Long id) {
+        reakcjaService.usunReakcje(id);
+
+        model.addAttribute("header", "Wynik");
+        model.addAttribute("message","Reakcja została usunięta");
 
         return "viewmessage";
     }
