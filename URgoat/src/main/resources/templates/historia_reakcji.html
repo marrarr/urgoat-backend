@@ -28,7 +28,7 @@
                 <div class="dane">
                     <h6>Użytkownik:
                         <b th:text="${reakcje.post.uzytkownik?.imie} ?: 'Nieznany'"></b>
-                        <b th:text="${reakcje.post.uzytkownik?.imie} ?: 'Nieznany'"></b>
+                        <b th:text="${reakcje.post.uzytkownik?.nazwisko} ?: 'Nieznany'"></b>
                         Treść postu:
                         <b th:text="${reakcje.post.tresc} ?: 'Brak treści'"></b>
                     </h6>
@@ -39,8 +39,8 @@
             </div>
 
             <div class="reakcje">
-                <a class="button">Usuń reakcje</a>
-                <a class="button">Edytuj reakcje</a>
+                <a th:href="@{/usun_reakcje(id=${reakcje.getReakcjaID})}" class="button">Usuń reakcje</a>
+<!--                <a class="button">Edytuj reakcje</a>-->
             </div>
         </article>
     </div>
@@ -64,8 +64,8 @@
         </div>
 
         <div class="reakcje">
-          <a class="button">Usuń reakcje</a>
-          <a class="button">Edytuj reakcje</a>
+          <a th:href="@{/usun_reakcje(id=${reakcje.getReakcjaID})}" class="button">Usuń reakcje</a>
+<!--          <a class="button">Edytuj reakcje</a>-->
         </div>
       </article>
     </div>

@@ -42,9 +42,11 @@
         </div>
 
         <div class="reakcje">
-              <a class="button">Usuń komentarz</a>
-              <a class="button">Edytuj komentarz</a>
-<!--          <a th:href="@{/wyswietl_profil(uzytkownik=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Zobacz profil</a>-->
+              <a th:href="@{/usun_komentarz(id=${komentarze.getKomentarzID})}" class="button">Usuń komentarz</a>
+              <a th:href="@{/edytuj_komentarz(id=${komentarze.getKomentarzID})}" class="button">Edytuj komentarz</a>
+
+
+            <!--          <a th:href="@{/wyswietl_profil(uzytkownik=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Zobacz profil</a>-->
 <!--          <a th:href="@{/czat(znajomy=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="button">Czat</a>-->
         </div>
       </article>
