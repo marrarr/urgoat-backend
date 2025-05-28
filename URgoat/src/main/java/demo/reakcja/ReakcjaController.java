@@ -78,10 +78,9 @@ public class ReakcjaController {
         int postID = reakcjaTransData.getPostID();
 
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
-        reakcjaService.dodajReakcje(
+        reakcjaService.dodajReakcjeDoPosta(
                 uzytkownik_aktualny.getUzytkownikID(),
                 (long)postID,
-                null,
                 reakcja
         );
 
@@ -107,9 +106,8 @@ public class ReakcjaController {
         int komentarzID = reakcjaTransData.getKomentarzID();
 
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
-        reakcjaService.dodajReakcje(
+        reakcjaService.dodajReakcjeDoKomentarza(
                 uzytkownik_aktualny.getUzytkownikID(),
-                null,
                 (long)komentarzID,
                 reakcja
         );

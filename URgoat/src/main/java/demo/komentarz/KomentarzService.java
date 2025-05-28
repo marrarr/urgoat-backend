@@ -1,5 +1,7 @@
 package demo.komentarz;
 
+import demo.log.LogOperacja;
+import demo.log.URgoatLogger;
 import demo.post.Post;
 import demo.post.PostRepository;
 import demo.reakcja.ReakcjaService;
@@ -58,6 +60,12 @@ public class KomentarzService {
         komentarz.setPost(post);
         komentarz.setTresc(tresc);
         komentarzRepository.save(komentarz);
+
+        URgoatLogger.uzytkownikInfo(
+                "Dodano komentarz id=" + komentarz.getKomentarzID() + " dlugosc=" + komentarz.getTresc().length(),
+                uzytkownikService.getZalogowanyUzytkownik().getPseudonim(),
+                LogOperacja.DODAWANIE
+        );
     }
 
     @Transactional
@@ -70,6 +78,12 @@ public class KomentarzService {
         if (user.getRole().equals("ROLE_ADMIN") ||
                 uzytkownik_zalogowany.getUzytkownikID() == komentarz.getUzytkownik().getUzytkownikID()) {
             komentarzRepository.delete(komentarz);
+
+            URgoatLogger.uzytkownikInfo(
+                    "Usunięto komentarz id=" + komentarz.getKomentarzID() + " dlugosc=" + komentarz.getTresc().length(),
+                    uzytkownikService.getZalogowanyUzytkownik().getPseudonim(),
+                    LogOperacja.USUWANIE
+            );
         } else {
             throw new AccessDeniedException("Brak uprawnień do usunięcia komentarza");
         }
@@ -88,6 +102,12 @@ public class KomentarzService {
         if (uzytkownik_zalogowany.getUzytkownikID() == komentarz.getUzytkownik().getUzytkownikID()) {
             komentarz.setTresc(tresc);
             komentarzRepository.save(komentarz);
+
+            URgoatLogger.uzytkownikInfo(
+                    "Zaktualizowano komentarz id=" + komentarz.getKomentarzID() + " dlugosc=" + komentarz.getTresc().length(),
+                    uzytkownikService.getZalogowanyUzytkownik().getPseudonim(),
+                    LogOperacja.AKTUALIZOWANIE
+            );
         } else {
             throw new AccessDeniedException("Brak uprawnień do usunięcia komentarza");
         }
