@@ -108,7 +108,7 @@ public class UzytkownikService {
         if (pseudonim == null || pseudonim.isBlank()) {
             throw new IllegalArgumentException("Pseudonim nie może być pusty.");
         } else {
-            uzytkownik.setNazwisko(nazwisko);
+            uzytkownik.setPseudonim(pseudonim);
         }
 
         if (zdjecie == null || zdjecie.isEmpty()) {
@@ -118,8 +118,7 @@ public class UzytkownikService {
         } else {
             uzytkownik.setZdjecie(zdjecie.getBytes());
         }
-
-
+        
         uzytkownikRepository.save(uzytkownik);
 
         URgoatLogger.uzytkownikInfo("Zaktualizowano dane użytkownika id=" + uzytkownik.getUzytkownikID(),
