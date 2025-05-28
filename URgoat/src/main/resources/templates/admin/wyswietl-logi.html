@@ -35,12 +35,34 @@
       align-self: flex-start;
       padding: 0.4em 1em;
     }
+    .header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+.admin-panel-btn {
+  padding: 0.5em 1.2em;
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.admin-panel-btn:hover {
+  background-color: #1565c0;
+}
   </style>
 </head>
 <body>
 
-<h1>Logi systemowe</h1>
-
+<div class="header-row">
+  <h1>Logi systemowe</h1>
+  <a href="/admin/panel" class="admin-panel-btn">Panel admina</a>
+</div>
 <form class="filter-form" method="get" th:action="@{/admin/log}">
   <div>
     <label for="username">Użytkownik:</label>

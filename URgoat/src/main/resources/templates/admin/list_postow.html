@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <title>Wszystkie posty</title>
+</head>
+<body>
+<div class='menu'>
+  <div class='logo'></div>
+  <a href="/admin/panel"><div class="button">Panel admina</div></a><br><br>
+</div>
+
+<div class="cont">
+  <div class="szukanie">
+    <textarea class="szukaj" id="wyszukiwarka"></textarea>
+    <button class="button" id="przycisk-szukaj">Szukaj</button>
+  </div>
+  <h4><strong>Lista wszystkich postów</strong></h4>
+
+  <div class="list-group">
+    <article class="list-group-item posst uzytkownik" th:each="post : ${posts}">
+      <div class="dane">
+        <h5>
+          <b>Autor:</b>
+          <span th:text="${post.uzytkownik != null ? post.uzytkownik.imie : 'Nieznany'}"></span>
+          <span th:text="${post.uzytkownik != null ? post.uzytkownik.nazwisko : ''}"></span>
+        </h5>
+        <h4>
+          <b>Treść posta:</b>
+          <span th:text="${post.tresc}"></span>
+        </h4>
+      </div>
+      <div class="reakcje">
+        <a th:href="@{/admin/posts/delete(id=${post.postID})}" class="button">Usuń post</a>
+        <!-- <a th:href="@{/admin/posts/edit(id=${post.postID})}" class="button">Edytuj post</a> -->
+      </div>
+    </article>
+    <div th:if="${#lists.isEmpty(listaPostow)}" class="alert alert-info" style="margin-top:20px;">
+      Brak postów w systemie.
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('przycisk-szukaj').addEventListener('click', function () {
+    const zapytanie = document.getElementById('wyszukiwarka').value.toLowerCase().trim();
+    const posty = document.querySelectorAll('.uzytkownik');
+    posty.forEach(post => {
+      const imie = post.querySelector('span:nth-of-type(1)')?.innerText.toLowerCase() || '';
+      const nazwisko = post.querySelector('span:nth-of-type(2)')?.innerText.toLowerCase() || '';
+      const tresc = post.querySelector('span:nth-of-type(3)')?.innerText.toLowerCase() || '';
+      if (imie.includes(zapytanie) || nazwisko.includes(zapytanie) || tresc.includes(zapytanie)) {
+        post.style.display = '';
+      } else {
+        post.style.display = 'none';
+      }
+    });
+  });
+</script>
+</body>
+</html>

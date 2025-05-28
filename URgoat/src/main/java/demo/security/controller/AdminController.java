@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin")
 public class AdminController {
 
+
     private final UserService userService;
 
     public AdminController(UserService userService) {
