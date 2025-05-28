@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Logi systemowe</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5em;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .filter-form {
+      margin-bottom: 1em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+    .filter-form div {
+      display: flex;
+      flex-direction: column;
+    }
+    .filter-form button {
+      align-self: flex-start;
+      padding: 0.4em 1em;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Logi systemowe</h1>
+
+<form class="filter-form" method="get" th:action="@{/admin/log}">
+  <div>
+    <label for="username">Użytkownik:</label>
+    <input type="text" id="username" name="username" th:value="${param.username}">
+  </div>
+  <div>
+    <label for="operacja">Operacja:</label>
+    <select id="operacja" name="operacja">
+      <option value="">-- wszystkie --</option>
+      <option th:each="op : ${operacje}"
+              th:value="${op}"
+              th:text="${op}"
+              th:selected="${param.operacja == op}">
+      </option>
+    </select>
+  </div>
+  <div>
+    <label for="level">Poziom:</label>
+    <select id="level" name="level">
+      <option value="">-- wszystkie --</option>
+      <option th:each="lvl : ${levels}"
+              th:value="${lvl}"
+              th:text="${lvl}"
+              th:selected="${param.level == lvl}">
+      </option>
+    </select>
+  </div>
+  <div>
+    <label>&nbsp;</label>
+    <button type="submit">Filtruj</button>
+  </div>
+</form>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Data</th>
+    <th>Użytkownik</th>
+    <th>Poziom</th>
+    <th>Operacja</th>
+    <th>Wiadomość</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="log : ${logi}">
+    <td th:text="${log.id}">1</td>
+    <td th:text="${log.timestamp}">2025-05-28 12:00</td>
+    <td th:text="${log.username}">admin</td>
+    <td th:text="${log.level}">INFO</td>
+    <td th:text="${log.operacja}">LOGOWANIE</td>
+    <td th:text="${log.message}">Użytkownik zalogowany</td>
+  </tr>
+  <tr th:if="${#lists.isEmpty(logi)}">
+    <td colspan="6">Brak wyników.</td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

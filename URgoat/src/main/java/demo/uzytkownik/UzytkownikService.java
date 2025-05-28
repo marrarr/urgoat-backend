@@ -118,7 +118,7 @@ public class UzytkownikService {
         } else {
             uzytkownik.setZdjecie(zdjecie.getBytes());
         }
-        
+
         uzytkownikRepository.save(uzytkownik);
 
         URgoatLogger.uzytkownikInfo("Zaktualizowano dane użytkownika id=" + uzytkownik.getUzytkownikID(),
