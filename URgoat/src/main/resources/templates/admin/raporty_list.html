@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Raporty</title>
+</head>
+<style>
+  .profile-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .profile-buttons .main-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+</style>
+<body>
+<div class="profile-buttons">
+  <div class="main-buttons">
+    <a th:href="@{/admin/raport_postow}" class="btn btn-urgoat">Raport postów</a>
+    <a th:href="@{/admin/raport_komentarzy}" class="btn btn-urgoat">Raport komentarzy</a>
+    <a th:href="@{/admin/raport_uzytkownikow}" class="btn btn-urgoat">Raport użytkowników</a>
+
+  </div>
+  <a th:href="@{/admin/panel}" class="btn btn-urgoat">Panel</a>
+</div>
+
+</body>
+</html>

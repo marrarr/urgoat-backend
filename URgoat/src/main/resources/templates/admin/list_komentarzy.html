@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Wszystkie komentarze</title>
+</head>
+<body>
+<div class='menu'>
+    <div class='logo'></div>
+    <a href="/admin/panel"><div class="button">Panel admina</div></a><br><br>
+</div>
+
+<div class="cont">
+    <div class="szukanie">
+        <textarea class="szukaj" id="wyszukiwarka"></textarea>
+        <button class="button" id="przycisk-szukaj">Szukaj</button>
+    </div>
+    <h4><strong>Lista wszystkich komentarzy</strong></h4>
+
+    <div class="list-group">
+        <article class="list-group-item posst uzytkownik" th:each="komentarz : ${comments}">
+            <div class="dane">
+                <h5>
+                    <b>Autor komentarza:</b>
+                    <span th:text="${komentarz.uzytkownik != null ? komentarz.uzytkownik.imie : 'Nieznany'}"></span>
+                    <span th:text="${komentarz.uzytkownik != null ? komentarz.uzytkownik.nazwisko : ''}"></span>
+                </h5>
+                <h6>
+                    <b>Post:</b>
+                    <span th:text="${komentarz.post != null ? komentarz.post.tresc : 'Brak'}"></span>
+                </h6>
+                <h4>
+                    <b>Treść komentarza:</b>
+                    <span th:text="${komentarz.tresc}"></span>
+                </h4>
+            </div>
+            <div class="reakcje">
+                <a th:href="@{/admin/comments/delete(id=${komentarz.komentarzID})}" class="button">Usuń komentarz</a>
+                <!-- <a th:href="@{/admin/comments/edit(id=${komentarz.komentarzID})}" class="button">Edytuj komentarz</a> -->
+            </div>
+        </article>
+        <div th:if="${#lists.isEmpty(listaKomentarzy)}" class="alert alert-info" style="margin-top:20px;">
+            Brak komentarzy w systemie.
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('przycisk-szukaj').addEventListener('click', function () {
+      const zapytanie = document.getElementById('wyszukiwarka').value.toLowerCase().trim();
+      const komentarze = document.querySelectorAll('.uzytkownik');
+      komentarze.forEach(komentarz => {
+        const imie = komentarz.querySelector('span:nth-of-type(1)')?.innerText.toLowerCase() || '';
+        const nazwisko = komentarz.querySelector('span:nth-of-type(2)')?.innerText.toLowerCase() || '';
+        const tresc = komentarz.querySelector('span:nth-of-type(3)')?.innerText.toLowerCase() || '';
+        if (imie.includes(zapytanie) || nazwisko.includes(zapytanie) || tresc.includes(zapytanie)) {
+          komentarz.style.display = '';
+        } else {
+          komentarz.style.display = 'none';
+        }
+      });
+    });
+</script>
+</body>
+</html>

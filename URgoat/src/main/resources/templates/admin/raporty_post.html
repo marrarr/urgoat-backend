@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Raport o postach</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container" style="margin-top: 50px;">
+  <h2>Liczba utworzonych postów</h2>
+  <div class="alert alert-info" style="font-size: 2em;">
+    <span th:text="${liczbaPostow}">0</span>
+  </div>
+  <a th:href="@{/admin/panel}" class="btn btn-success">Powrót do panelu</a>
+</div>
+</body>
+</html>
