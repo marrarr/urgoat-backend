@@ -3,11 +3,13 @@ package demo.log;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class DBLogRecord {
 
     @Id
@@ -20,14 +22,4 @@ public class DBLogRecord {
 
     @Enumerated(EnumType.STRING)
     private LogOperacja operacja;
-
-    public DBLogRecord() {
-
-    }
-
-    public DBLogRecord(String message, String timestamp) {
-        this.message = message;
-        this.timestamp = timestamp;
-        this.level = "INFO";
-    }
 }

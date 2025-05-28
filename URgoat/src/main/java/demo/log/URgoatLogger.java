@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 public class URgoatLogger {
     private static final Logger logger = Logger.getLogger("URgoatLogger");
 
-    // zwykle metody do logowania
+    // zwykle metody do logowania gdyby była potrzeba
     public static void info(String message) {
         logger.log(Level.INFO, message);
     }

@@ -40,25 +40,20 @@ public class UzytkownikController {
 
     @RequestMapping(value = "/lista_uzytkownikow", method = RequestMethod.GET)
     public String listaUzytkownikow(Model model) {
-        //List<Uzytkownik> uzytkownik = uzytkownikRepository.findAll();
-
-
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Uzytkownik uzytkownik_aktualny= uzytkownikRepository.findFirstByPseudonim(username);
         Uzytkownik uzytkownik_aktualny = uzytkownikService.getZalogowanyUzytkownik();
         List<Uzytkownik> uzytkownicy = uzytkownikRepository.findAllExceptById(uzytkownik_aktualny.getUzytkownikID());
 
-        model.addAttribute("header", "Lista wszystkich użytkowników"); //Dodanie obiektu do pamieci lokalnej modelu
-        model.addAttribute("listaUzytkownikow", uzytkownicy); //Dodanie obiektu do pamieci lokalnej modelu
+        model.addAttribute("header", "Lista wszystkich użytkowników");
+        model.addAttribute("listaUzytkownikow", uzytkownicy);
 
-        return "wysuzytkownikow"; //Przekierowanie na strone
+        return "wysuzytkownikow";
     }
 
     @RequestMapping("/wyswietl_profil")
     public String wyswietlProfil(Model model, Long uzytkownik) {
         Uzytkownik uzytkownik1 = uzytkownikRepository.findFirstByUzytkownikID(uzytkownik);
-        model.addAttribute("header", "Profil"); //Dodanie obiektu do pamieci lokalnej modelu
-        model.addAttribute("profilUzytkownika", uzytkownik1); //Dodanie obiektu do pamieci lokalnej modelu
+        model.addAttribute("header", "Profil");
+        model.addAttribute("profilUzytkownika", uzytkownik1);
 
         return "wysprofil";
     }

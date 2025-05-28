@@ -12,10 +12,6 @@ public class DBLogService {
     @Autowired
     private DBLogRecordRepository dbLogRecordRepository;
 
-    public List<DBLogRecord> findAll() {
-        return dbLogRecordRepository.findAll();
-    }
-
     public List<DBLogRecord> findAllFiltruj(String username, LogOperacja operacja, String level) {
         Specification<DBLogRecord> spec = Specification.where(null);
 

@@ -19,18 +19,21 @@ import java.util.List;
 
 @Service
 public class KomentarzService {
-    @Autowired
-    private KomentarzRepository komentarzRepository;
-    @Autowired
-    private PostRepository postRepository;
-    @Autowired
-    private UzytkownikRepository uzytkownikRepository;
-    @Autowired
-    private UzytkownikService uzytkownikService;
-    @Autowired
-    private ReakcjaService reakcjaService;
-    @Autowired
-    private UserRepository userRepository;
+    private final KomentarzRepository komentarzRepository;
+    private final PostRepository postRepository;
+    private final UzytkownikRepository uzytkownikRepository;
+    private final UzytkownikService uzytkownikService;
+    private final ReakcjaService reakcjaService;
+    private final UserRepository userRepository;
+
+    public KomentarzService(KomentarzRepository komentarzRepository, PostRepository postRepository, UzytkownikRepository uzytkownikRepository, UzytkownikService uzytkownikService, ReakcjaService reakcjaService, UserRepository userRepository) {
+        this.komentarzRepository = komentarzRepository;
+        this.postRepository = postRepository;
+        this.uzytkownikRepository = uzytkownikRepository;
+        this.uzytkownikService = uzytkownikService;
+        this.reakcjaService = reakcjaService;
+        this.userRepository = userRepository;
+    }
 
 
     public KomentarzTransData toTransData(Komentarz komentarz) {

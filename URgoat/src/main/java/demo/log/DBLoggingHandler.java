@@ -44,12 +44,8 @@ public class DBLoggingHandler extends Handler {
     }
 
     @Override
-    public void flush() {
-        // Nie wymagane
-    }
+    public void flush() {}
 
     @Override
-    public void close() throws SecurityException {
-        // Nie wymagane
-    }
+    public void close() throws SecurityException {}
 }

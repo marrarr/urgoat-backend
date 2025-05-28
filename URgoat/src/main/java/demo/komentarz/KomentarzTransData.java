@@ -17,7 +17,6 @@ public class KomentarzTransData {
     private UzytkownikTransData uzytkownik;
     private List<ReakcjaTransData> reakcje;
 
-
     public KomentarzTransData(int komentarzID, String tresc, byte[] zdjecie, int postID, UzytkownikTransData uzytkownik, List<ReakcjaTransData> reakcje) {
         this.komentarzID = komentarzID;
         this.tresc = tresc;
@@ -31,20 +30,5 @@ public class KomentarzTransData {
         this.tresc = "";
         this.zdjecie = null;
         this.postID = 0;
-    }
-
-    public KomentarzTransData(int komentarzID, String tresc, byte[] zdjecie, int postID) {
-        this.komentarzID = komentarzID;
-        this.tresc = tresc;
-        this.zdjecie = zdjecie;
-        this.postID = postID;
-    }
-
-    public KomentarzTransData(int komentarzID, String tresc, byte[] zdjecie, int postID, UzytkownikTransData uzytkownik) {
-        this.komentarzID = komentarzID;
-        this.tresc = tresc;
-        this.zdjecie = zdjecie;
-        this.postID = postID;
-        this.uzytkownik = uzytkownik;
     }
 }

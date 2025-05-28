@@ -17,14 +17,8 @@ public class LoggingConfig {
     @Bean
     public Logger configureLogger() {
         Logger logger = Logger.getLogger("URgoatLogger");
-        logger.setLevel(Level.INFO);  // Ustawiamy poziom logowania
-
-        // Dodajemy niestandardowy handler do logowania
+        logger.setLevel(Level.INFO);
         logger.addHandler(databaseLoggingHandler);
-
-        // Opcjonalnie: dodanie dodatkowego handlera, np. do konsoli
-        //ConsoleHandler consoleHandler = new ConsoleHandler();
-        //logger.addHandler(consoleHandler);
 
         return logger;
     }

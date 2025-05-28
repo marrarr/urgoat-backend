@@ -5,6 +5,7 @@ import demo.reakcja.Reakcja;
 import demo.uzytkownik.Uzytkownik;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Table(name = "komentarz")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Komentarz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +37,6 @@ public class Komentarz {
 
     @OneToMany(mappedBy = "komentarz",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reakcja> reakcje;
-
-
-    public Komentarz(){}
 
     //Komentarz bez zdjęcia
     public Komentarz(Post postID, Uzytkownik uzytkownikID, String tresc){

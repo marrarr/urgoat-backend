@@ -20,24 +20,26 @@ import java.util.List;
 
 @Controller
 public class KomentarzController {
-    @Autowired
-    PostRepository postRepository;
-    @Autowired
-    KomentarzRepository komentarzRepository;
-    @Autowired
-    private ReakcjaRepository reakcjaRepository;
-    @Autowired
-    private SerwisAplikacji serwisAplikacji;
-    @Autowired
-    private UzytkownikRepository uzytkownikRepository;
-    @Autowired
-    private UzytkownikService uzytkownikService;
-    @Autowired
-    private KomentarzService komentarzService;
+    private final PostRepository postRepository;
+    private final KomentarzRepository komentarzRepository;
+    private final ReakcjaRepository reakcjaRepository;
+    private final SerwisAplikacji serwisAplikacji;
+    private final UzytkownikRepository uzytkownikRepository;
+    private final UzytkownikService uzytkownikService;
+    private final KomentarzService komentarzService;
+
+    public KomentarzController(PostRepository postRepository, KomentarzRepository komentarzRepository, ReakcjaRepository reakcjaRepository, SerwisAplikacji serwisAplikacji, UzytkownikRepository uzytkownikRepository, UzytkownikService uzytkownikService, KomentarzService komentarzService) {
+        this.postRepository = postRepository;
+        this.komentarzRepository = komentarzRepository;
+        this.reakcjaRepository = reakcjaRepository;
+        this.serwisAplikacji = serwisAplikacji;
+        this.uzytkownikRepository = uzytkownikRepository;
+        this.uzytkownikService = uzytkownikService;
+        this.komentarzService = komentarzService;
+    }
 
     @RequestMapping("/dodaj_komentarz")
-    public String dodajKomentarz(Model model, Long postID)
-    {
+    public String dodajKomentarz(Model model, Long postID) {
         KomentarzTransData komentarzTransData = new KomentarzTransData();
         model.addAttribute("komentarzTransData", komentarzTransData);
         //model.addAttribute("postId_link", postID);
@@ -54,22 +56,20 @@ public class KomentarzController {
         komentarzService.dodajKomentarz(uzytkownik_aktualny.getUzytkownikID(), postID, tresc);
 
         model.addAttribute("header", "Wynik");
-        model.addAttribute("message","Zostało porpawnie dodane");
+        model.addAttribute("message", "Zostało porpawnie dodane");
 
         return "viewmessage";
     }
 
     @RequestMapping(value = "/wyswietl_komentarze", method = RequestMethod.GET)
-    public String wyswietlKomentarze(Model model, Long postID)
-    {
+    public String wyswietlKomentarze(Model model, Long postID) {
         List<Komentarz> komentarze = komentarzRepository.findByPostPostID(postID);
 
-        model.addAttribute("header","Lista wszystkich komentarzy"); //Dodanie obiektu do pamieci lokalnej modelu
-        model.addAttribute("listaKomentarzy",komentarze); //Dodanie obiektu do pamieci lokalnej modelu
-        model.addAttribute("id",postID); //Dodanie obiektu do pamieci lokalnej modelu
+        model.addAttribute("header", "Lista wszystkich komentarzy");
+        model.addAttribute("listaKomentarzy", komentarze);
+        model.addAttribute("id", postID);
 
-        return "wyskom"; //Przekierowanie na strone
-
+        return "wyskom";
     }
 
     @RequestMapping(value = "/usun_komentarz", method = {RequestMethod.DELETE, RequestMethod.GET})
@@ -77,7 +77,7 @@ public class KomentarzController {
         komentarzService.usunKomentarz(id);
 
         model.addAttribute("header", "Wynik");
-        model.addAttribute("message","Komentarz został usunięty");
+        model.addAttribute("message", "Komentarz został usunięty");
 
         return "viewmessage";
     }
@@ -89,7 +89,6 @@ public class KomentarzController {
             model.addAttribute("message", "ID komentarza jest nieprawidłowe");
             return "viewmessage";
         }
-
 
         Komentarz komentarz = komentarzRepository.findByKomentarzID(id);
         KomentarzTransData transData = new KomentarzTransData();
@@ -121,6 +120,4 @@ public class KomentarzController {
 
         return "viewmessage";
     }
-
-
 }
