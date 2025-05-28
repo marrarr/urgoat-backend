@@ -85,7 +85,7 @@ public class UzytkownikService {
         uzytkownikRepository.save(uzytkownik);
 
         URgoatLogger.uzytkownikInfo("Dodano użytkownika username=" + user.getUsername(),
-                getZalogowanyUzytkownik() == null ? null : getZalogowanyUzytkownik().getPseudonim(),
+                "server",
                 LogOperacja.DODAWANIE);
     }
 
@@ -122,9 +122,10 @@ public class UzytkownikService {
 
         uzytkownikRepository.save(uzytkownik);
 
-        URgoatLogger.uzytkownikInfo("Aktualizowano dane użytkownika id=" + uzytkownik.getUzytkownikID(),
+        URgoatLogger.uzytkownikInfo("Zaktualizowano dane użytkownika id=" + uzytkownik.getUzytkownikID(),
                 getZalogowanyUzytkownik().getPseudonim(),
-                LogOperacja.DODAWANIE);
+                LogOperacja.AKTUALIZOWANIE);
     }
 
+    // TODO usuwanie
 }

@@ -273,14 +273,13 @@ public class DataLoader implements CommandLineRunner {
             komentarzRepository.saveAll(komentarze);
 
 
-            //Reakcje
+          /*  //Reakcje
             List<Reakcja> reakcje = new ArrayList<>();
 
             reakcje.add(new Reakcja(user1, null, posty.get(0), 1));
             reakcje.add(new Reakcja(user1, null, posty.get(1), 2));
             reakcje.add(new Reakcja(user1, null, posty.get(2), 2));
             reakcje.add(new Reakcja(user1, null, posty.get(5), 1));
-            reakcje.add(new Reakcja(user1, null, posty.get(5), 3));
 
             reakcje.add(new Reakcja(user2, null, posty.get(0), 2));
             reakcje.add(new Reakcja(user2, null, posty.get(1), 2));
@@ -305,7 +304,7 @@ public class DataLoader implements CommandLineRunner {
             reakcje.add(new Reakcja(user2, komentarze.get(3), null, 3));
             reakcje.add(new Reakcja(user2, komentarze.get(4), null, 3));
 
-            reakcjaRepository.saveAll(reakcje);
+            reakcjaRepository.saveAll(reakcje);*/
 
 
             System.out.println("=====================================");

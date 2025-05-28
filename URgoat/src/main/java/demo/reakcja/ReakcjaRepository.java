@@ -1,6 +1,7 @@
 package demo.reakcja;
 
 import java.util.List;
+import java.util.Optional;
 
 import demo.komentarz.Komentarz;
 import demo.post.Post;
@@ -37,6 +38,12 @@ public interface ReakcjaRepository extends JpaRepository<Reakcja, Long> {
             "AND r.komentarz IS NOT NULL " +
             "AND r.post IS NULL")
     List<Reakcja> findReakcjeNaKomentarzeByUzytkownik(@Param("uzytkownik") Uzytkownik uzytkownik);
+
+    // służy do sprawdzenia czy użytkownik już zareagował
+    Optional<Reakcja> findByUzytkownik_UzytkownikIDAndPost_PostID(int uzytkownikID, int postID);
+
+    // służy do sprawdzenia czy użytkownik już zareagował
+    Optional<Reakcja> findByUzytkownik_UzytkownikIDAndKomentarz_KomentarzID(int uzytkownikID, int komentarzID);
 
 
 }

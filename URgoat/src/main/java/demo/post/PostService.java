@@ -80,6 +80,7 @@ public class PostService {
         post.setUzytkownik(user);
         post.setTresc(tresc);
         postRepository.save(post);
+
         URgoatLogger.uzytkownikInfo("Dodano post id=" + post.getPostID() + ", dlugosc=" + post.getTresc().length(),
                 user.getPseudonim(),
                 LogOperacja.DODAWANIE);
@@ -89,6 +90,7 @@ public class PostService {
     public void usunPost(long postID) {
         Post post = postRepository.findById(postID).orElseThrow();
         postRepository.delete(post);
+
         URgoatLogger.uzytkownikInfo("Usunięto post id=" + post.getPostID(),
                 uzytkownikService.getZalogowanyUzytkownik().getPseudonim(),
                 LogOperacja.USUWANIE);
@@ -101,7 +103,8 @@ public class PostService {
 
         post.setTresc(tresc);
         postRepository.save(post);
-        URgoatLogger.uzytkownikInfo("Dodano post id=" + post.getPostID() + ", dlugosc=" + post.getTresc().length(),
+
+        URgoatLogger.uzytkownikInfo("Zaktualizowano post id=" + post.getPostID() + ", dlugosc=" + post.getTresc().length(),
                 uzytkownikService.getZalogowanyUzytkownik().getPseudonim(),
                 LogOperacja.AKTUALIZOWANIE);
     }
