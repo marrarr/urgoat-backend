@@ -18,7 +18,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // UWAGA: tylko do testów
+                .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/register",
@@ -29,13 +29,15 @@ public class SecurityConfig {
                     "/css/**",
                     "/js/**"
                 ).permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/redirectAfterLogin").authenticated()
+                    .anyRequest().hasRole("USER")
+
             )
             .formLogin(form -> form
                 .loginPage("/login")
 
-                .defaultSuccessUrl("/strona_glowna", true)
+                .defaultSuccessUrl("/redirectAfterLogin", true)
 
                 .permitAll()
             )
