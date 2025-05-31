@@ -1,20 +1,38 @@
 package demo.wiadomosc;
 
-import java.util.List;
-
 import demo.czat.Czat;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface WiadomoscRepository extends JpaRepository<Wiadomosc, Long>{
-    //Szukanie wiadomości w konkretnym czacie
-    // Wszystkie wiadomości z danego czatu
+import java.util.List;
+
+/**
+ * Repozytorium JPA dla encji Wiadomosc, obsługujące operacje na wiadomościach w systemie.
+ */
+public interface WiadomoscRepository extends JpaRepository<Wiadomosc, Long> {
+
+    /**
+     * Wyszukuje wszystkie wiadomości powiązane z określonym czatem.
+     *
+     * @param czat Czat, dla którego wyszukiwane są wiadomości
+     * @return Lista wiadomości powiązanych z podanym czatem
+     */
     List<Wiadomosc> findByCzat(Czat czat);
 
-    // Wiadomości zawierające określony fragment tekstu
+    /**
+     * Wyszukuje wiadomości zawierające określony fragment tekstu, ignorując wielkość liter.
+     *
+     * @param tresc Fragment tekstu do wyszukania
+     * @return Lista wiadomości zawierających podany fragment tekstu
+     */
     List<Wiadomosc> findByTrescContainingIgnoreCase(String tresc);
 
-    @EntityGraph(attributePaths = {"uzytkownik"}) // This ensures sender is loaded
+    /**
+     * Wyszukuje wszystkie wiadomości powiązane z określonym czatem, posortowane rosnąco według identyfikatora wiadomości, z załadowanym użytkownikiem.
+     *
+     * @param czat Czat, dla którego wyszukiwane są wiadomości
+     * @return Lista wiadomości powiązanych z podanym czatem, posortowana rosnąco według identyfikatora
+     */
+    @EntityGraph(attributePaths = {"uzytkownik"})
     List<Wiadomosc> findByCzatOrderByWiadomoscIDAsc(Czat czat);
-
 }

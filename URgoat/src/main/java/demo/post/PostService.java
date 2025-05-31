@@ -17,16 +17,31 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Serwis obsługujący operacje związane z postami.
+ * Umożliwia pobieranie, dodawanie, usuwanie i aktualizowanie postów oraz ich konwersję na obiekty DTO.
+ */
 @Service
 public class PostService {
+
     private final PostRepository postRepository;
     private final UzytkownikRepository uzytkownikRepository;
     private final UzytkownikService uzytkownikService;
     private final KomentarzService komentarzService;
     private final ReakcjaService reakcjaService;
 
-
-    public PostService(PostRepository postRepository, UzytkownikRepository uzytkownikRepository, UzytkownikService uzytkownikService, KomentarzService komentarzService, ReakcjaService reakcjaService) {
+    /**
+     * Konstruktor serwisu PostService, wstrzykujący wymagane zależności.
+     *
+     * @param postRepository repozytorium postów
+     * @param uzytkownikRepository repozytorium użytkowników
+     * @param uzytkownikService serwis użytkowników
+     * @param komentarzService serwis komentarzy
+     * @param reakcjaService serwis reakcji
+     */
+    public PostService(PostRepository postRepository, UzytkownikRepository uzytkownikRepository,
+                       UzytkownikService uzytkownikService, KomentarzService komentarzService,
+                       ReakcjaService reakcjaService) {
         this.postRepository = postRepository;
         this.uzytkownikRepository = uzytkownikRepository;
         this.uzytkownikService = uzytkownikService;
@@ -34,9 +49,13 @@ public class PostService {
         this.reakcjaService = reakcjaService;
     }
 
-
+    /**
+     * Pobiera wszystkie posty wraz z komentarzami i reakcjami, konwertując je na obiekty DTO.
+     * Posty są sortowane malejąco według identyfikatora.
+     *
+     * @return lista obiektów DTO zawierających dane postów, komentarzy i reakcji
+     */
     public List<PostTransData> getPostyZKomentarzamiOrazReakcjami() {
-        // Przygotowanie postów
         List<Post> posty = postRepository.findAll(Sort.by(Sort.Direction.DESC, "postID"));
         List<PostTransData> postyTransData = new ArrayList<>();
         for (Post post : posty) {
@@ -57,8 +76,13 @@ public class PostService {
         return postyTransData;
     }
 
+    /**
+     * Pobiera wszystkie posty bez komentarzy i reakcji, konwertując je na obiekty DTO.
+     *
+     * @return lista obiektów DTO zawierających podstawowe dane postów
+     */
     public List<PostTransData> getPosty() {
-        List<Post> posty = postRepository.findAll();  // Pobierz wszystkie posty
+        List<Post> posty = postRepository.findAll();
         List<PostTransData> postyTransData = new ArrayList<>();
         for (Post post : posty) {
             postyTransData.add(new PostTransData(
@@ -73,6 +97,13 @@ public class PostService {
         return postyTransData;
     }
 
+    /**
+     * Dodaje nowy post dla użytkownika.
+     *
+     * @param userId identyfikator użytkownika dodającego post
+     * @param tresc treść posta
+     * @throws RuntimeException jeśli użytkownik nie zostanie znaleziony
+     */
     @Transactional
     public void dodajPost(long userId, String tresc) {
         Uzytkownik user = uzytkownikRepository.findById(userId).orElseThrow();
@@ -86,6 +117,12 @@ public class PostService {
                 LogOperacja.DODAWANIE);
     }
 
+    /**
+     * Usuwa post o podanym identyfikatorze.
+     *
+     * @param postID identyfikator posta do usunięcia
+     * @throws RuntimeException jeśli post nie zostanie znaleziony
+     */
     @Transactional
     public void usunPost(long postID) {
         Post post = postRepository.findById(postID).orElseThrow();
@@ -96,6 +133,13 @@ public class PostService {
                 LogOperacja.USUWANIE);
     }
 
+    /**
+     * Aktualizuje treść posta o podanym identyfikatorze.
+     *
+     * @param postID identyfikator posta do aktualizacji
+     * @param tresc nowa treść posta
+     * @throws RuntimeException jeśli post nie zostanie znaleziony
+     */
     @Transactional
     public void zaktualizujPost(long postID, String tresc) {
         Post post = postRepository.findById(postID)

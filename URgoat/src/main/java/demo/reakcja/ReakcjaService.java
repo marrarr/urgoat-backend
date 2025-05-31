@@ -17,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Serwis odpowiedzialny za zarządzanie reakcjami użytkowników na posty i komentarze.
+ */
 @Service
 public class ReakcjaService {
     private final UzytkownikService uzytkownikService;
@@ -25,6 +28,15 @@ public class ReakcjaService {
     private final KomentarzRepository komentarzRepository;
     private final ReakcjaRepository reakcjaRepository;
 
+    /**
+     * Konstruktor serwisu ReakcjaService.
+     *
+     * @param uzytkownikService   Serwis użytkowników
+     * @param uzytkownikRepository Repozytorium użytkowników
+     * @param postRepository      Repozytorium postów
+     * @param komentarzRepository Repozytorium komentarzy
+     * @param reakcjaRepository   Repozytorium reakcji
+     */
     public ReakcjaService(UzytkownikService uzytkownikService, UzytkownikRepository uzytkownikRepository, PostRepository postRepository, KomentarzRepository komentarzRepository, ReakcjaRepository reakcjaRepository) {
         this.uzytkownikService = uzytkownikService;
         this.uzytkownikRepository = uzytkownikRepository;
@@ -33,6 +45,12 @@ public class ReakcjaService {
         this.reakcjaRepository = reakcjaRepository;
     }
 
+    /**
+     * Konwertuje obiekt Reakcja na obiekt ReakcjaTransData.
+     *
+     * @param reakcja Obiekt reakcji do konwersji
+     * @return Obiekt ReakcjaTransData zawierający dane reakcji
+     */
     public ReakcjaTransData toTransData(Reakcja reakcja) {
         Integer postID = reakcja.getPost() != null ? reakcja.getPost().getPostID() : null;
         Integer komentarzID = reakcja.getKomentarz() != null ? reakcja.getKomentarz().getKomentarzID() : null;
@@ -46,6 +64,12 @@ public class ReakcjaService {
         );
     }
 
+    /**
+     * Konwertuje listę obiektów Reakcja na listę obiektów ReakcjaTransData.
+     *
+     * @param reakcje Lista reakcji do konwersji
+     * @return Lista obiektów ReakcjaTransData
+     */
     public List<ReakcjaTransData> toTransData(List<Reakcja> reakcje) {
         return reakcje
                 .stream()
@@ -53,8 +77,14 @@ public class ReakcjaService {
                 .toList();
     }
 
-    // TODO gdyby reakcje na stronie były klikalne, a nie przez form, to zrobić usunięcie reakcji po wciśnięciu na już dodaną
-    // ale trzeba byloby jeszcze jakoś wyróżniać wcisnieta na stronie
+    /**
+     * Dodaje reakcję użytkownika do postu. Jeśli reakcja już istnieje, aktualizuje jej kod.
+     *
+     * @param uzytkownikId Identyfikator użytkownika
+     * @param postId       Identyfikator postu
+     * @param kodReakcji   Kod reakcji
+     * @throws IllegalArgumentException Jeśli postId jest pusty
+     */
     @Transactional
     public void dodajReakcjeDoPosta(long uzytkownikId, Long postId, int kodReakcji) {
         if (kodReakcji == 0) { return; }
@@ -62,7 +92,6 @@ public class ReakcjaService {
         if (postId != null) {
             Uzytkownik uzytkownik = uzytkownikRepository.findById(uzytkownikId).orElseThrow();
             Post post = postRepository.findById(postId).orElseThrow();
-            // czy uzytkownik ma juz dodana reakcje, jesli tak zaktualizuj kodreakcji
             Optional<Reakcja> istniejaca = reakcjaRepository
                     .findByUzytkownik_UzytkownikIDAndPost_PostID((int)uzytkownikId, post.getPostID());
             if (istniejaca.isPresent()) {
@@ -87,6 +116,14 @@ public class ReakcjaService {
         }
     }
 
+    /**
+     * Dodaje reakcję użytkownika do komentarza. Jeśli reakcja już istnieje, aktualizuje jej kod.
+     *
+     * @param uzytkownikId Identyfikator użytkownika
+     * @param komentarzId  Identyfikator komentarza
+     * @param kodReakcji   Kod reakcji
+     * @throws IllegalArgumentException Jeśli komentarzId jest pusty
+     */
     @Transactional
     public void dodajReakcjeDoKomentarza(long uzytkownikId, Long komentarzId, int kodReakcji) {
         if (kodReakcji == 0) { return; }
@@ -94,7 +131,6 @@ public class ReakcjaService {
         if (komentarzId != null) {
             Uzytkownik uzytkownik = uzytkownikRepository.findById(uzytkownikId).orElseThrow();
             Komentarz komentarz = komentarzRepository.findById(komentarzId).orElseThrow();
-            // czy uzytkownik ma juz dodana reakcje, jesli tak zaktualizuj kodreakcji
             Optional<Reakcja> istniejaca = reakcjaRepository
                     .findByUzytkownik_UzytkownikIDAndKomentarz_KomentarzID((int)uzytkownikId, komentarz.getKomentarzID());
             if (istniejaca.isPresent()) {
@@ -119,6 +155,13 @@ public class ReakcjaService {
         }
     }
 
+    /**
+     * Aktualizuje kod istniejącej reakcji, jeśli użytkownik ma odpowiednie uprawnienia.
+     *
+     * @param reakcjaID   Identyfikator reakcji
+     * @param kodReakcji  Nowy kod reakcji
+     * @throws AccessDeniedException Jeśli użytkownik nie ma uprawnień do aktualizacji reakcji
+     */
     @Transactional
     public void aktualizujReakcje(long reakcjaID, int kodReakcji) {
         Uzytkownik uzytkownik_zalogowany = uzytkownikService.getZalogowanyUzytkownik();
@@ -138,6 +181,12 @@ public class ReakcjaService {
         }
     }
 
+    /**
+     * Usuwa reakcję, jeśli użytkownik ma odpowiednie uprawnienia.
+     *
+     * @param reakcjaID Identyfikator reakcji
+     * @throws AccessDeniedException Jeśli użytkownik nie ma uprawnień do usunięcia reakcji
+     */
     @Transactional
     public void usunReakcje(long reakcjaID) {
         Uzytkownik uzytkownik_zalogowany = uzytkownikService.getZalogowanyUzytkownik();

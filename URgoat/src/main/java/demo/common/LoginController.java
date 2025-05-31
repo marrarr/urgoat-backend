@@ -11,15 +11,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Optional;
 
+/**
+ * Kontroler obsługujący logowanie użytkowników i przekierowanie po zalogowaniu.
+ * Przekierowuje użytkowników na odpowiednie strony w zależności od ich roli (administrator lub zwykły użytkownik).
+ */
 @Controller
 public class LoginController {
 
     private final UserRepository userRepository;
 
+    /**
+     * Konstruktor kontrolera LoginController, wstrzykujący wymagane zależności.
+     *
+     * @param userRepository repozytorium użytkowników
+     * @param uzytkownikService serwis użytkowników (niewykorzystywany w obecnej implementacji)
+     */
     public LoginController(UserRepository userRepository, UzytkownikService uzytkownikService) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Przekierowuje użytkownika po zalogowaniu na odpowiednią stronę w zależności od roli.
+     * Administratorzy są przekierowywani do panelu administracyjnego, a zwykli użytkownicy na stronę główną.
+     * Rejestruje zdarzenie logowania w systemie logów.
+     *
+     * @param authentication obiekt uwierzytelnienia Spring Security, zawierający dane zalogowanego użytkownika
+     * @return adres URL do przekierowania (panel administracyjny, strona główna lub strona logowania w przypadku braku uwierzytelnienia)
+     */
     @GetMapping("/redirectAfterLogin")
     public String redirectAfterLogin(Authentication authentication) {
         if (authentication == null) {
@@ -41,7 +59,7 @@ public class LoginController {
         URgoatLogger.uzytkownikInfo("Zalogował się " + logIsAdmin + " id=" + logId,
                 username,
                 LogOperacja.LOGOWANIE
-                );
+        );
 
         return isAdmin ? "redirect:/admin/panel" : "redirect:/strona_glowna";
     }

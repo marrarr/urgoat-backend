@@ -1,4 +1,5 @@
 package demo.czat;
+
 import demo.SerwisAplikacji;
 import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
@@ -18,6 +19,10 @@ import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Kontroler obsługujący funkcjonalności związane z czatem.
+ * Umożliwia otwieranie i wyświetlanie czatu między użytkownikami.
+ */
 @Controller
 @RequestMapping("/czat")
 public class CzatController {
@@ -30,11 +35,23 @@ public class CzatController {
 
     @Autowired
     private SerwisAplikacji serwisAplikacji;
+
     @Autowired
     private UzytkownikService uzytkownikService;
+
     @Autowired
     private WiadomoscRepository wiadomoscRepository;
 
+    /**
+     * Otwiera czat między zalogowanym użytkownikiem a wybranym znajomym.
+     * Pobiera lub tworzy czat dla danej pary użytkowników, ładuje wiadomości i przekazuje dane do widoku.
+     *
+     * @param userDetails informacje o zalogowanym użytkowniku z Spring Security
+     * @param idZnajomego identyfikator znajomego, z którym otwierany jest czat
+     * @param model model do przekazania atrybutów do widoku
+     * @return nazwa szablonu widoku dla strony czatu
+     * @throws IllegalArgumentException jeśli użytkownik o podanym identyfikatorze nie istnieje
+     */
     @GetMapping("/rozmowa/{idZnajomego}")
     public String otworzCzat(@AuthenticationPrincipal UserDetails userDetails,
                              @PathVariable Long idZnajomego,

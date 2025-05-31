@@ -28,7 +28,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Komponent odpowiedzialny za wstępne ładowanie danych testowych do bazy danych.
+ * Inicjalizuje użytkowników, posty, komentarze, wiadomości, czaty, znajomych oraz reakcje przy uruchamianiu aplikacji.
+ */
 @Component
 @Order(2)
 public class DataLoader implements CommandLineRunner {
@@ -44,6 +47,20 @@ public class DataLoader implements CommandLineRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Konstruktor komponentu DataLoader, wstrzykujący wymagane zależności.
+     *
+     * @param uzytkownikRepository repozytorium użytkowników
+     * @param czatRepository repozytorium czatów
+     * @param komentarzRepository repozytorium komentarzy
+     * @param postRepository repozytorium postów
+     * @param reakcjaRepository repozytorium reakcji
+     * @param wiadomoscRepository repozytorium wiadomości
+     * @param znajomyRepository repozytorium znajomych
+     * @param userRepository repozytorium użytkowników systemu zabezpieczeń
+     * @param uzytkownikService serwis użytkowników
+     * @param passwordEncoder koder haseł
+     */
     @Autowired
     public DataLoader(UzytkownikRepository uzytkownikRepository,
                       CzatRepository czatRepository,
@@ -52,7 +69,9 @@ public class DataLoader implements CommandLineRunner {
                       ReakcjaRepository reakcjaRepository,
                       WiadomoscRepository wiadomoscRepository,
                       ZnajomyRepository znajomyRepository,
-                      UserRepository userRepository, UzytkownikService uzytkownikService, PasswordEncoder passwordEncoder) {
+                      UserRepository userRepository,
+                      UzytkownikService uzytkownikService,
+                      PasswordEncoder passwordEncoder) {
         this.uzytkownikRepository = uzytkownikRepository;
         this.czatRepository = czatRepository;
         this.komentarzRepository = komentarzRepository;
@@ -65,6 +84,14 @@ public class DataLoader implements CommandLineRunner {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Metoda uruchamiana automatycznie podczas startu aplikacji, ładująca dane testowe do bazy danych.
+     * Tworzy użytkowników, ich profile, relacje znajomych, czaty, wiadomości, posty, komentarze oraz reakcje,
+     * jeśli użytkownik "admin" nie istnieje w bazie danych.
+     *
+     * @param args argumenty wiersza poleceń
+     * @throws RuntimeException jeśli wystąpi błąd podczas wczytywania plików zdjęć profilowych
+     */
     @Override
     public void run(String... args) {
 
@@ -193,7 +220,6 @@ public class DataLoader implements CommandLineRunner {
                 throw new RuntimeException(e);
             }
 
-
             Uzytkownik user1 = uzytkownikRepository.findByEmail("adamnawrocki@gmail.com");
             Uzytkownik user2 = uzytkownikRepository.findByEmail("natkowalska@gmail.com");
             Uzytkownik user3 = uzytkownikRepository.findByEmail("bartoszkrawczyk@gmail.com");
@@ -246,7 +272,6 @@ public class DataLoader implements CommandLineRunner {
             wiadomoscRepository.save(wiadomosc7);
             wiadomoscRepository.save(wiadomosc8);
 
-
             //Posty
             List<Post> posty = new ArrayList<>();
             posty.add(new Post(user1, "UwU neko nyaa~~"));
@@ -272,8 +297,7 @@ public class DataLoader implements CommandLineRunner {
 
             komentarzRepository.saveAll(komentarze);
 
-
-          /*  //Reakcje
+            /*  //Reakcje
             List<Reakcja> reakcje = new ArrayList<>();
 
             reakcje.add(new Reakcja(user1, null, posty.get(0), 1));
@@ -305,7 +329,6 @@ public class DataLoader implements CommandLineRunner {
             reakcje.add(new Reakcja(user2, komentarze.get(4), null, 3));
 
             reakcjaRepository.saveAll(reakcje);*/
-
 
             System.out.println("=====================================");
             System.out.println("=====================================");

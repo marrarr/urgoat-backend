@@ -1,0 +1,17 @@
+demo
+demo.admin
+demo.common
+demo.czat
+demo.czat.websocket
+demo.komentarz
+demo.log
+demo.post
+demo.reakcja
+demo.security.config
+demo.security.controller
+demo.security.model
+demo.security.repository
+demo.security.service
+demo.uzytkownik
+demo.wiadomosc
+demo.znajomy
