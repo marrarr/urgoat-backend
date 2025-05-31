@@ -100,7 +100,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version> <!-- sprawdź najnowszą -->
+            <version>1.18.36</version> <!-- sprawdź najnowszą -->
             <scope>provided</scope>
         </dependency>
 

@@ -21,8 +21,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Serwis aplikacji odpowiedzialny za zarządzanie głównymi funkcjonalnościami, takimi jak dodawanie znajomych, wiadomości, czatów i grup.
+ */
 @Service
 public class SerwisAplikacji {
+
     @Autowired
     private PostRepository postRepository;
 
@@ -43,14 +47,17 @@ public class SerwisAplikacji {
 
     @Autowired
     private UzytkownikRepository uzytkownikRepository;
-    
+
     @Autowired
     private UserRepository userRepository;
 
-
-
-    // ----------------------- ZNAJOMY -----------------------
-
+    /**
+     * Dodaje relację znajomości między dwoma użytkownikami.
+     *
+     * @param userId1 Identyfikator pierwszego użytkownika
+     * @param userId2 Identyfikator drugiego użytkownika
+     * @throws IllegalArgumentException Jeśli któryś z użytkowników nie istnieje
+     */
     public void dodajZnajomego(long userId1, long userId2) {
         Uzytkownik u1 = uzytkownikRepository.findById(userId1).orElseThrow();
         Uzytkownik u2 = uzytkownikRepository.findById(userId2).orElseThrow();
@@ -61,8 +68,13 @@ public class SerwisAplikacji {
         znajomyRepository.save(znajomy);
     }
 
-    // ----------------------- WIADOMOŚĆ -----------------------
-
+    /**
+     * Dodaje nową wiadomość do określonego czatu.
+     *
+     * @param czatId Identyfikator czatu
+     * @param tresc  Treść wiadomości
+     * @throws IllegalArgumentException Jeśli czat nie istnieje
+     */
     public void dodajWiadomosc(long czatId, String tresc) {
         Czat czat = czatRepository.findById(czatId).orElseThrow();
         Wiadomosc wiadomosc = new Wiadomosc();
@@ -71,8 +83,13 @@ public class SerwisAplikacji {
         wiadomoscRepository.save(wiadomosc);
     }
 
-    // ----------------------- CZAT -----------------------
-
+    /**
+     * Tworzy nowy czat między dwoma użytkownikami.
+     *
+     * @param userId1 Identyfikator pierwszego użytkownika
+     * @param userId2 Identyfikator drugiego użytkownika
+     * @throws IllegalArgumentException Jeśli któryś z użytkowników nie istnieje
+     */
     public void dodajCzat(long userId1, long userId2) {
         Uzytkownik u1 = uzytkownikRepository.findById(userId1).orElseThrow();
         Uzytkownik u2 = uzytkownikRepository.findById(userId2).orElseThrow();
@@ -80,8 +97,12 @@ public class SerwisAplikacji {
         czatRepository.save(czat);
     }
 
-    // ----------------------- GRUPA -----------------------
-
+    /**
+     * Tworzy nową grupę czatu z listą użytkowników.
+     *
+     * @param userIds Lista identyfikatorów użytkowników
+     * @throws IllegalArgumentException Jeśli grupa ma mniej niż 3 użytkowników
+     */
     public void dodajGrupe(List<Long> userIds) {
         List<Uzytkownik> uczestnicy = uzytkownikRepository.findAllById(userIds);
 
@@ -92,5 +113,4 @@ public class SerwisAplikacji {
         Czat grupa = new Czat(uczestnicy);
         czatRepository.save(grupa);
     }
-
 }

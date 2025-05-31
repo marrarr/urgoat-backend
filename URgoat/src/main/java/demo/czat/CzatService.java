@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 
+/**
+ * Serwis obsługujący operacje związane z czatami i wiadomościami.
+ * Zapewnia funkcjonalność zapisywania wiadomości w czacie, w tym obsługę zdjęć.
+ */
 @Service
 @Transactional
 public class CzatService {
@@ -23,6 +27,14 @@ public class CzatService {
     @Autowired
     private WiadomoscRepository wiadomoscRepository;
 
+    /**
+     * Zapisuje wiadomość w czacie na podstawie danych z obiektu DTO.
+     * Wyszukuje czat i nadawcę, ustawia treść wiadomości oraz dekoduje i zapisuje zdjęcie, jeśli jest obecne.
+     *
+     * @param dto obiekt DTO zawierający dane wiadomości (czat ID, treść, email nadawcy, zdjęcie w formacie Base64)
+     * @return zapisana wiadomość
+     * @throws IllegalArgumentException jeśli czat lub nadawca nie zostanie znaleziony lub dane zdjęcia są nieprawidłowe
+     */
     public Wiadomosc zapiszWiadomosc(WiadomoscDTO dto) {
         // Find chat and sender
         Czat czat = czatRepository.findById((long)dto.getCzatId())

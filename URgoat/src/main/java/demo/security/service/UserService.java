@@ -9,15 +9,17 @@ import demo.uzytkownik.Uzytkownik;
 import demo.uzytkownik.UzytkownikRepository;
 import demo.uzytkownik.UzytkownikService;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * Serwis odpowiedzialny za zarządzanie użytkownikami, w tym rejestrację, weryfikację oraz usuwanie użytkowników.
+ */
 @Service
 public class UserService {
 
@@ -27,12 +29,24 @@ public class UserService {
     private final SerwisAplikacji serwisAplikacji;
     private final UzytkownikRepository uzytkownikRepository;
     private final UzytkownikService uzytkownikService;
+
+    /**
+     * Konstruktor serwisu UserService.
+     *
+     * @param userRepository          Repozytorium użytkowników
+     * @param pendingUserRepository   Repozytorium użytkowników oczekujących
+     * @param passwordEncoder         Koder haseł
+     * @param serwisAplikacji         Serwis aplikacji
+     * @param uzytkownikRepository    Repozytorium profili użytkowników
+     * @param uzytkownikService       Serwis profili użytkowników
+     */
     public UserService(
             UserRepository userRepository,
             PendingUserRepository pendingUserRepository,
             PasswordEncoder passwordEncoder,
             SerwisAplikacji serwisAplikacji,
-            UzytkownikRepository uzytkownikRepository, UzytkownikService uzytkownikService) {
+            UzytkownikRepository uzytkownikRepository,
+            UzytkownikService uzytkownikService) {
         this.userRepository = userRepository;
         this.pendingUserRepository = pendingUserRepository;
         this.passwordEncoder = passwordEncoder;
@@ -41,6 +55,17 @@ public class UserService {
         this.uzytkownikService = uzytkownikService;
     }
 
+    /**
+     * Rejestruje nowego użytkownika oczekującego na weryfikację.
+     *
+     * @param username Nazwa użytkownika
+     * @param email    Adres e-mail użytkownika
+     * @param password Hasło użytkownika
+     * @param imie     Imię użytkownika
+     * @param nazwisko Nazwisko użytkownika
+     * @param image    Zdjęcie profilowe w formacie bajtów
+     * @throws RuntimeException Jeśli użytkownik lub e-mail już istnieje
+     */
     public void registerUser(String username, String email, String password, String imie, String nazwisko, byte[] image) {
         if (userRepository.findByUsername(username).isPresent() ||
                 pendingUserRepository.findByEmail(email).isPresent()) {
@@ -51,8 +76,6 @@ public class UserService {
         pendingUser.setUsername(username);
         pendingUser.setEmail(email);
         pendingUser.setPassword(passwordEncoder.encode(password));
-
-
         pendingUser.setImie(imie);
         pendingUser.setNazwisko(nazwisko);
         pendingUser.setImage(image);
@@ -64,6 +87,14 @@ public class UserService {
         System.out.println("Kod weryfikacyjny dla " + email + ": " + code);
     }
 
+    /**
+     * Weryfikuje użytkownika na podstawie e-maila i kodu weryfikacyjnego, tworząc konto użytkownika po powodzeniu.
+     *
+     * @param email Adres e-mail użytkownika
+     * @param code  Kod weryfikacyjny
+     * @return true, jeśli weryfikacja się powiodła, w przeciwnym razie false
+     * @throws IOException W przypadku błędów wejścia/wyjścia podczas weryfikacji
+     */
     @Transactional
     public boolean verifyUser(String email, String code) throws IOException {
         Optional<PendingUser> pendingUserOpt = pendingUserRepository.findByEmail(email);
@@ -86,25 +117,6 @@ public class UserService {
                         pendingUser.getImage()
                 );
 
-//TODO sprawdzanie wielkosci zdjecia
-//
-//                try {
-//                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(pendingUser.getImage()));
-//
-//                    if (image == null) {
-//                        throw new IllegalArgumentException("Nieprawidłowy format obrazu");
-//                    }
-//
-//                    if (image.getWidth() != 500 || image.getHeight() != 500) {
-//                        throw new IllegalArgumentException("Obraz musi mieć dokładnie 500x500 pikseli");
-//                    }
-//
-//                } catch (IOException e) {
-//                    throw new IllegalArgumentException("Nie udało się odczytać obrazu", e);
-//                }
-//
-
-
                 pendingUserRepository.delete(pendingUser);
                 return true;
             }
@@ -112,10 +124,20 @@ public class UserService {
         return false;
     }
 
+    /**
+     * Pobiera listę wszystkich zarejestrowanych użytkowników.
+     *
+     * @return Lista obiektów User
+     */
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Usuwa użytkownika na podstawie identyfikatora.
+     *
+     * @param id Identyfikator użytkownika
+     */
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
