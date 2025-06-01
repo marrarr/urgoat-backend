@@ -1,4 +1,3 @@
-/*
 package demo.reakcja;
 
 import demo.komentarz.Komentarz;
@@ -248,4 +247,4 @@ class ReakcjaServiceTest {
 
         verify(reakcjaRepository, never()).delete(any());
     }
-}*/
+}
