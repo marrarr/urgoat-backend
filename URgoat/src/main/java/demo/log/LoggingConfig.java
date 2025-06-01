@@ -27,7 +27,7 @@ public class LoggingConfig {
     @Bean
     public Logger configureLogger() {
         Logger logger = Logger.getLogger("URgoatLogger");
-        logger.setLevel(Level.INFO);
+        logger.setLevel(Level.ALL);
         logger.addHandler(databaseLoggingHandler);
 
         return logger;
