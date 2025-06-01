@@ -65,7 +65,7 @@ public class AdminPanelController {
         List<DBLogRecord> logi = dBLogService.findAllFiltruj(username, operacja, level);
 
         model.addAttribute("logi", logi);
-        model.addAttribute("levels", List.of("INFO", "WARN", "ERROR", "DEBUG"));
+        model.addAttribute("levels", List.of("INFO", "FINE", "WARN", "ERROR", "DEBUG"));
         model.addAttribute("operacje", List.of(LogOperacja.values()));
 
         return "admin/wyswietl-logi";

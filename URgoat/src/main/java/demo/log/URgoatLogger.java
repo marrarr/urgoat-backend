@@ -51,13 +51,16 @@ public class URgoatLogger {
         logger.log(Level.INFO, message, new Object[]{username, operacja});
     }
 
-    /* public static void userAction(String message, String username,
-                                  String objectType, String actionType) {
-        userAction(message, username, objectType, actionType, null);
+    /**
+     * Loguje informacje o działaniu użytkownika na poziomie FINE.
+     * Rejestruje komunikat wraz z nazwą użytkownika i typem operacji.
+     *
+     * @param message treść komunikatu do zalogowania
+     * @param username nazwa użytkownika wykonującego operację
+     * @param operacja typ operacji (np. DODAWANIE, USUWANIE)
+     */
+    public static void uzytkownikFine(String message, String username, LogOperacja operacja) {
+        logger.log(Level.FINE, message, new Object[]{username, operacja});
     }
 
-    public static void error(String message, String username,
-                             String objectType, String actionType, Long objectId) {
-        logger.log(Level.SEVERE, message, new Object[]{username, objectType, actionType, objectId});
-    } */
 }
