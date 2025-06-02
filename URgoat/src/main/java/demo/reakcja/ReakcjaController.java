@@ -122,7 +122,7 @@ public class ReakcjaController {
         model.addAttribute("header", "Wynik");
         model.addAttribute("message", "Zostało porpawnie dodane");
 
-        return "viewmessage";
+        return "redirect:/strona_glowna";
     }
 
     /**
@@ -162,7 +162,7 @@ public class ReakcjaController {
         model.addAttribute("header", "Wynik");
         model.addAttribute("message", "Zostało porpawnie dodane");
 
-        return "viewmessage";
+        return "redirect:/strona_glowna";
     }
 
     /**

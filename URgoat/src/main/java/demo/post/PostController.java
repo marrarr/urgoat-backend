@@ -53,6 +53,9 @@ public class PostController {
      * @param model model do przekazania atrybutów do widoku
      * @return nazwa szablonu widoku dla formularza dodawania posta
      */
+
+    
+    
     @RequestMapping("/dodaj_post")
     public String dodajPost(Model model) {
         PostTransData transData = new PostTransData();
@@ -81,7 +84,7 @@ public class PostController {
             postService.dodajPost(uzytkownik_aktualny.getUzytkownikID(), tresc);
             model.addAttribute("header", "Wynik");
             model.addAttribute("message", "Post został poprawnie dodany");
-            return "viewmessage";
+            return "redirect:/strona_glowna";
         }
     }
 

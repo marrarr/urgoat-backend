@@ -89,7 +89,7 @@ public class KomentarzController {
         model.addAttribute("header", "Wynik");
         model.addAttribute("message", "Zostało porpawnie dodane");
 
-        return "viewmessage";
+        return "redirect:/strona_glowna";
     }
 
     /**
@@ -178,6 +178,6 @@ public class KomentarzController {
             model.addAttribute("message", e.getMessage());
         }
 
-        return "viewmessage";
+        return "redirect:/strona_glowna";
     }
 }

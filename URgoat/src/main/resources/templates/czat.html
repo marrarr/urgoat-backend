@@ -4,87 +4,141 @@
   <title>Czat</title>
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
   <style>
     #czat-box {
       height: 400px;
       overflow-y: auto;
       border: 1px solid #ccc;
       padding: 10px;
-      margin-bottom: 10px;
+      margin: 20px auto;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      max-width: 90%;
     }
+
     .wiadomosc {
       margin-bottom: 10px;
-      padding: 5px;
-      border-bottom: 1px solid #eee;
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      background-color: #ffffff;
+      border-radius: 8px;
+      word-wrap: break-word;
     }
+
     .zdjecie-msg {
       max-width: 200px;
       max-height: 200px;
       margin-top: 5px;
+      border-radius: 8px;
+      display: block;
+    }
+
+    #form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin: 20px auto;
+      width: 90%;
+    }
+
+    #wiadomosc {
+      width: 100%;
+      max-width: 600px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    #zdjecie {
+      max-width: 600px;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    @media screen and (max-width: 768px) {
+      #form {
+        width: 100%;
+      }
+
+      #wiadomosc {
+        max-width: 100%;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+      }
+
+      #czat-box {
+        height: 300px;
+      }
     }
   </style>
 </head>
 <body>
-<h2>Czat z <span th:text="${znajomy}"></span></h2>
-<div id="czat-box">
-  <!-- Existing messages -->
-  <div th:each="msg : ${wiadomosci}" class="wiadomosc">
-    <b th:text="${msg.nadawcaDisplayName} ?: 'Unknown'"></b>:
-    <span th:text="${msg.tresc}"></span>
-    <img th:if="${msg.zdjecie != null}"
-         class="zdjecie-msg"
-         th:src="'data:image/jpeg;base64,' + ${msg.zdjecie}" />
-  </div>
+<div class='menu'>
+  <div class='logo'></div>
+  <a href="/strona_glowna"><div class="button">Strona główna</div></a>
 </div>
 
-<form id="form">
-  <input type="text" id="wiadomosc" placeholder="Wpisz wiadomość"/>
-  <input type="file" id="zdjecie" accept="image/*"/>
-  <button type="submit">Wyślij</button>
-</form>
+<div class="cont">
+  <h2>Czat z <span th:text="${znajomy}"></span></h2>
+  <div id="czat-box">
+    <div th:each="msg : ${wiadomosci}" class="wiadomosc">
+      <b th:text="${msg.nadawcaDisplayName} ?: 'Unknown'"></b>:
+      <span th:text="${msg.tresc}"></span>
+      <img th:if="${msg.zdjecie != null}"
+           class="zdjecie-msg"
+           th:src="'data:image/jpeg;base64,' + ${msg.zdjecie}" />
+    </div>
+  </div>
+
+  <form id="form">
+    <input type="text" id="wiadomosc" placeholder="Wpisz wiadomość"/>
+    <input type="file" id="zdjecie" accept="image/*"/>
+    <button type="submit">Wyślij</button>
+  </form>
+</div>
 
 <script th:inline="javascript">
   const czatId = [[${czatId}]];
   const currentUserEmail = [[${currentUserEmail}]];
 
-  // WebSocket connection
   const socket = new SockJS('/ws');
   const stompClient = Stomp.over(socket);
 
-  // Connect and subscribe
   stompClient.connect({}, function() {
     console.log('Connected to WebSocket');
-
     stompClient.subscribe('/topic/czat/' + czatId, function(response) {
       const message = JSON.parse(response.body);
       displayMessage(message);
     });
-
-    // Load initial messages
-    loadInitialMessages();
   });
 
-  // Load initial messages from server
-  // function loadInitialMessages() {
-  //   fetch(`/api/czat/${czatId}/wiadomosci`)
-  //           .then(response => response.json())
-  //           .then(messages => {
-  //             messages.forEach(msg => displayMessage(msg));
-  //           })
-  //           .catch(error => console.error('Error loading messages:', error));
-  // }
-
-  // Display a message in the chat box
   function displayMessage(message) {
     const chatBox = document.getElementById("czat-box");
     const messageDiv = document.createElement('div');
     messageDiv.className = 'wiadomosc';
 
     let html = `<b>${message.nadawcaDisplayName || 'Unknown'}:</b> `;
-    if (message.tresc) {
-      html += message.tresc;
-    }
-
+    if (message.tresc) html += message.tresc;
     if (message.zdjecie) {
       html += `<br><img class="zdjecie-msg" src="data:image/jpeg;base64,${message.zdjecie}" />`;
     }
@@ -94,7 +148,6 @@
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  // Handle form submission
   document.getElementById('form').addEventListener('submit', function(e) {
     e.preventDefault();
     const tresc = document.getElementById('wiadomosc').value;
@@ -114,7 +167,6 @@
     }
   });
 
-  // Send message via WebSocket
   function sendMessage(tresc, zdjecie) {
     const message = {
       tresc: tresc,
@@ -125,7 +177,6 @@
 
     stompClient.send(`/app/chat.send/${czatId}`, {}, JSON.stringify(message));
 
-    // Clear inputs
     document.getElementById('wiadomosc').value = '';
     document.getElementById('zdjecie').value = '';
   }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >    
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
-        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>     
-        <link rel="stylesheet" th:href="@{/css/style.css}">
-        <title>Lista postów</title>
-    </head>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>     
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Lista postów</title>
+</head>
 <body>
 
     <div class='menu'>
@@ -15,8 +15,6 @@
         <a href="/lista_znajomych"><div class="button">Lista znajomych</div></a><br><br>
         <a href="/lista_uzytkownikow"><div class="button">Lista użytkownikow</div></a><br><br>
         <a href="/wyswietl_profil_aktualnego_uzytkownika"><div class="button">Twój profil</div></a><br><br>
-
-
     </div>
 
     <div class="cont">
@@ -51,7 +49,6 @@
                     </div>
 
                     <div class="post-reakcje" th:if="${post.reakcje.size() > 0}">
-                       
                         <ul class="reakcje">
                             <li th:each="reakcja : ${post.reakcje}">
                                 <span class="reakcja-text" th:text="'Reakcja: ' + ${reakcja.reakcja}">Reakcja</span>
@@ -71,14 +68,18 @@
                                     <span th:text="${komentarz.tresc}">Treść komentarza</span>
                                 </p>
 
-                                <div th:if="${komentarz.reakcje.size() > 0}">
+                                <div th:if="${komentarz.reakcje.size() > 0}" style="display: none;">
                                     <p>Reakcje na komentarz:</p>
                                     <ul>
                                         <li th:each="reakcjaK : ${komentarz.reakcje}">
-                                            <span th:text="'Reakcja: ' + ${reakcjaK.reakcja}">Reakcja</span>
+                                            <span class="reakcja-text" th:text="'Reakcja: ' + ${reakcjaK.reakcja}">Reakcja</span>
                                         </li>
                                     </ul>
+                                    
+                                    <!-- Podsumowanie reakcji na komentarz -->
+                                    
                                 </div>
+                                <div class="komentarz-reakcje-suma"></div>
                             </li>
                         </ul>
                     </div>
@@ -87,7 +88,9 @@
             </article>
         </div>
     </div>
+
 <script>
+  // Podsumowanie reakcji na posty
   document.querySelectorAll(".post-reakcje").forEach(post => {
     const reakcje = post.querySelectorAll(".reakcja-text");
     const podsumowanie = post.querySelector(".reakcje-suma");
@@ -99,19 +102,17 @@
       "3": "wrr.png"    // Reakcja 3
     };
 
-    // Zliczanie typów reakcji
     reakcje.forEach(span => {
       const typ = span.textContent.trim().replace("Reakcja: ", "");
       licznik[typ] = (licznik[typ] || 0) + 1;
     });
 
-    // Budowanie HTML z obrazkiem i liczbą
-    let html = "<p>Reakcje na post:</p><ul style='list-style:display: flex; none; padding-left: 0;margin: auto;'>";
+    let html = "<p>Reakcje na post:</p><ul style='list-style: none; display: flex; padding-left: 0; margin: 0;'>";
     for (const [typ, ilosc] of Object.entries(licznik)) {
       const obrazek = obrazki[typ];
       if (obrazek) {
         html += `
-          <li style="display: flex; align-items: center; margin-bottom: 5px;">
+          <li style="display: flex; align-items: center; margin-right: 10px;">
             <img src="/img/${obrazek}" alt="Reakcja ${typ}" style="width: 30px; height: 30px; margin-right: 8px;">
             <span>${ilosc}</span>
           </li>`;
@@ -121,8 +122,42 @@
 
     podsumowanie.innerHTML = html;
   });
+
+  // Podsumowanie reakcji na komentarze
+  document.querySelectorAll(".komentarz-reakcje-suma").forEach(container => {
+    const parentUl = container.previousElementSibling; // to <ul> z listą reakcji (li > span.reakcja-text)
+    const reakcje = parentUl.querySelectorAll(".reakcja-text");
+
+    const licznik = {};
+    const obrazki = {
+      "1": "haha.png",
+      "2": "like.png",
+      "3": "wrr.png"
+    };
+
+    reakcje.forEach(span => {
+      const typ = span.textContent.trim().replace("Reakcja: ", "");
+      licznik[typ] = (licznik[typ] || 0) + 1;
+    });
+
+    let html = "<ul style='list-style: none; display: flex; padding-left: 0; margin: 0;'>";
+    for (const [typ, ilosc] of Object.entries(licznik)) {
+      const obrazek = obrazki[typ];
+      if (obrazek) {
+        html += `
+          <li style="display: flex; align-items: center; margin-right: 10px;">
+            <img src="/img/${obrazek}" alt="Reakcja ${typ}" style="width: 24px; height: 24px; margin-right: 5px;">
+            <span>${ilosc}</span>
+          </li>`;
+      }
+    }
+    html += "</ul>";
+
+    container.innerHTML = html;
+  });
   
-    document.getElementById('przycisk-szukaj').addEventListener('click', function () {
+  // Funkcja wyszukiwania postów po treści i autorze
+  document.getElementById('przycisk-szukaj').addEventListener('click', function () {
     const zapytanie = document.getElementById('wyszukiwarka').value.toLowerCase().trim();
     const posty = document.querySelectorAll('.post');
 

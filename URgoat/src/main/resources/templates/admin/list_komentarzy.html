@@ -38,7 +38,7 @@
                 </h4>
             </div>
             <div class="reakcje">
-                <a th:href="@{/admin/comments/delete(id=${komentarz.komentarzID})}" class="button">Usuń komentarz</a>
+                <a th:href="@{/admin/comments/delete(id=${komentarz.komentarzID})}"><div class="button">Usuń komentarz</div></a>
                 <!-- <a th:href="@{/admin/comments/edit(id=${komentarz.komentarzID})}" class="button">Edytuj komentarz</a> -->
             </div>
         </article>
@@ -53,10 +53,10 @@
       const zapytanie = document.getElementById('wyszukiwarka').value.toLowerCase().trim();
       const komentarze = document.querySelectorAll('.uzytkownik');
       komentarze.forEach(komentarz => {
-        const imie = komentarz.querySelector('span:nth-of-type(1)')?.innerText.toLowerCase() || '';
-        const nazwisko = komentarz.querySelector('span:nth-of-type(2)')?.innerText.toLowerCase() || '';
-        const tresc = komentarz.querySelector('span:nth-of-type(3)')?.innerText.toLowerCase() || '';
-        if (imie.includes(zapytanie) || nazwisko.includes(zapytanie) || tresc.includes(zapytanie)) {
+      const imie = komentarz.querySelector('h5 span:nth-of-type(1)')?.innerText.toLowerCase() || '';
+        const nazwisko = komentarz.querySelector('h5 span:nth-of-type(2)')?.innerText.toLowerCase() || '';
+        const trescKomentarza = komentarz.querySelector('h4 span')?.innerText.toLowerCase() || '';
+        if (imie.includes(zapytanie) || nazwisko.includes(zapytanie) || trescKomentarza.includes(zapytanie)) {
           komentarz.style.display = '';
         } else {
           komentarz.style.display = 'none';

@@ -26,7 +26,7 @@
     <h4><strong th:text="${header}"></strong></h4>
 
     <div class="list-group">
-      <article class="list-group-item posst" th:each="znajomy : ${listaZnajomych}">
+      <article class="list-group-item posst uzytkownik" th:each="znajomy : ${listaZnajomych}">
         <div class="dane">
           <div class="avatar">
             <img th:src="@{/photo/{id}(id=${znajomy.getUzytkownik2().getUzytkownikID()})}" class="profile-image"/>

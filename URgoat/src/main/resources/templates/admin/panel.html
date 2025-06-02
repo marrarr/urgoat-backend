@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>Panel Administratora</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2>To jest panel admina</h2>
 
-<a href="/admin/log" class="btn-back">Logi</a><br>
-<a href="/admin/users" class="btn-back">Lista użytkowników</a><br>
-<a href="/admin/adm_post" class="btn-back">Lista postów</a><br>
-<a href="/admin/adm_komentarz" class="btn-back">Lista komentarzy</a><br>
-<a href="/admin/raporty" class="btn-back">Raporty</a><br>
+    <div class="menu">
+        <div class="logo"></div>
+        <nav>
+            <a href="/admin/log" class="button">Logi</a><br><br>
+            <a href="/admin/users" class="button">Lista użytkowników</a><br><br>
+            <a href="/admin/adm_post" class="button">Lista postów</a><br><br>
+            <a href="/admin/adm_komentarz" class="button">Lista komentarzy</a><br><br>
+            <a href="/admin/raporty" class="button">Raporty</a><br>
+        </nav>
+    </div>
+
+    <div class="cont">
+        <h2>To jest panel admina</h2>
+        <!-- Możesz tu dodać więcej treści głównej -->
+    </div>
 
 </body>
 </html>
