@@ -2,18 +2,21 @@ package demo.admin;
 
 import demo.komentarz.Komentarz;
 import demo.komentarz.KomentarzRepository;
-import demo.log.DBLogRecord;
-import demo.log.DBLogRecordRepository;
-import demo.log.DBLogService;
-import demo.log.LogOperacja;
+import demo.log.*;
 import demo.post.Post;
 import demo.post.PostRepository;
+import demo.post.PostService;
+import demo.security.model.User;
 import demo.security.repository.UserRepository;
+import demo.uzytkownik.Uzytkownik;
+import demo.uzytkownik.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -35,6 +38,7 @@ public class AdminPanelController {
     private KomentarzRepository komentarzRepository;
     @Autowired
     private UserRepository userRepository;
+
 
     /**
      * Wyświetla główną stronę panelu administracyjnego.
@@ -144,5 +148,41 @@ public class AdminPanelController {
         long liczbaZarejestrowanych = userRepository.count();
         model.addAttribute("liczbaZarejestrowanych", liczbaZarejestrowanych);
         return "admin/raporty_uzy";
+    }
+
+    /**
+     * Usuwa post o podanym identyfikatorze.
+     *
+     * @param model model do przekazania atrybutów do widoku
+     * @param id identyfikator posta do usunięcia
+     * @return nazwa szablonu widoku z komunikatem o wyniku operacji
+     */
+    @RequestMapping(value = "/usun_post", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String usunPost(Model model, @RequestParam Long id) {
+        Post post = postRepository.findById(id).orElseThrow();
+        postRepository.delete(post);
+
+        model.addAttribute("header", "Wynik");
+        model.addAttribute("message", "Post został usunięty");
+        return "redirect:/admin/panel";
+    }
+
+    /**
+     * Usuwa komentarz o podanym identyfikatorze.
+     *
+     * @param model model do przekazania atrybutów do widoku
+     * @param id identyfikator komentarza do usunięcia
+     * @return nazwa szablonu widoku z komunikatem o wyniku operacji
+     */
+    @RequestMapping(value = "/usun_komentarz", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String usunKomentarz(Model model, @RequestParam Long id) {
+        Komentarz komentarz = komentarzRepository.findById(id).orElseThrow();
+        komentarzRepository.delete(komentarz);
+
+
+        model.addAttribute("header", "Wynik");
+        model.addAttribute("message", "Komentarz został usunięty");
+
+        return "redirect:/admin/panel";
     }
 }
