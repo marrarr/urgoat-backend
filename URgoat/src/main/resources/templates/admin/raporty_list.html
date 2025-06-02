@@ -3,32 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Raporty</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<style>
-  .profile-buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .profile-buttons .main-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-</style>
 <body>
-<div class="profile-buttons">
-  <div class="main-buttons">
-    <a th:href="@{/admin/raport_postow}" class="btn btn-urgoat">Raport postów</a>
-    <a th:href="@{/admin/raport_komentarzy}" class="btn btn-urgoat">Raport komentarzy</a>
-    <a th:href="@{/admin/raport_uzytkownikow}" class="btn btn-urgoat">Raport użytkowników</a>
 
-  </div>
-  <a th:href="@{/admin/panel}" class="btn btn-urgoat">Panel</a>
+<!-- Boczne menu -->
+<div class="menu">
+    <div class="logo"></div>
+    <a th:href="@{/admin/raport_postow}" class="button">Raport postów</a><br><br>
+    <a th:href="@{/admin/raport_komentarzy}" class="button">Raport komentarzy</a><br><br>
+    <a th:href="@{/admin/raport_uzytkownikow}" class="button">Raport użytkowników</a><br><br>
+    <a th:href="@{/admin/panel}" class="button" style="margin-top: 20px;">Panel</a>
+</div>
+
+<!-- Główna zawartość -->
+<div class="cont">
 </div>
 
 </body>
