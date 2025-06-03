@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Dodaj reakcje post</title>
+  <meta charset="UTF-8" />
+  <title>Dodaj reakcję post</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+ 
 </head>
 <body>
-<h1>Dodaj nowa reakcje</h1>
+    
+    <div class='menu'>
+        <div class='logo'></div>
+        <a href="/strona_glowna"><div class="button">Strona główna</div></a><br><br>
 
-<script>
+    </div>
+    
+   <div class='cont'>
+  <h1>Dodaj nową reakcję</h1>
 
-  const params = new URLSearchParams(window.location.search);
-  const postID = params.get("postID");
+  <form method="POST" th:object="${reakcjaTransData}">
+    <div class="form-group">
+      <input type="hidden" id="postID" name="postID" value="" />
+    </div>
 
+    <p>Wybierz zainteresowania:</p>
+    <label><input type="checkbox" name="reakcja" value="1" /> Lubię to</label>
+    <label><input type="checkbox" name="reakcja" value="2" /> Haha</label>
+    <label><input type="checkbox" name="reakcja" value="3" /> Nie lubię</label>
 
-  if (postID) {
-    document.getElementById("postID").value = postID;
-  }
-</script>
+    <input type="submit" value="Wyślij" />
+  </form>
+</div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const postID = params.get("postID");
 
-<form method="POST" th:object="${reakcjaTransData}">
-  <div class="form-group">
-    <input type="hidden" id="postID" name="postID" value=""/><br/>
-  </div>
-
-  <p>Wybierz zainteresowania:</p>
-  <label><input type="checkbox" name="reakcja" value="1"> lubieto</label><br>
-  <label><input type="checkbox" name="reakcja" value="2"> haha</label><br>
-  <label><input type="checkbox" name="reakcja" value="3"> nielubie</label><br>
-
-  <br>
-  <input type="submit" value="Wyślij">
-</form>
-
-  <br/>
-  <br/>
-
-</form>
-
-<br/>
-
-</form>
-
+    if (postID) {
+      document.getElementById("postID").value = postID;
+    }
+  </script>
+  
 </body>
 </html>

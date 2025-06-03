@@ -3,12 +3,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>     
+        <link rel="stylesheet" th:href="@{/css/style.css}">
         <title>Lista komentarzy</title>
     </head>
     
 
  <body>
+     <div class='menu'>
+        <div class='logo'></div>
+        <a href="/strona_glowna"><div class="button">Strona główna</div></a><br><br>
+
+    </div>
+     <div class='cont'>
         <div class="container">                
             <h4><strong th:text="${id}"/></h4>
         </div>
@@ -27,6 +34,8 @@
             
             <a href="/index.html">Strona główna</a> 
         </div>
+         </div>
     </body>
+    
 </html>
 

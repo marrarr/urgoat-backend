@@ -1,7 +1,28 @@
-body{
-    margin:0;
-    display:flex;
+body {
+  /* Podstawa: gradient z 3 kolorów */
+  background-color: #ff6b6b; /* fallback */
+  background-image: 
+    linear-gradient(45deg, #ff6b6b, #ffd93d, #6bc1ff), /* gradient trójkolorowy */
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3) 10px,
+      transparent 10px,
+      transparent 20px
+    ), /* paski */
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.2) 10%,
+      transparent 11%
+    ); /* kropki */
+
+  background-repeat: no-repeat, repeat, repeat;
+  background-size: cover, 40px 40px, 20px 20px;
+
+  height: 100vh;
+  margin: 0;
 }
+
 .menu {
     height: 100vh;
     width: 20%;

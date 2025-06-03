@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Dodaj reakcje post</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <h1>Dodaj nowa reakcje</h1>
@@ -17,6 +18,13 @@
     document.getElementById("komentarzID").value = komentarzID;
   }
 </script>
+<div class='menu'>
+        <div class='logo'></div>
+        <a href="/strona_glowna"><div class="button">Strona główna</div></a><br><br>
+
+    </div>
+
+<div class='cont'>
 
 <form method="POST" th:object="${reakcjaTransData}">
   <div class="form-group">
@@ -40,6 +48,7 @@
 <br/>
 
 </form>
+</div>
 
 </body>
 </html>
